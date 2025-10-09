@@ -6,7 +6,6 @@ const requestIp = require("request-ip");
 const geoip = require("geoip-lite");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 // ----------------------------------------
 // ⚙️ Configuración EJS + Layouts
