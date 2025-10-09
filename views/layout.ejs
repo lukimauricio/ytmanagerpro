@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %> | YT MANAGER</title>
+
+  <link rel="stylesheet" href="/styles.css" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #f8f3ff 0%, #f3e9ff 50%, #ffffff 100%);
+      color: #333;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(90deg, #4b0082 0%, #6B00FF 100%);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    header h1 {
+      font-size: 1.4rem;
+      margin: 0;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 8px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #FFCC00;
+    }
+
+    nav a.active {
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      color: #FFCC00;
+    }
+
+    .selectors {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+
+    select {
+      background: white;
+      border: none;
+      border-radius: 4px;
+      padding: 4px 8px;
+      cursor: pointer;
+      color: #3a0070;
+      font-weight: 500;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #f0f0f0;
+      color: #555;
+      margin-top: 50px;
+      font-size: 0.9em;
+      box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    /* ===============================
+      📘 Modal de Descripción
+    =============================== */
+    .desc-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .desc-modal.active {
+      display: flex;
+    }
+
+    .desc-box {
+      background: #fff;
+      border-radius: 16px;
+      max-width: 600px;
+      width: 90%;
+      padding: 24px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      position: relative;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .desc-box h3 {
+      margin-top: 0;
+      color: #6B00FF;
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+
+    .desc-box ul {
+      list-style: none;
+      padding: 0;
+      margin: 10px 0;
+    }
+
+    .desc-box li {
+      margin: 6px 0;
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+    }
+
+    .desc-box li span {
+      flex: 1;
+    }
+
+    .desc-box .note {
+      background: #fff8e1;
+      border-left: 4px solid #facc15;
+      padding: 8px 10px;
+      border-radius: 8px;
+      margin-top: 12px;
+      font-size: 0.9em;
+    }
+
+    .desc-close {
+      position: absolute;
+      top: 10px;
+      right: 14px;
+      font-size: 24px;
+      color: #666;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .desc-close:hover {
+      color: #000;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===============================
+      💬 Modal de Nueva Orden
+    =============================== */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+      position: relative;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .modal-content h3 {
+      margin-top: 0;
+      color: #6B00FF;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .modal-buttons {
+      margin-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .confirm-btn {
+      background: #6B00FF;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .confirm-btn:hover {
+      background: #5700cc;
+    }
+
+    .cancel-btn {
+      background: #ccc;
+      color: #333;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .cancel-btn:hover {
+      background: #b3b3b3;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 22px;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .close-btn:hover {
+      color: #000;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>YT MANAGER</h1>
+
+    <nav class="navbar-links">
+      <a href="/" class="<%= page === 'home' ? 'active' : '' %>">Inicio</a>
+      <a href="/services" class="<%= page === 'services' ? 'active' : '' %>">Servicios</a>
+      <a href="/faq" class="<%= page === 'faq' ? 'active' : '' %>">Preguntas</a>
+      <a href="/terms" class="<%= page === 'terms' ? 'active' : '' %>">Términos</a>
+      <a href="/contact" class="<%= page === 'contact' ? 'active' : '' %>">Contacto</a>
+
+      <% if (showCurrencySelector) { %>
+        <div class="selectors" style="margin-left:12px">
+          <select id="currencySelect" aria-label="Select currency">
+            <option value="PEN">S/ Soles</option>
+            <option value="USD">$ Dólares</option>
+          </select>
+        </div>
+      <% } %>
+    </nav>
+  </header>
+
+  <main>
+    <%- body %>
+  </main>
+
+  <footer>
+    © <%= new Date().getFullYear() %> YT MANAGER
+  </footer>
+
+  <!-- 📘 Modal de Descripción -->
+  <div id="descModal" class="desc-modal">
+    <div class="desc-box">
+      <button class="desc-close" id="closeDesc">&times;</button>
+      <h3>Descripción</h3>
+      <div id="descContent"></div>
+    </div>
+  </div>
+
+  <!-- 💬 Modal de Nueva Orden -->
+  <div id="orderModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeOrderModal">&times;</span>
+      <h3>🧾 Nueva orden</h3>
+      <p><b>ID:</b> <span id="order-id"></span></p>
+      <p><b>Servicio:</b> <span id="order-service"></span></p>
+      <p><b>Cantidad:</b> <span id="order-quantity"></span></p>
+      <p><b>Total a pagar:</b> <span id="order-total"></span></p>
+      <label for="order-link"><b>Enlace del contenido:</b></label>
+      <input type="text" id="order-link" placeholder="https://www.youtube.com/..." />
+      <div class="modal-buttons">
+        <button id="confirmOrder" class="confirm-btn">Confirmar pedido</button>
+        <button id="cancelOrder" class="cancel-btn">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Modal de descripción
+    function showDescription(descHtml) {
+      const modal = document.getElementById("descModal");
+      document.getElementById("descContent").innerHTML = descHtml;
+      modal.classList.add("active");
+    }
+
+    document.getElementById("closeDesc").onclick = () =>
+      document.getElementById("descModal").classList.remove("active");
+
+    document.getElementById("descModal").addEventListener("click", e => {
+      if (e.target.id === "descModal") e.currentTarget.classList.remove("active");
+    });
+  </script>
+
+  <!-- Configuración global -->
+  <script>
+    window.APP_CONFIG = <%- JSON.stringify(config || {}) %>;
+    window.APP_STATE = {
+      serverCurrency: "<%= currency || (config && config.defaultCurrency) || 'PEN' %>"
+    };
+  </script>
+
+  <!-- Script principal -->
+  <script src="/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<% /* views/services.ejs */ %>
+
+<h2 class="page-title">Servicios disponibles</h2>
+
+<!-- 🔹 Barra de filtros -->
+<div class="filter-bar">
+  <label for="platformFilter">Filtrar por plataforma:</label>
+  <select id="platformFilter">
+    <option value="all">Todas</option>
+    <% Object.keys(services).forEach(cat => { %>
+      <option value="<%= cat %>"><%= cat.charAt(0).toUpperCase() + cat.slice(1) %></option>
+    <% }) %>
+  </select>
+</div>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: #f8f9fc;
+    color: #333;
+  }
+
+  .page-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #3d0066;
+    margin: 30px 0 10px;
+    font-weight: 600;
+  }
+
+  .filter-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 25px;
+  }
+
+  .filter-bar label {
+    font-weight: 500;
+    color: #4a006d;
+  }
+
+  .filter-bar select {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid #bbb;
+    font-size: 0.95rem;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .filter-bar select:hover {
+    border-color: #6a00ff;
+    box-shadow: 0 0 5px rgba(106, 0, 255, 0.3);
+  }
+
+  .category-section {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    padding: 25px;
+    margin: 25px auto;
+    max-width: 1100px;
+    transition: all 0.3s ease;
+  }
+
+  .category-section.hidden {
+    display: none;
+  }
+
+  .category-section:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  }
+
+  .category-header {
+    font-size: 20px;
+    font-weight: 600;
+    color: #400060;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .service-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  thead {
+    background-color: #f3f0fa;
+    color: #3d0066;
+  }
+
+  th, td {
+    padding: 12px 14px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+  }
+
+  tr:hover {
+    background-color: #faf6ff;
+  }
+
+  .price-per-1000 {
+    font-weight: 600;
+    color: #3a0088;
+  }
+
+  input.qty-input {
+    width: 90px;
+    padding: 7px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+
+  input.qty-input:focus {
+    border-color: #6a00ff;
+    box-shadow: 0 0 4px rgba(106, 0, 255, 0.4);
+    outline: none;
+  }
+
+  .price-total {
+    font-size: 13px;
+    color: #555;
+    margin-top: 5px;
+  }
+
+  .desc-btn, .buy-btn {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.25s ease;
+  }
+
+  .desc-btn {
+    background-color: #e0dbff;
+    color: #3d005f;
+  }
+
+  .desc-btn:hover {
+    background-color: #cfc4ff;
+  }
+
+  .buy-btn {
+    background-color: #6a00ff;
+    color: #fff;
+  }
+
+  .buy-btn:hover {
+    background-color: #5200c8;
+  }
+
+  /* Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6);
+  }
+
+  .modal-content {
+    background: #fff;
+    margin: 6% auto;
+    padding: 25px 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    color: #333;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.3);
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: scale(0.95);}
+    to {opacity: 1; transform: scale(1);}
+  }
+
+  .close-btn {
+    float: right;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .close-btn:hover {
+    color: red;
+  }
+</style>
+
+<!-- 🔹 Pasar los servicios al front -->
+<script>
+  window.SERVICES = <%- JSON.stringify(services || {}) %>;
+</script>
+
+<!-- 🔹 Render HTML de categorías -->
+<% Object.keys(services).forEach(cat => { %>
+  <div class="category-section" id="<%= cat %>">
+    <div class="category-header">
+      <% if (cat === 'facebook') { %>📘 Facebook<% } %>
+      <% if (cat === 'youtube') { %>🎥 YouTube<% } %>
+      <% if (cat === 'tiktok') { %>🎵 TikTok<% } %>
+      <% if (cat === 'instagram') { %>📸 Instagram<% } %>
+    </div>
+
+    <table class="service-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Servicio</th>
+          <th>Inicio</th>
+          <th>Velocidad</th>
+          <th>Precio x 1000</th>
+          <th>Mínimo</th>
+          <th>Máximo</th>
+          <th>Cantidad</th>
+          <th>Descripción</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% services[cat].forEach(service => { 
+          const pricePen = Number(service.pricePerThousandPEN || 0);
+          const minQty = Number(service.min || 0);
+          const total = (minQty / 1000) * pricePen;
+        %>
+        <tr>
+          <td><%= service.id %></td>
+          <td><%= service.title %></td>
+          <td><%= service.start_time || '-' %></td>
+          <td><%= service.speed || '-' %></td>
+          <td class="price-per-1000" data-id="<%= service.id %>" data-price-pen="<%= pricePen %>">S/. <%= pricePen.toFixed(2) %></td>
+          <td><%= service.min %></td>
+          <td><%= service.max %></td>
+          <td>
+            <input type="number" class="qty-input" id="qty-<%= service.id %>" value="<%= service.min %>" min="<%= service.min %>" max="<%= service.max %>" step="100" />
+            <div class="price-total" id="price-<%= service.id %>">Total: S/. <%= total.toFixed(2) %></div>
+          </td>
+          <td><button class="desc-btn" data-id="<%= service.id %>">Ver descripción</button></td>
+          <td><button class="buy-btn" data-id="<%= service.id %>" data-title="<%= service.title.replace(/'/g, "\\'") %>" data-price-pen="<%= pricePen %>">Comprar</button></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+<% }) %>
+
+<!-- 🔹 Modal -->
+<div id="descModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+  // Cerrar modal
+  function closeModal() {
+    document.getElementById("descModal").style.display = "none";
+  }
+
+  // Abrir modal
+  document.querySelectorAll(".desc-btn").forEach(btn => {
+    btn.addEventListener("click", e => {
+      const id = e.target.dataset.id;
+      const service = Object.values(window.SERVICES).flat().find(s => s.id == id);
+      const modal = document.getElementById("descModal");
+      modal.querySelector("#modalBody").innerHTML = service.description || "Sin descripción disponible.";
+      modal.style.display = "block";
+    });
+  });
+
+  // Cerrar si clickea fuera
+  window.onclick = e => {
+    const modal = document.getElementById("descModal");
+    if (e.target === modal) modal.style.display = "none";
+  };
+
+  // Filtro por plataforma
+  const filterSelect = document.getElementById('platformFilter');
+  filterSelect.addEventListener('change', (e) => {
+    const value = e.target.value;
+    document.querySelectorAll('.category-section').forEach(section => {
+      if (value === 'all' || section.id === value) {
+        section.classList.remove('hidden');
+      } else {
+        section.classList.add('hidden');
+      }
+    });
+  });
+</script>

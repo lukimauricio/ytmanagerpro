@@ -1,0 +1,92 @@
+<section style="
+  max-width: 900px;
+  margin: 60px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  padding: 50px 60px;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  line-height: 1.6;
+">
+
+  <h2 style="
+    font-size: 2rem;
+    font-weight: 700;
+    color: #3d005f;
+    text-align: center;
+    margin-bottom: 25px;
+  ">
+    📬 Contáctanos
+  </h2>
+
+  <p style="
+    font-size: 1.05rem;
+    text-align: center;
+    color: #555;
+    margin-bottom: 40px;
+  ">
+    ¿Tienes alguna duda o deseas un servicio personalizado?  
+    Completa el siguiente formulario y nuestro equipo se pondrá en contacto contigo a la brevedad.
+  </p>
+
+  <form class="contact-form" method="POST" action="/contact" style="
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  ">
+    <!-- Nombre -->
+    <div>
+      <label for="nombre" style="display: block; font-weight: 600; color: #3a0070; margin-bottom: 6px;">Nombre:</label>
+      <input id="nombre" name="nombre" type="text" placeholder="Tu nombre" required
+        style="width: 100%; padding: 12px 15px; border: 1.5px solid #ccc; border-radius: 8px;
+               font-size: 1rem; transition: 0.3s;">
+    </div>
+
+    <!-- Email -->
+    <div>
+      <label for="email" style="display: block; font-weight: 600; color: #3a0070; margin-bottom: 6px;">Email:</label>
+      <input id="email" name="email" type="email" placeholder="tu@correo.com" required
+        style="width: 100%; padding: 12px 15px; border: 1.5px solid #ccc; border-radius: 8px;
+               font-size: 1rem; transition: 0.3s;">
+    </div>
+
+    <!-- Mensaje -->
+    <div>
+      <label for="mensaje" style="display: block; font-weight: 600; color: #3a0070; margin-bottom: 6px;">Mensaje:</label>
+      <textarea id="mensaje" name="mensaje" placeholder="Escribe tu consulta..." rows="5" required
+        style="width: 100%; padding: 12px 15px; border: 1.5px solid #ccc; border-radius: 8px;
+               font-size: 1rem; resize: vertical; transition: 0.3s;"></textarea>
+    </div>
+
+    <!-- Botón -->
+    <button type="submit" style="
+      background-color: #FFD700;
+      color: #3a0070;
+      border: none;
+      border-radius: 40px;
+      padding: 14px 25px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.3s;
+      align-self: flex-start;
+    ">
+      ✉️ Enviar mensaje
+    </button>
+  </form>
+
+  <p style="
+    margin-top: 40px;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #666;
+  ">
+    También puedes escribirnos directamente a  
+    <a href="mailto:soporte@ytmanager.com" style="color: #3a0070; text-decoration: none; font-weight: 600;">
+      soporte@ytmanager.com
+    </a>
+  </p>
+
+</section>

@@ -1,0 +1,50 @@
+{
+  "youtube": [
+    {
+      "id": 9,
+      "platform": "YouTube",
+      "title": "YOUTUBE LIKES REALES",
+      "description": "Incrementa el alcance de tus videos con visitas reales.",
+      "pricePerThousandPEN": 20.00,
+      "min": 1000,
+      "max": 50000,
+      "start_time": "4 - 8 horas",
+      "speed": "10000 - 20000 por día",
+      "quality": "Alta",
+      "refill": "365 días con botón de recarga + garantía de por vida",
+      "drop": "No",
+      "link": "Enlace del video",
+      "notes": [
+        "Verifica el formato del enlace antes de realizar el pedido.",
+        "Asegúrate de que tu cuenta sea pública, no privada.",
+        "Si el servicio está ocupado, el inicio puede demorar más.",
+        "No cambies el enlace, usuario o configuración de privacidad tras ordenar.",
+        "Si cambiaste la privacidad o eliminaste el contenido, el pedido se marcará como completado y no habrá reembolso."
+      ]
+    }
+  ],
+  "facebook": [
+    {
+      "id": 10,
+      "platform": "Facebook",
+      "title": "FACEBOOK LIKES REALES",
+      "description": "Aumenta la interacción de tus publicaciones con likes reales y seguros.",
+      "pricePerThousandPEN": 20,
+      "min": 500,
+      "max": 30000,
+      "start_time": "2 - 6 horas",
+      "speed": "8000 - 15000 por día",
+      "quality": "Alta",
+      "refill": "180 días con garantía de recarga",
+      "drop": "No",
+      "link": "Enlace de la publicación o página",
+      "notes": [
+        "Usa un enlace público para evitar errores en la entrega.",
+        "Asegúrate de que la publicación esté visible para todos.",
+        "No cambies el enlace después de realizar el pedido.",
+        "El servicio no cubre publicaciones eliminadas o privadas.",
+        "Los likes provienen de cuentas reales y verificadas."
+      ]
+    }
+  ]
+}
