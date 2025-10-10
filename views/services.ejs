@@ -33,7 +33,7 @@
     text-align: center;
     font-size: 1.76rem;
     color: #5e00a8;
-    margin: -20px 0 0px;
+    margin: -20px 0 0px; /* 👈 Reducido para acercar al contenido */
     font-weight: 700;
     letter-spacing: 0.5px;
     text-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -44,7 +44,7 @@
     justify-content: center;
     align-items: center;
     gap: 16px;
-    margin-bottom: 15px;
+    margin-bottom: 15px; /* 👈 Reducido para acercar a la tabla */
     flex-wrap: wrap;
     padding: 12px;
     background: white;
@@ -85,8 +85,8 @@
     background: white;
     border-radius: 16px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-    padding: 10px;
-    margin: 15px 0;
+    padding: 10px; /* 👈 Reducido para acercar contenido */
+    margin: 15px 0; /* 👈 Reducido */
     width: 100%;
     max-width: 100%;
     transition: all 0.3s ease;
@@ -108,7 +108,7 @@
     font-size: 17.6px;
     font-weight: 700;
     color: #5e00a8;
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* 👈 Reducido */
     display: flex;
     align-items: center;
     gap: 8px;
@@ -480,8 +480,8 @@
     text-align: center;
     font-family: 'Poppins', sans-serif;
     animation: fadeIn 0.3s ease;
-    max-height: 80vh;
-    overflow-y: auto;
+    max-height: 80vh; /* 👈 Limita altura */
+    overflow-y: auto; /* 👈 Permite scroll si el contenido es largo */
   }
 
   @keyframes fadeIn {
@@ -591,37 +591,12 @@
 <script>
   window.SERVICES = <%- JSON.stringify(services || {}) %>;
 
-  // Función para obtener la moneda actual
-  function getCurrentCurrency() {
-    return localStorage.getItem("currency") || CONFIG.defaultCurrency || "PEN";
-  }
-
-  // Función para formatear precio según moneda
-  function formatPrice(price, currency = "PEN") {
-    const rate = Number(CONFIG.exchangeRate || 4);
-    if (currency === "USD") {
-      return `$${(price / rate).toFixed(2)}`;
-    } else {
-      return `S/. ${price.toFixed(2)}`;
-    }
-  }
-
-  // Función para formatear total según moneda
-  function formatTotal(qty, pricePerThousand, currency = "PEN") {
-    const rate = Number(CONFIG.exchangeRate || 4);
-    const total = (qty / 1000) * pricePerThousand;
-    if (currency === "USD") {
-      return `Total: $${(total / rate).toFixed(2)}`;
-    } else {
-      return `Total: S/. ${total.toFixed(2)}`;
-    }
-  }
-
   // Función para actualizar precios cuando cambie la moneda
   function updatePrices() {
     const rate = Number(CONFIG.exchangeRate || 4);
-    const curr = getCurrentCurrency();
+    const curr = localStorage.getItem("currency") || CONFIG.defaultCurrency || "PEN";
 
+    // Actualizar tabla (escritorio)
     document.querySelectorAll(".price-per-1000").forEach(el => {
       const basePen = parseFloat(el.dataset.pricePen);
       if (isNaN(basePen)) return;
@@ -646,21 +621,28 @@
       }
     });
 
-    // Actualizar tarjetas móviles
-    document.querySelectorAll(".service-card .service-value.price").forEach(el => {
-      const serviceId = el.closest(".service-card").dataset.id;
+    // ✅ ACTUALIZAR TARJETAS MÓVILES (nuevo)
+    document.querySelectorAll(".service-card").forEach(card => {
+      const serviceId = card.dataset.id;
       const service = Object.values(window.SERVICES).flat().find(s => s.id == serviceId);
-      if (service) {
-        el.innerText = formatPrice(service.pricePerThousandPEN, curr);
-      }
-    });
+      if (!service) return;
 
-    document.querySelectorAll(".service-card .price-total").forEach(el => {
-      const serviceId = el.closest(".service-card").dataset.id;
-      const service = Object.values(window.SERVICES).flat().find(s => s.id == serviceId);
-      if (service) {
-        const qty = parseInt(el.closest(".service-card").querySelector(".qty-input").value) || 0;
-        el.innerText = formatTotal(qty, service.pricePerThousandPEN, curr);
+      const pricePen = Number(service.pricePerThousandPEN || 0);
+      const priceEl = card.querySelector(".service-value.price");
+      if (priceEl) {
+        priceEl.innerText = curr === "USD"
+          ? `$${(pricePen / rate).toFixed(2)}`
+          : `S/. ${pricePen.toFixed(2)}`;
+      }
+
+      const qtyInput = card.querySelector(".qty-input");
+      const qty = parseFloat(qtyInput?.value || service.min) || 0;
+      const totalEl = card.querySelector(".price-total");
+      if (totalEl) {
+        const total = (qty / 1000) * pricePen;
+        totalEl.innerText = curr === "USD"
+          ? `Total: $${(total / rate).toFixed(2)}`
+          : `Total: S/. ${total.toFixed(2)}`;
       }
     });
   }
@@ -712,9 +694,7 @@
           <td data-label="ID"><%= service.id %></td>
           <td data-label="Categoría"><%= service.category || '-' %></td>
           <td data-label="Servicio"><%= service.service %></td>
-          <td data-label="Precio x 1000" class="price-per-1000" data-id="<%= service.id %>" data-price-pen="<%= pricePen %>">
-            <%= formatPrice(pricePen, getCurrentCurrency()) %>
-          </td>
+          <td data-label="Precio x 1000" class="price-per-1000" data-id="<%= service.id %>" data-price-pen="<%= pricePen %>">S/. <%= pricePen.toFixed(2) %></td>
           <td data-label="Mínimo"><%= service.min.toLocaleString('es-ES') %></td>
           <td data-label="Máximo"><%= service.max.toLocaleString('es-ES') %></td>
           <td data-label="Cantidad">
@@ -728,9 +708,7 @@
               step="1"
               oninput="updateTotal(<%= service.id %>, <%= minQty %>, <%= maxQty %>, <%= pricePen %>)"
             />
-            <div class="price-total" id="price-<%= service.id %>">
-              <%= formatTotal(minQty, pricePen, getCurrentCurrency()) %>
-            </div>
+            <div class="price-total" id="price-<%= service.id %>">Total: S/. <%= total.toFixed(2) %></div>
             <div class="error-msg" id="error-<%= service.id %>"></div>
           </td>
           <td data-label="Descripción"><button class="desc-btn" data-id="<%= service.id %>">Ver descripción</button></td>
@@ -782,9 +760,7 @@
         </div>
         <div class="service-card-row">
           <span class="service-label">Precio x 1000</span>
-          <span class="service-value price">
-            <%= formatPrice(pricePen, getCurrentCurrency()) %>
-          </span>
+          <span class="service-value price">S/. <%= pricePen.toFixed(2) %></span>
         </div>
         <div class="service-card-row">
           <span class="service-label">Mínimo</span>
@@ -807,9 +783,7 @@
               step="1"
               oninput="updateTotalMobile(<%= service.id %>, <%= minQty %>, <%= maxQty %>, <%= pricePen %>)"
             />
-            <div class="price-total" id="price-mobile-<%= service.id %>">
-              <%= formatTotal(minQty, pricePen, getCurrentCurrency()) %>
-            </div>
+            <div class="price-total" id="price-mobile-<%= service.id %>">Total: S/. <%= total.toFixed(2) %></div>
             <div class="error-msg" id="error-mobile-<%= service.id %>"></div>
           </div>
         </div>
