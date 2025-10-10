@@ -82,16 +82,16 @@
 
   /* Contenedor general por plataforma */
 .category-section {
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-  padding: 25px;
-  margin: 25px 0;
-  width: 100%;
-  max-width: 100%;
-  transition: all 0.3s ease;
-  overflow-x: auto;
-  border-left: 5px solid #7c00ff;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    padding: 25px;
+    margin: 25px 0;
+    width: 100%;
+    max-width: 100%;
+    transition: all 0.3s ease;
+    overflow-x: auto;
+    border-left: 5px solid #7c00ff;
 }
 
   .category-section.hidden {
@@ -359,6 +359,7 @@
       padding: 10px 10px 10px 140px;
       text-align: left;
       font-size: 0.95rem;
+      word-break: break-word; /* ✅ Evita que el texto se corte */
     }
 
     td::before {
@@ -371,6 +372,28 @@
       color: #5e00a8;
       text-align: left;
       white-space: nowrap;
+      font-size: 0.85rem; /* ✅ Texto más pequeño en móvil */
+    }
+
+    /* ✅ Aumentar tamaño del input y botones en móvil */
+    .qty-input {
+      width: 100%;
+      font-size: 1rem;
+      padding: 10px;
+      margin: 5px 0;
+    }
+
+    .price-total {
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+
+    .desc-btn, .buy-btn {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      margin: 5px 0;
+      text-align: center;
     }
 
     .category-section {
@@ -409,6 +432,17 @@
     td::before {
       width: 100px;
       font-size: 0.85rem;
+    }
+
+    /* ✅ Para pantallas muy pequeñas, hacer el input y botones aún más grandes */
+    .qty-input {
+      font-size: 1.1rem;
+      padding: 12px;
+    }
+
+    .desc-btn, .buy-btn {
+      font-size: 1.1rem;
+      padding: 14px;
     }
   }
 </style>
