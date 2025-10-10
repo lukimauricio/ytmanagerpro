@@ -133,114 +133,56 @@
     color: #7c00ff;
   }
 
-  /* Tabla moderna */
-  .service-table {
-    width: 100%;
-    border-collapse: collapse;
+  /* Tarjeta de servicio (para móviles) */
+  .service-card {
+    background: white;
+    border: 2px solid #f0ecf8;
     border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-    background: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
   }
 
-  thead {
-    background: linear-gradient(90deg, #f3eaff, #ede6ff);
-    color: #5e00a8;
+  .service-card-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
   }
 
-  thead th {
+  .service-label {
     font-weight: 600;
+    color: #5e00a8;
+    font-size: 0.9rem;
+    min-width: 100px;
+    word-break: break-word;
+  }
+
+  .service-value {
     font-size: 0.95rem;
-    padding: 14px 18px;
-    text-align: left;
-    white-space: nowrap;
-    border-bottom: 2px solid #dcd0ff;
+    color: #333;
+    word-break: break-word;
+    flex: 1;
+    text-align: right;
   }
 
-  th, td {
-    padding: 14px 18px;
-    text-align: left;
-    border-bottom: 1px solid #f0ecf8;
-    vertical-align: middle;
-    font-size: 0.95rem;
-  }
-
-  tr:nth-child(even) {
-    background-color: #faf8ff;
-  }
-
-  tr:hover {
-    background-color: #f3eaff;
-    transform: scale(1.005);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  }
-
-  /* Columnas específicas (sin Inicio ni Velocidad) */
-  th:nth-child(1), td:nth-child(1) { width: 60px; text-align: center; }
-  th:nth-child(2), td:nth-child(2) { width: 110px; }
-  th:nth-child(3), td:nth-child(3) { width: 450px; } /* Servicio más ancho */
-  th:nth-child(4), td:nth-child(4) { width: 110px; text-align: center; } /* Precio x 1000 */
-  th:nth-child(5), td:nth-child(5) { width: 80px; text-align: center; } /* Mínimo */
-  th:nth-child(6), td:nth-child(6) { width: 80px; text-align: center; } /* Máximo */
-  th:nth-child(7), td:nth-child(7) { width: 130px; text-align: center; } /* Cantidad */
-  th:nth-child(8), td:nth-child(8) { width: 220px; } /* Descripción */
-  th:nth-child(9), td:nth-child(9) { width: 120px; text-align: center; } /* Acciones */
-
-  /* Precio por 1000 */
-  .price-per-1000 {
+  .service-value.price {
     font-weight: 700;
     color: #5e00a8;
-    text-align: center;
-    font-size: 1rem;
   }
 
-  /* Input de cantidad */
-  input.qty-input {
-    width: 110px;
-    padding: 8px 12px;
-    border-radius: 8px;
-    border: 2px solid #ddd;
-    text-align: center;
-    font-size: 0.95rem;
-    transition: all 0.2s ease;
-    background: #faf8ff;
+  .service-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 15px;
   }
 
-  input.qty-input:focus {
-    border-color: #7c00ff;
-    box-shadow: 0 0 8px rgba(124, 0, 255, 0.2);
-    outline: none;
-    background: white;
-  }
-
-  /* Total y error */
-  .price-total {
-    font-size: 13px;
-    color: #777;
-    margin-top: 6px;
-    font-weight: 500;
-  }
-
-  .error-msg {
-    color: #e74c3c;
-    font-size: 12px;
-    margin-top: 4px;
-    display: none;
-    font-weight: 600;
-    animation: shake 0.5s;
-  }
-
-  @keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-    100% { transform: translateX(0); }
-  }
-
-  /* Botones */
   .desc-btn, .buy-btn {
-    padding: 10px 16px;
+    padding: 12px 20px;
     border-radius: 8px;
     border: none;
     cursor: pointer;
@@ -248,6 +190,8 @@
     font-weight: 600;
     transition: all 0.25s ease;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    width: 100%;
+    text-align: center;
   }
 
   .desc-btn {
@@ -278,6 +222,44 @@
     cursor: not-allowed;
     box-shadow: none;
     opacity: 0.8;
+  }
+
+  /* Input de cantidad */
+  input.qty-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    text-align: center;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    background: #faf8ff;
+    font-weight: 600;
+  }
+
+  input.qty-input:focus {
+    border-color: #7c00ff;
+    box-shadow: 0 0 8px rgba(124, 0, 255, 0.2);
+    outline: none;
+    background: white;
+  }
+
+  /* Total y error */
+  .price-total {
+    font-size: 13px;
+    color: #777;
+    margin-top: 6px;
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .error-msg {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 4px;
+    display: none;
+    font-weight: 600;
+    text-align: center;
   }
 
   /* Modal de descripción */
@@ -325,75 +307,51 @@
 
   /* ===== RESPONSIVE: Pantallas pequeñas ===== */
   @media (max-width: 768px) {
-    .service-table, thead, tbody, th, td, tr {
-      display: block;
+    .service-table {
+      display: none;
     }
 
-    thead tr {
-      position: absolute;
-      top: -9999px;
-      left: -9999px;
-    }
-
-    tr {
-      border: 2px solid #f0ecf8;
-      border-radius: 10px;
+    .service-card {
       padding: 15px;
       margin-bottom: 15px;
-      background: white;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
     }
 
-    tr:nth-child(even) {
-      background: white;
+    .service-card-row {
+      flex-direction: column;
+      align-items: stretch;
     }
 
-    tr:hover {
-      transform: none;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
-
-    td {
-      border: none;
-      position: relative;
-      padding: 10px 10px 10px 140px;
+    .service-label {
+      font-size: 0.85rem;
+      min-width: auto;
       text-align: left;
-      font-size: 0.95rem;
-      word-break: break-word; /* ✅ Evita que el texto se corte */
     }
 
-    td::before {
-      content: attr(data-label);
-      position: absolute;
-      left: 10px;
-      width: 120px;
-      padding: 0 10px 0 0;
-      font-weight: 600;
-      color: #5e00a8;
+    .service-value {
+      font-size: 0.9rem;
       text-align: left;
-      white-space: nowrap;
-      font-size: 0.85rem; /* ✅ Texto más pequeño en móvil */
     }
 
-    /* ✅ Aumentar tamaño del input y botones en móvil */
-    .qty-input {
-      width: 100%;
+    .service-value.price {
       font-size: 1rem;
-      padding: 10px;
-      margin: 5px 0;
+    }
+
+    .service-actions {
+      flex-direction: column;
+    }
+
+    .qty-input {
+      font-size: 1rem;
+      padding: 12px;
     }
 
     .price-total {
       font-size: 0.9rem;
-      margin-top: 4px;
     }
 
     .desc-btn, .buy-btn {
-      width: 100%;
-      padding: 12px;
       font-size: 1rem;
-      margin: 5px 0;
-      text-align: center;
+      padding: 14px;
     }
 
     .category-section {
@@ -425,24 +383,26 @@
       min-width: 100%;
     }
 
-    td {
-      padding: 10px 10px 10px 110px;
+    .service-card {
+      padding: 12px;
     }
 
-    td::before {
-      width: 100px;
+    .service-label {
+      font-size: 0.8rem;
+    }
+
+    .service-value {
       font-size: 0.85rem;
     }
 
-    /* ✅ Para pantallas muy pequeñas, hacer el input y botones aún más grandes */
     .qty-input {
       font-size: 1.1rem;
-      padding: 12px;
+      padding: 14px;
     }
 
     .desc-btn, .buy-btn {
       font-size: 1.1rem;
-      padding: 14px;
+      padding: 16px;
     }
   }
 </style>
@@ -462,6 +422,7 @@
       <% if (cat === 'instagram') { %><i class="fab fa-instagram"></i> Instagram<% } %>
     </div>
 
+    <!-- Tabla para escritorio -->
     <table class="service-table">
       <thead>
         <tr>
@@ -524,6 +485,79 @@
         <% }) %>
       </tbody>
     </table>
+
+    <!-- Tarjetas para móviles -->
+    <div class="mobile-service-cards" style="display: none;">
+      <% services[cat].forEach(service => { 
+        const pricePen = Number(service.pricePerThousandPEN || 0);
+        const minQty = Number(service.min || 0);
+        const maxQty = Number(service.max || 0);
+        const total = (minQty / 1000) * pricePen;
+      %>
+      <div class="service-card" data-id="<%= service.id %>">
+        <div class="service-card-row">
+          <span class="service-label">ID</span>
+          <span class="service-value"><%= service.id %></span>
+        </div>
+        <div class="service-card-row">
+          <span class="service-label">Categoría</span>
+          <span class="service-value"><%= service.category || '-' %></span>
+        </div>
+        <div class="service-card-row">
+          <span class="service-label">Servicio</span>
+          <span class="service-value"><%= service.service %></span>
+        </div>
+        <div class="service-card-row">
+          <span class="service-label">Precio x 1000</span>
+          <span class="service-value price">S/. <%= pricePen.toFixed(2) %></span>
+        </div>
+        <div class="service-card-row">
+          <span class="service-label">Mínimo</span>
+          <span class="service-value"><%= service.min.toLocaleString('es-ES') %></span>
+        </div>
+        <div class="service-card-row">
+          <span class="service-label">Máximo</span>
+          <span class="service-value"><%= service.max.toLocaleString('es-ES') %></span>
+        </div>
+        <div class="service-card-row">
+          <span class="service-label">Cantidad</span>
+          <div style="width: 100%;">
+            <input 
+              type="number" 
+              class="qty-input" 
+              id="qty-mobile-<%= service.id %>" 
+              value="<%= minQty %>" 
+              min="<%= minQty %>" 
+              max="<%= maxQty %>" 
+              step="1"
+              oninput="updateTotalMobile(<%= service.id %>, <%= minQty %>, <%= maxQty %>, <%= pricePen %>)"
+            />
+            <div class="price-total" id="price-mobile-<%= service.id %>">Total: S/. <%= total.toFixed(2) %></div>
+            <div class="error-msg" id="error-mobile-<%= service.id %>"></div>
+          </div>
+        </div>
+        <div class="service-card-row">
+          <span class="service-label">Descripción</span>
+          <button class="desc-btn" data-id="<%= service.id %>">Ver descripción</button>
+        </div>
+        <div class="service-actions">
+          <button 
+            class="buy-btn" 
+            data-id="<%= service.id %>" 
+            data-title="<%= (service.service || '').replace(/'/g, "\\'") %>" 
+            data-price-pen="<%= pricePen %>"
+            onclick="openOrderModal(<%= service.id %>)"
+          >
+            Comprar
+          </button>
+        </div>
+      </div>
+      <script>
+        // Ejecutar validación al cargar para habilitar/deshabilitar botón inicialmente
+        updateTotalMobile(<%= service.id %>, <%= minQty %>, <%= maxQty %>, <%= pricePen %>);
+      </script>
+      <% }) %>
+    </div>
   </div>
 <% }) %>
 
@@ -625,9 +659,12 @@
       const visibleRows = Array.from(rows).filter(row => row.style.display !== 'none');
       section.classList.toggle('hidden', visibleRows.length === 0);
     });
+
+    // Actualizar tarjetas móviles
+    updateMobileCards();
   }
 
-  // Función para actualizar total y validar rango
+  // Función para actualizar total y validar rango (escritorio)
   function updateTotal(serviceId, minQty, maxQty, pricePen) {
     const input = document.getElementById(`qty-${serviceId}`);
     const qty = parseInt(input.value) || 0;
@@ -663,9 +700,45 @@
     }
   }
 
+  // Función para actualizar total y validar rango (móvil)
+  function updateTotalMobile(serviceId, minQty, maxQty, pricePen) {
+    const input = document.getElementById(`qty-mobile-${serviceId}`);
+    const qty = parseInt(input.value) || 0;
+    const errorMsg = document.getElementById(`error-mobile-${serviceId}`);
+    const buyBtn = document.querySelector(`[data-id="${serviceId}"].buy-btn`);
+    const totalEl = document.getElementById(`price-mobile-${serviceId}`);
+
+    let isValid = true;
+
+    if (qty < minQty) {
+      errorMsg.textContent = `⚠️ La cantidad mínima es ${minQty}.`;
+      errorMsg.style.display = 'block';
+      isValid = false;
+    } else if (qty > maxQty) {
+      errorMsg.textContent = `⚠️ La cantidad máxima es ${maxQty}.`;
+      errorMsg.style.display = 'block';
+      isValid = false;
+    } else {
+      errorMsg.style.display = 'none';
+    }
+
+    // Actualizar total
+    const total = (qty / 1000) * pricePen;
+    totalEl.textContent = `Total: S/. ${total.toFixed(2)}`;
+
+    // Habilitar/deshabilitar botón Comprar en Acciones
+    if (isValid && qty >= minQty && qty <= maxQty) {
+      buyBtn.disabled = false;
+      buyBtn.classList.remove('disabled');
+    } else {
+      buyBtn.disabled = true;
+      buyBtn.classList.add('disabled');
+    }
+  }
+
   // Función para abrir modal de compra (con validación)
   function openOrderModal(serviceId) {
-    const input = document.getElementById(`qty-${serviceId}`);
+    const input = document.getElementById(`qty-${serviceId}`) || document.getElementById(`qty-mobile-${serviceId}`);
     const qty = parseInt(input.value) || 0;
     const service = Object.values(window.SERVICES).flat().find(s => s.id == serviceId);
 
@@ -697,4 +770,23 @@
       }
     }));
   }
+
+  // Actualizar tarjetas móviles según pantalla
+  function updateMobileCards() {
+    const isMobile = window.innerWidth <= 768;
+    const tables = document.querySelectorAll('.service-table');
+    const mobileCards = document.querySelectorAll('.mobile-service-cards');
+
+    tables.forEach(table => {
+      table.style.display = isMobile ? 'none' : 'table';
+    });
+
+    mobileCards.forEach(cards => {
+      cards.style.display = isMobile ? 'block' : 'none';
+    });
+  }
+
+  // Ejecutar al cargar y al cambiar tamaño
+  window.addEventListener('load', updateMobileCards);
+  window.addEventListener('resize', updateMobileCards);
 </script>
