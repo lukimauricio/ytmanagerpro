@@ -184,21 +184,30 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // 💬 Confirmar pedido → abrir WhatsApp
-  confirmOrder.addEventListener("click", () => {
-    const link = document.getElementById("order-link").value.trim();
-    if (!link) return alert("Por favor ingresa el enlace del contenido.");
+confirmOrder.addEventListener("click", () => {
+  const link = document.getElementById("order-link").value.trim();
+  if (!link) return alert("Por favor ingresa el enlace del contenido.");
 
-    const curr = localStorage.getItem("currency") || CONFIG.defaultCurrency || "PEN";
-    const total = (currentOrder.quantity / 1000) *
-                  (curr === "USD" ? currentOrder.price / CONFIG.exchangeRate : currentOrder.price);
+  // Obtener moneda actual
+  const curr = localStorage.getItem("currency") || CONFIG.defaultCurrency || "PEN";
+  const rate = Number(CONFIG.exchangeRate || 4);
 
-    const mensaje = `🧾 *Nueva orden YT Manager*%0A` +
-                `🔹 *ID:* ${currentOrder.id}%0A` +
-                `🔹 *Servicio:* ${currentOrder.service}%0A` +
-                `🔹 *Cantidad:* ${currentOrder.quantity}%0A` +
-                `🔹 *Enlace:* ${encodeURIComponent(link)}%0A%0A` +
-                `💰 *Total a pagar:* S/. ${(currentOrder.price * (currentOrder.quantity / 1000)).toFixed(2)}`;
+  // Calcular total en la moneda actual
+  const totalPrice = (currentOrder.quantity / 1000) * currentOrder.price;
+  const totalInCurr = curr === "USD" ? totalPrice / rate : totalPrice;
 
+  // Definir símbolo y texto según moneda
+  const symbol = curr === "USD" ? "$" : "S/.";
+  const currencyText = curr === "USD" ? "USD" : "Soles";
+
+  // Construir mensaje
+  const mensaje = `🧾 *Nueva orden YT Manager*%0A` +
+                  `🔹 *ID:* ${currentOrder.id}%0A` +
+                  `🔹 *Servicio:* ${currentOrder.service}%0A` +
+                  `🔹 *Cantidad:* ${currentOrder.quantity}%0A` +
+                  `🔹 *Enlace:* ${encodeURIComponent(link)}%0A%0A` +
+                  `💰 *Total a pagar:* ${symbol} ${totalInCurr.toFixed(2)} (${currencyText})`;
+                  
     const telefono = (CONFIG.whatsapp || window.APP_CONFIG?.whatsapp || "").replace(/\D/g, "");
     if (!telefono) {
       alert("⚠️ No se ha configurado el número de WhatsApp en config.json.");

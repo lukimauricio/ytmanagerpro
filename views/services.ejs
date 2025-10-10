@@ -31,9 +31,9 @@
 
   .page-title {
     text-align: center;
-    font-size: 2.2rem;
+    font-size: 1.76rem;
     color: #5e00a8;
-    margin: 30px 0 10px;
+    margin: -20px 0 0px; /* 👈 Reducido para acercar al contenido */
     font-weight: 700;
     letter-spacing: 0.5px;
     text-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -44,9 +44,9 @@
     justify-content: center;
     align-items: center;
     gap: 16px;
-    margin-bottom: 25px;
+    margin-bottom: 15px; /* 👈 Reducido para acercar a la tabla */
     flex-wrap: wrap;
-    padding: 15px;
+    padding: 12px;
     background: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
@@ -55,14 +55,14 @@
   .filter-bar label {
     font-weight: 600;
     color: #5e00a8;
-    font-size: 0.95rem;
+    font-size: 0.76rem;
   }
 
   .filter-select {
-    padding: 10px 16px;
-    border-radius: 10px;
+    padding: 8px 12.8px;
+    border-radius: 8px;
     border: 2px solid #ddd;
-    font-size: 0.95rem;
+    font-size: 0.76rem;
     background: #fff;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -85,8 +85,8 @@
     background: white;
     border-radius: 16px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-    padding: 25px;
-    margin: 25px 0;
+    padding: 10px; /* 👈 Reducido para acercar contenido */
+    margin: 15px 0; /* 👈 Reducido */
     width: 100%;
     max-width: 100%;
     transition: all 0.3s ease;
@@ -105,14 +105,14 @@
 
   /* Encabezado de plataforma */
   .category-header {
-    font-size: 22px;
+    font-size: 17.6px;
     font-weight: 700;
     color: #5e00a8;
-    margin-bottom: 15px;
+    margin-bottom: 10px; /* 👈 Reducido */
     display: flex;
     align-items: center;
     gap: 8px;
-    padding-bottom: 10px;
+    padding-bottom: 8px;
     border-bottom: 2px solid #eee;
     position: relative;
   }
@@ -129,7 +129,7 @@
   }
 
   .category-header i {
-    font-size: 24px;
+    font-size: 19.2px;
     color: #7c00ff;
   }
 
@@ -138,31 +138,31 @@
     background: white;
     border: 2px solid #f0ecf8;
     border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
+    padding: 18px;
+    margin-bottom: 15px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.06);
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
   }
 
   .service-card-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
   }
 
   .service-label {
     font-weight: 600;
     color: #5e00a8;
-    font-size: 0.9rem;
+    font-size: 0.72rem;
     min-width: 100px;
     word-break: break-word;
   }
 
   .service-value {
-    font-size: 0.95rem;
+    font-size: 0.76rem;
     color: #333;
     word-break: break-word;
     flex: 1;
@@ -176,17 +176,17 @@
 
   .service-actions {
     display: flex;
-    gap: 10px;
+    gap: 8px;
     justify-content: center;
-    margin-top: 15px;
+    margin-top: 12px;
   }
 
   .desc-btn, .buy-btn {
-    padding: 12px 20px;
-    border-radius: 8px;
+    padding: 8px 16px;
+    border-radius: 6px;
     border: none;
     cursor: pointer;
-    font-size: 0.92rem;
+    font-size: 0.76rem;
     font-weight: 600;
     transition: all 0.25s ease;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
@@ -195,30 +195,30 @@
   }
 
   .desc-btn {
-    background: linear-gradient(135deg, #e0d2ff, #efe7ff);
-    color: #5e00a8;
+    background: #f0e6ff;
+    color: #7b4ae2;
   }
 
   .desc-btn:hover {
-    background: linear-gradient(135deg, #d0c0ff, #e0d2ff);
+    background: #e0d6ff;
     transform: translateY(-1px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   }
 
   .buy-btn {
-    background: linear-gradient(135deg, #7c00ff, #b100ff);
+    background: #9c4ae2;
     color: white;
     box-shadow: 0 4px 12px rgba(124, 0, 255, 0.25);
   }
 
   .buy-btn:hover {
-    background: linear-gradient(135deg, #6a00e0, #9c00e0);
+    background: #8c3fd2;
     transform: translateY(-1px);
     box-shadow: 0 6px 15px rgba(124, 0, 255, 0.3);
   }
 
   .buy-btn.disabled {
-    background: linear-gradient(135deg, #cccccc, #e0e0e0);
+    background: #cccccc;
     cursor: not-allowed;
     box-shadow: none;
     opacity: 0.8;
@@ -226,12 +226,12 @@
 
   /* Input de cantidad */
   input.qty-input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 2px solid #ddd;
+    width: 80px;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
     text-align: center;
-    font-size: 0.95rem;
+    font-size: 0.76rem;
     transition: all 0.2s ease;
     background: #faf8ff;
     font-weight: 600;
@@ -246,7 +246,7 @@
 
   /* Total y error */
   .price-total {
-    font-size: 13px;
+    font-size: 10.4px;
     color: #777;
     margin-top: 6px;
     font-weight: 500;
@@ -255,54 +255,101 @@
 
   .error-msg {
     color: #e74c3c;
-    font-size: 12px;
+    font-size: 9.6px;
     margin-top: 4px;
     display: none;
     font-weight: 600;
     text-align: center;
   }
 
-  /* Modal de descripción */
-  .modal {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background-color: rgba(0,0,0,0.6);
-    backdrop-filter: blur(5px);
+  /* ===== TABLA PARA ESCRITORIO ===== */
+  .service-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    background: #fff;
   }
 
-  .modal-content {
-    background: white;
-    margin: 6% auto;
-    padding: 30px;
-    border-radius: 16px;
-    width: 90%;
-    max-width: 600px;
-    color: #333;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    animation: fadeIn 0.4s ease;
-    max-height: 80vh;
-    overflow-y: auto;
+  thead {
+    background: linear-gradient(90deg, #f3eaff, #ede6ff);
+    color: #5e00a8;
   }
 
-  @keyframes fadeIn {
-    from {opacity: 0; transform: scale(0.95);}
-    to {opacity: 1; transform: scale(1);}
+  thead th {
+    font-weight: 600;
+    font-size: 0.76rem;
+    padding: 11.2px 14.4px;
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 2px solid #dcd0ff;
   }
 
-  .close-btn {
-    float: right;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-    color: #777;
-    transition: color 0.2s;
+  th, td {
+    padding: 11.2px 8px;
+    text-align: left;
+    border-bottom: 1px solid #f0ecf8;
+    vertical-align: middle;
+    font-size: 0.76rem;
   }
 
-  .close-btn:hover {
-    color: #e74c3c;
+  tr:nth-child(even) {
+    background-color: #faf8ff;
+  }
+
+  tr:hover {
+    background-color: #f3eaff;
+    transform: scale(1.005);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+
+  /* Columnas específicas (ajustadas para coincidir con la imagen) */
+  th:nth-child(1), td:nth-child(1) { 
+    width: 40px; 
+    text-align: center; 
+    font-size: 0.76rem;
+  }
+  th:nth-child(2), td:nth-child(2) { 
+    width: 110px; 
+  }
+  th:nth-child(3), td:nth-child(3) { 
+    width: 950px; /* Servicio más ancho */
+    word-break: break-word;
+  }
+  th:nth-child(4), td:nth-child(4) { 
+    width: 70px; 
+    text-align: center; 
+    white-space: nowrap;
+  }
+  th:nth-child(5), td:nth-child(5) { 
+    width: 20px; 
+    text-align: center; 
+    font-size: 0.76rem;
+  }
+  th:nth-child(6), td:nth-child(6) { 
+    width: 30px; 
+    text-align: center; 
+    font-size: 0.76rem;
+  }
+  th:nth-child(7), td:nth-child(7) { 
+    width: 130px; 
+    text-align: center; 
+  }
+  th:nth-child(8), td:nth-child(8) { 
+    width: 170px; 
+  }
+  th:nth-child(9), td:nth-child(9) { 
+    width: 50px; 
+    text-align: center; 
+  }
+
+  /* Precio por 1000 */
+  .price-per-1000 {
+    font-weight: 700;
+    color: #5e00a8;
+    text-align: center;
+    font-size: 0.8rem;
   }
 
   /* ===== RESPONSIVE: Pantallas pequeñas ===== */
@@ -322,18 +369,18 @@
     }
 
     .service-label {
-      font-size: 0.85rem;
+      font-size: 0.68rem;
       min-width: auto;
       text-align: left;
     }
 
     .service-value {
-      font-size: 0.9rem;
+      font-size: 0.72rem;
       text-align: left;
     }
 
     .service-value.price {
-      font-size: 1rem;
+      font-size: 0.8rem;
     }
 
     .service-actions {
@@ -341,17 +388,17 @@
     }
 
     .qty-input {
-      font-size: 1rem;
-      padding: 12px;
+      font-size: 0.8rem;
+      padding: 9.6px;
     }
 
     .price-total {
-      font-size: 0.9rem;
+      font-size: 0.72rem;
     }
 
     .desc-btn, .buy-btn {
-      font-size: 1rem;
-      padding: 14px;
+      font-size: 0.8rem;
+      padding: 11.2px;
     }
 
     .category-section {
@@ -363,13 +410,13 @@
     }
 
     .page-title {
-      font-size: 1.8rem;
+      font-size: 1.44rem;
     }
 
     .modal-content {
       width: 95%;
       margin: 10% auto;
-      padding: 20px;
+      padding: 16px;
     }
   }
 
@@ -388,21 +435,154 @@
     }
 
     .service-label {
-      font-size: 0.8rem;
+      font-size: 0.64rem;
     }
 
     .service-value {
-      font-size: 0.85rem;
+      font-size: 0.68rem;
     }
 
     .qty-input {
-      font-size: 1.1rem;
-      padding: 14px;
+      font-size: 0.88rem;
+      padding: 11.2px;
     }
 
     .desc-btn, .buy-btn {
-      font-size: 1.1rem;
-      padding: 16px;
+      font-size: 0.88rem;
+      padding: 12.8px;
+    }
+  }
+
+  /* ===== Modal general ===== */
+  .modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    backdrop-filter: blur(4px);
+  }
+
+  .modal.active {
+    display: flex;
+  }
+
+  .modal-content {
+    background: #fff;
+    padding: 24px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    position: relative;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    animation: fadeIn 0.3s ease;
+    max-height: 80vh; /* 👈 Limita altura */
+    overflow-y: auto; /* 👈 Permite scroll si el contenido es largo */
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .modal-content h3 {
+    color: #5e00a8;
+    margin-bottom: 16px;
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 22px;
+    cursor: pointer;
+    color: #888;
+    font-weight: bold;
+    transition: color 0.2s ease;
+  }
+  .close-btn:hover {
+    color: #000;
+  }
+
+  .modal-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .confirm-btn,
+  .cancel-btn {
+    flex: 1;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 0.92rem;
+    transition: all 0.2s ease;
+  }
+
+  .confirm-btn {
+    background: linear-gradient(135deg, #009b4d, #00c853);
+    color: white;
+    box-shadow: 0 2px 6px rgba(0, 155, 77, 0.3);
+  }
+  .confirm-btn:hover {
+    background: linear-gradient(135deg, #007a3d, #00a040);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 155, 77, 0.4);
+  }
+
+  .cancel-btn {
+    background: #f0f0f0;
+    color: #555;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .cancel-btn:hover {
+    background: #e0e0e0;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  /* ===== Estilo general de enlaces ===== */
+  a {
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease;
+  }
+  a:hover {
+    transform: scale(1.05);
+    background-color: #ffcc00;
+    border-radius: 4px;
+    padding: 2px 6px;
+  }
+
+  /* Quitar márgenes del contenedor principal si existe */
+  .container {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    max-width: none;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 1200px) {
+    .category-section {
+      width: calc(100% - 10px);
+      padding: 18px;
+    }
+    .service-table th,
+    .service-table td {
+      padding: 10px;
+      font-size: 0.9rem;
     }
   }
 </style>
@@ -410,6 +590,46 @@
 <!-- 🔹 Pasar los servicios al front -->
 <script>
   window.SERVICES = <%- JSON.stringify(services || {}) %>;
+
+  // Función para actualizar precios cuando cambie la moneda
+  function updatePrices() {
+    const rate = Number(CONFIG.exchangeRate || 4);
+    const curr = localStorage.getItem("currency") || CONFIG.defaultCurrency || "PEN";
+
+    document.querySelectorAll(".price-per-1000").forEach(el => {
+      const basePen = parseFloat(el.dataset.pricePen);
+      if (isNaN(basePen)) return;
+
+      const converted = curr === "USD" ? basePen / rate : basePen;
+      el.innerText = curr === "USD"
+        ? `$${converted.toFixed(2)}`
+        : `S/. ${basePen.toFixed(2)}`;
+    });
+
+    document.querySelectorAll(".qty-input").forEach(input => {
+      const row = input.closest("tr");
+      const totalEl = row?.querySelector(".price-total");
+      const pricePen = parseFloat(row.querySelector(".price-per-1000").dataset.pricePen);
+      const qty = parseFloat(input.value || 0);
+
+      const total = (qty / 1000) * (curr === "USD" ? pricePen / rate : pricePen);
+      if (totalEl) {
+        totalEl.innerText = curr === "USD"
+          ? `Total: $${total.toFixed(2)}`
+          : `Total: S/. ${total.toFixed(2)}`;
+      }
+    });
+  }
+
+  // Ejecutar al cargar si hay cambio de moneda
+  document.addEventListener('DOMContentLoaded', () => {
+    const currencySelect = document.getElementById('currencySelect');
+    if (currencySelect) {
+      currencySelect.addEventListener('change', () => {
+        updatePrices();
+      });
+    }
+  });
 </script>
 
 <!-- 🔹 Render HTML de categorías -->
@@ -426,15 +646,15 @@
     <table class="service-table">
       <thead>
         <tr>
-          <th>ID</th>
-          <th>Categoría</th>
-          <th>Servicio</th>
-          <th>Precio x 1000</th>
-          <th>Mínimo</th>
-          <th>Máximo</th>
-          <th>Cantidad</th>
-          <th>Descripción</th>
-          <th>Acciones</th>
+          <th style="width: 40px; text-align: center;">ID</th>
+          <th style="width: 110px;">Categoría</th>
+          <th style="width: 950px; word-break: break-word;">Servicio</th>
+          <th style="width: 70px; text-align: center; white-space: nowrap;">Precio x 1000</th>
+          <th style="width: 20px; text-align: center;">Mínimo</th>
+          <th style="width: 30px; text-align: center;">Máximo</th>
+          <th style="width: 130px; text-align: center;">Cantidad</th>
+          <th style="width: 170px;">Descripción</th>
+          <th style="width: 50px; text-align: center;">Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -481,6 +701,11 @@
         <script>
           // Ejecutar validación al cargar para habilitar/deshabilitar botón inicialmente
           updateTotal(<%= service.id %>, <%= minQty %>, <%= maxQty %>, <%= pricePen %>);
+
+          // Agregar evento de actualización de precios si existe
+          if (typeof updatePrices === 'function') {
+            document.addEventListener('currencyChanged', updatePrices);
+          }
         </script>
         <% }) %>
       </tbody>
@@ -555,6 +780,11 @@
       <script>
         // Ejecutar validación al cargar para habilitar/deshabilitar botón inicialmente
         updateTotalMobile(<%= service.id %>, <%= minQty %>, <%= maxQty %>, <%= pricePen %>);
+
+        // Agregar evento de actualización de precios si existe
+        if (typeof updatePrices === 'function') {
+          document.addEventListener('currencyChanged', updatePrices);
+        }
       </script>
       <% }) %>
     </div>
