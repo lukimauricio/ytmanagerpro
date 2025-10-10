@@ -1,168 +1,286 @@
 <% /* views/services.ejs */ %>
 
-<h2 class="page-title">Servicios disponibles</h2>
+<h2 class="page-title">✨ Servicios disponibles</h2>
 
 <!-- 🔹 Barra de filtros -->
 <div class="filter-bar">
   <label for="platformFilter">Filtrar por plataforma:</label>
-  <select id="platformFilter">
+  <select id="platformFilter" class="filter-select">
     <option value="all">Todas</option>
     <% Object.keys(services).forEach(cat => { %>
       <option value="<%= cat %>"><%= cat.charAt(0).toUpperCase() + cat.slice(1) %></option>
     <% }) %>
   </select>
+
+  <label for="categoryFilter">Filtrar por categoría:</label>
+  <select id="categoryFilter" class="filter-select">
+    <option value="all">Todas</option>
+  </select>
 </div>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
   body {
     font-family: 'Poppins', sans-serif;
-    background: #f8f9fc;
+    background: #f9f7ff;
     color: #333;
+    margin: 0;
+    padding: 0;
   }
 
   .page-title {
     text-align: center;
-    font-size: 2rem;
-    color: #3d0066;
+    font-size: 2.2rem;
+    color: #5e00a8;
     margin: 30px 0 10px;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.05);
   }
 
   .filter-bar {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 12px;
+    gap: 16px;
     margin-bottom: 25px;
+    flex-wrap: wrap;
+    padding: 15px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   }
 
   .filter-bar label {
-    font-weight: 500;
-    color: #4a006d;
+    font-weight: 600;
+    color: #5e00a8;
+    font-size: 0.95rem;
   }
 
-  .filter-bar select {
-    padding: 8px 14px;
-    border-radius: 8px;
-    border: 1px solid #bbb;
+  .filter-select {
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
     font-size: 0.95rem;
     background: #fff;
     cursor: pointer;
     transition: all 0.3s ease;
+    min-width: 150px;
   }
 
-  .filter-bar select:hover {
-    border-color: #6a00ff;
-    box-shadow: 0 0 5px rgba(106, 0, 255, 0.3);
+  .filter-select:hover {
+    border-color: #7c00ff;
+    box-shadow: 0 0 8px rgba(124, 0, 255, 0.2);
   }
 
-  .category-section {
-    background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    padding: 25px;
-    margin: 25px auto;
-    max-width: 1100px;
-    transition: all 0.3s ease;
+  .filter-select:focus {
+    outline: none;
+    border-color: #7c00ff;
+    box-shadow: 0 0 10px rgba(124, 0, 255, 0.3);
   }
+
+  /* Contenedor general por plataforma */
+.category-section {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  padding: 25px;
+  margin: 25px 0;
+  width: 100%;
+  max-width: 100%;
+  transition: all 0.3s ease;
+  overflow-x: auto;
+  border-left: 5px solid #7c00ff;
+}
 
   .category-section.hidden {
     display: none;
   }
 
   .category-section:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
   }
 
+  /* Encabezado de plataforma */
   .category-header {
-    font-size: 20px;
-    font-weight: 600;
-    color: #400060;
+    font-size: 22px;
+    font-weight: 700;
+    color: #5e00a8;
     margin-bottom: 15px;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #eee;
+    position: relative;
   }
 
+  .category-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #7c00ff, #b100ff);
+    border-radius: 2px;
+  }
+
+  .category-header i {
+    font-size: 24px;
+    color: #7c00ff;
+  }
+
+  /* Tabla moderna */
   .service-table {
     width: 100%;
     border-collapse: collapse;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    background: #fff;
   }
 
   thead {
-    background-color: #f3f0fa;
-    color: #3d0066;
+    background: linear-gradient(90deg, #f3eaff, #ede6ff);
+    color: #5e00a8;
+  }
+
+  thead th {
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 14px 18px;
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 2px solid #dcd0ff;
   }
 
   th, td {
-    padding: 12px 14px;
-    text-align: center;
-    border-bottom: 1px solid #eee;
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid #f0ecf8;
+    vertical-align: middle;
+    font-size: 0.95rem;
+  }
+
+  tr:nth-child(even) {
+    background-color: #faf8ff;
   }
 
   tr:hover {
-    background-color: #faf6ff;
+    background-color: #f3eaff;
+    transform: scale(1.005);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   }
 
+  /* Columnas específicas (sin Inicio ni Velocidad) */
+  th:nth-child(1), td:nth-child(1) { width: 60px; text-align: center; }
+  th:nth-child(2), td:nth-child(2) { width: 110px; }
+  th:nth-child(3), td:nth-child(3) { width: 450px; } /* Servicio más ancho */
+  th:nth-child(4), td:nth-child(4) { width: 110px; text-align: center; } /* Precio x 1000 */
+  th:nth-child(5), td:nth-child(5) { width: 80px; text-align: center; } /* Mínimo */
+  th:nth-child(6), td:nth-child(6) { width: 80px; text-align: center; } /* Máximo */
+  th:nth-child(7), td:nth-child(7) { width: 130px; text-align: center; } /* Cantidad */
+  th:nth-child(8), td:nth-child(8) { width: 220px; } /* Descripción */
+  th:nth-child(9), td:nth-child(9) { width: 120px; text-align: center; } /* Acciones */
+
+  /* Precio por 1000 */
   .price-per-1000 {
-    font-weight: 600;
-    color: #3a0088;
+    font-weight: 700;
+    color: #5e00a8;
+    text-align: center;
+    font-size: 1rem;
   }
 
+  /* Input de cantidad */
   input.qty-input {
-    width: 90px;
-    padding: 7px;
+    width: 110px;
+    padding: 8px 12px;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 2px solid #ddd;
     text-align: center;
+    font-size: 0.95rem;
     transition: all 0.2s ease;
+    background: #faf8ff;
   }
 
   input.qty-input:focus {
-    border-color: #6a00ff;
-    box-shadow: 0 0 4px rgba(106, 0, 255, 0.4);
+    border-color: #7c00ff;
+    box-shadow: 0 0 8px rgba(124, 0, 255, 0.2);
     outline: none;
+    background: white;
   }
 
+  /* Total y error */
   .price-total {
     font-size: 13px;
-    color: #555;
-    margin-top: 5px;
+    color: #777;
+    margin-top: 6px;
+    font-weight: 500;
   }
 
+  .error-msg {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 4px;
+    display: none;
+    font-weight: 600;
+    animation: shake 0.5s;
+  }
+
+  @keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+  }
+
+  /* Botones */
   .desc-btn, .buy-btn {
-    padding: 8px 12px;
+    padding: 10px 16px;
     border-radius: 8px;
     border: none;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 0.92rem;
+    font-weight: 600;
     transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   }
 
   .desc-btn {
-    background-color: #e0dbff;
-    color: #3d005f;
+    background: linear-gradient(135deg, #e0d2ff, #efe7ff);
+    color: #5e00a8;
   }
 
   .desc-btn:hover {
-    background-color: #cfc4ff;
+    background: linear-gradient(135deg, #d0c0ff, #e0d2ff);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   }
 
   .buy-btn {
-    background-color: #6a00ff;
-    color: #fff;
+    background: linear-gradient(135deg, #7c00ff, #b100ff);
+    color: white;
+    box-shadow: 0 4px 12px rgba(124, 0, 255, 0.25);
   }
 
   .buy-btn:hover {
-    background-color: #5200c8;
+    background: linear-gradient(135deg, #6a00e0, #9c00e0);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(124, 0, 255, 0.3);
   }
 
-  /* Modal */
+  .buy-btn.disabled {
+    background: linear-gradient(135deg, #cccccc, #e0e0e0);
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.8;
+  }
+
+  /* Modal de descripción */
   .modal {
     display: none;
     position: fixed;
@@ -170,18 +288,21 @@
     left: 0; top: 0;
     width: 100%; height: 100%;
     background-color: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
   }
 
   .modal-content {
-    background: #fff;
+    background: white;
     margin: 6% auto;
-    padding: 25px 30px;
-    border-radius: 12px;
+    padding: 30px;
+    border-radius: 16px;
     width: 90%;
     max-width: 600px;
     color: #333;
-    box-shadow: 0 5px 18px rgba(0,0,0,0.3);
-    animation: fadeIn 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    animation: fadeIn 0.4s ease;
+    max-height: 80vh;
+    overflow-y: auto;
   }
 
   @keyframes fadeIn {
@@ -191,13 +312,104 @@
 
   .close-btn {
     float: right;
-    font-size: 22px;
+    font-size: 24px;
     font-weight: bold;
     cursor: pointer;
+    color: #777;
+    transition: color 0.2s;
   }
 
   .close-btn:hover {
-    color: red;
+    color: #e74c3c;
+  }
+
+  /* ===== RESPONSIVE: Pantallas pequeñas ===== */
+  @media (max-width: 768px) {
+    .service-table, thead, tbody, th, td, tr {
+      display: block;
+    }
+
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    tr {
+      border: 2px solid #f0ecf8;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+      background: white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+    }
+
+    tr:nth-child(even) {
+      background: white;
+    }
+
+    tr:hover {
+      transform: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    td {
+      border: none;
+      position: relative;
+      padding: 10px 10px 10px 140px;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 10px;
+      width: 120px;
+      padding: 0 10px 0 0;
+      font-weight: 600;
+      color: #5e00a8;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .category-section {
+      padding: 15px;
+    }
+
+    .filter-bar {
+      padding: 10px;
+    }
+
+    .page-title {
+      font-size: 1.8rem;
+    }
+
+    .modal-content {
+      width: 95%;
+      margin: 10% auto;
+      padding: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .filter-bar {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .filter-select {
+      min-width: 100%;
+    }
+
+    td {
+      padding: 10px 10px 10px 110px;
+    }
+
+    td::before {
+      width: 100px;
+      font-size: 0.85rem;
+    }
   }
 </style>
 
@@ -210,19 +422,18 @@
 <% Object.keys(services).forEach(cat => { %>
   <div class="category-section" id="<%= cat %>">
     <div class="category-header">
-      <% if (cat === 'facebook') { %>📘 Facebook<% } %>
-      <% if (cat === 'youtube') { %>🎥 YouTube<% } %>
-      <% if (cat === 'tiktok') { %>🎵 TikTok<% } %>
-      <% if (cat === 'instagram') { %>📸 Instagram<% } %>
+      <% if (cat === 'facebook') { %><i class="fab fa-facebook-f"></i> Facebook<% } %>
+      <% if (cat === 'youtube') { %><i class="fab fa-youtube"></i> YouTube<% } %>
+      <% if (cat === 'tiktok') { %><i class="fab fa-tiktok"></i> TikTok<% } %>
+      <% if (cat === 'instagram') { %><i class="fab fa-instagram"></i> Instagram<% } %>
     </div>
 
     <table class="service-table">
       <thead>
         <tr>
           <th>ID</th>
+          <th>Categoría</th>
           <th>Servicio</th>
-          <th>Inicio</th>
-          <th>Velocidad</th>
           <th>Precio x 1000</th>
           <th>Mínimo</th>
           <th>Máximo</th>
@@ -235,23 +446,47 @@
         <% services[cat].forEach(service => { 
           const pricePen = Number(service.pricePerThousandPEN || 0);
           const minQty = Number(service.min || 0);
+          const maxQty = Number(service.max || 0);
           const total = (minQty / 1000) * pricePen;
         %>
         <tr>
-          <td><%= service.id %></td>
-          <td><%= service.title %></td>
-          <td><%= service.start_time || '-' %></td>
-          <td><%= service.speed || '-' %></td>
-          <td class="price-per-1000" data-id="<%= service.id %>" data-price-pen="<%= pricePen %>">S/. <%= pricePen.toFixed(2) %></td>
-          <td><%= service.min %></td>
-          <td><%= service.max %></td>
-          <td>
-            <input type="number" class="qty-input" id="qty-<%= service.id %>" value="<%= service.min %>" min="<%= service.min %>" max="<%= service.max %>" step="100" />
+          <td data-label="ID"><%= service.id %></td>
+          <td data-label="Categoría"><%= service.category || '-' %></td>
+          <td data-label="Servicio"><%= service.service %></td>
+          <td data-label="Precio x 1000" class="price-per-1000" data-id="<%= service.id %>" data-price-pen="<%= pricePen %>">S/. <%= pricePen.toFixed(2) %></td>
+          <td data-label="Mínimo"><%= service.min.toLocaleString('es-ES') %></td>
+          <td data-label="Máximo"><%= service.max.toLocaleString('es-ES') %></td>
+          <td data-label="Cantidad">
+            <input 
+              type="number" 
+              class="qty-input" 
+              id="qty-<%= service.id %>" 
+              value="<%= minQty %>" 
+              min="<%= minQty %>" 
+              max="<%= maxQty %>" 
+              step="1"
+              oninput="updateTotal(<%= service.id %>, <%= minQty %>, <%= maxQty %>, <%= pricePen %>)"
+            />
             <div class="price-total" id="price-<%= service.id %>">Total: S/. <%= total.toFixed(2) %></div>
+            <div class="error-msg" id="error-<%= service.id %>"></div>
           </td>
-          <td><button class="desc-btn" data-id="<%= service.id %>">Ver descripción</button></td>
-          <td><button class="buy-btn" data-id="<%= service.id %>" data-title="<%= service.title.replace(/'/g, "\\'") %>" data-price-pen="<%= pricePen %>">Comprar</button></td>
+          <td data-label="Descripción"><button class="desc-btn" data-id="<%= service.id %>">Ver descripción</button></td>
+          <td data-label="Acciones">
+            <button 
+              class="buy-btn" 
+              data-id="<%= service.id %>" 
+              data-title="<%= (service.service || '').replace(/'/g, "\\'") %>" 
+              data-price-pen="<%= pricePen %>"
+              onclick="openOrderModal(<%= service.id %>)"
+            >
+              Comprar
+            </button>
+          </td>
         </tr>
+        <script>
+          // Ejecutar validación al cargar para habilitar/deshabilitar botón inicialmente
+          updateTotal(<%= service.id %>, <%= minQty %>, <%= maxQty %>, <%= pricePen %>);
+        </script>
         <% }) %>
       </tbody>
     </table>
@@ -289,16 +524,143 @@
     if (e.target === modal) modal.style.display = "none";
   };
 
-  // Filtro por plataforma
-  const filterSelect = document.getElementById('platformFilter');
-  filterSelect.addEventListener('change', (e) => {
-    const value = e.target.value;
-    document.querySelectorAll('.category-section').forEach(section => {
-      if (value === 'all' || section.id === value) {
-        section.classList.remove('hidden');
-      } else {
-        section.classList.add('hidden');
-      }
+  // Filtro por plataforma y categoría
+  const platformFilter = document.getElementById('platformFilter');
+  const categoryFilter = document.getElementById('categoryFilter');
+
+  // Actualizar opciones de categoría según plataforma
+  platformFilter.addEventListener('change', (e) => {
+    const platform = e.target.value;
+    const categories = new Set();
+
+    if (platform === 'all') {
+      // Mostrar todas las categorías
+      Object.values(window.SERVICES).forEach(categoryServices => {
+        categoryServices.forEach(service => {
+          categories.add(service.category);
+        });
+      });
+    } else {
+      // Mostrar solo categorías de la plataforma seleccionada
+      const servicesForPlatform = window.SERVICES[platform] || [];
+      servicesForPlatform.forEach(service => {
+        categories.add(service.category);
+      });
+    }
+
+    // Limpiar y rellenar el select de categoría
+    categoryFilter.innerHTML = '<option value="all">Todas</option>';
+    categories.forEach(cat => {
+      const option = document.createElement('option');
+      option.value = cat;
+      option.textContent = cat;
+      categoryFilter.appendChild(option);
     });
+
+    // Aplicar filtro
+    applyFilters();
   });
+
+  // Filtrar por categoría
+  categoryFilter.addEventListener('change', applyFilters);
+
+  function applyFilters() {
+    const platformValue = platformFilter.value;
+    const categoryValue = categoryFilter.value;
+
+    document.querySelectorAll('.category-section').forEach(section => {
+      const platformId = section.id;
+      const shouldShowPlatform = platformValue === 'all' || platformId === platformValue;
+
+      if (!shouldShowPlatform) {
+        section.classList.add('hidden');
+        return;
+      }
+
+      // Filtrar filas dentro de la sección
+      const rows = section.querySelectorAll('tbody tr');
+      rows.forEach(row => {
+        const categoryCell = row.querySelector('td:nth-child(2)'); // Categoría está en la 2da columna
+        const categoryText = categoryCell ? categoryCell.textContent.trim() : '';
+
+        const shouldShowRow = categoryValue === 'all' || categoryText === categoryValue;
+        row.style.display = shouldShowRow ? 'table-row' : 'none';
+      });
+
+      // Mostrar/ocultar sección si tiene filas visibles
+      const visibleRows = Array.from(rows).filter(row => row.style.display !== 'none');
+      section.classList.toggle('hidden', visibleRows.length === 0);
+    });
+  }
+
+  // Función para actualizar total y validar rango
+  function updateTotal(serviceId, minQty, maxQty, pricePen) {
+    const input = document.getElementById(`qty-${serviceId}`);
+    const qty = parseInt(input.value) || 0;
+    const errorMsg = document.getElementById(`error-${serviceId}`);
+    const buyBtn = document.querySelector(`[data-id="${serviceId}"].buy-btn`);
+    const totalEl = document.getElementById(`price-${serviceId}`);
+
+    let isValid = true;
+
+    if (qty < minQty) {
+      errorMsg.textContent = `⚠️ La cantidad mínima es ${minQty}.`;
+      errorMsg.style.display = 'block';
+      isValid = false;
+    } else if (qty > maxQty) {
+      errorMsg.textContent = `⚠️ La cantidad máxima es ${maxQty}.`;
+      errorMsg.style.display = 'block';
+      isValid = false;
+    } else {
+      errorMsg.style.display = 'none';
+    }
+
+    // Actualizar total
+    const total = (qty / 1000) * pricePen;
+    totalEl.textContent = `Total: S/. ${total.toFixed(2)}`;
+
+    // Habilitar/deshabilitar botón Comprar en Acciones
+    if (isValid && qty >= minQty && qty <= maxQty) {
+      buyBtn.disabled = false;
+      buyBtn.classList.remove('disabled');
+    } else {
+      buyBtn.disabled = true;
+      buyBtn.classList.add('disabled');
+    }
+  }
+
+  // Función para abrir modal de compra (con validación)
+  function openOrderModal(serviceId) {
+    const input = document.getElementById(`qty-${serviceId}`);
+    const qty = parseInt(input.value) || 0;
+    const service = Object.values(window.SERVICES).flat().find(s => s.id == serviceId);
+
+    if (!service) {
+      alert("Servicio no encontrado.");
+      return;
+    }
+
+    const minQty = Number(service.min || 0);
+    const maxQty = Number(service.max || 0);
+
+    // Validar rango antes de abrir el modal
+    if (qty < minQty) {
+      alert(`⚠️ La cantidad mínima es ${minQty}.`);
+      return;
+    }
+    if (qty > maxQty) {
+      alert(`⚠️ La cantidad máxima es ${maxQty}.`);
+      return;
+    }
+
+    // Disparar evento personalizado para que script.js abra el modal real
+    document.dispatchEvent(new CustomEvent('openOrderModal', {
+      detail: {
+        id: serviceId,
+        quantity: qty,
+        service: service.service,
+        price: service.pricePerThousandPEN
+      }
+    }));
+  }
 </script>

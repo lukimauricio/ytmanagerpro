@@ -1,3 +1,4 @@
+/* ===== Modal general ===== */
 .modal {
   display: none;
   position: fixed;
@@ -8,7 +9,7 @@
   z-index: 999;
 }
 
-/* Muestra el modal */
+/* Mostrar modal */
 .modal.active {
   display: flex;
 }
@@ -61,7 +62,60 @@
   border-radius: 6px;
   cursor: pointer;
 }
+
+/* ===== Estilo general de enlaces ===== */
 a:hover {
   transform: scale(1.05);
   background-color: #ffcc00;
+}
+
+/* ====== ESTILO TABLAS DE SERVICIOS ====== */
+
+/* Contenedor de cada categoría (YouTube, Facebook, etc.) */
+.category-section {
+  width: 95% !important;         /* ocupar casi todo el ancho */
+  margin: 20px 0 30px 0 !important; /* sin margen izquierdo */
+  padding: 25px !important;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* Tabla de servicios */
+.service-table {
+  width: 100% !important;
+  border-collapse: collapse;
+}
+
+/* Celdas */
+.service-table th,
+.service-table td {
+  padding: 12px 18px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+}
+
+/* Más espacio para columnas Servicio y Velocidad */
+.service-table th:nth-child(3),
+.service-table td:nth-child(3) {
+  width: 28% !important;
+}
+
+.service-table th:nth-child(5),
+.service-table td:nth-child(5) {
+  width: 20% !important;
+}
+
+/* Quitar márgenes del contenedor principal si existe */
+.container {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1200px) {
+  .category-section { width: calc(100% - 10px); padding: 18px; }
+  .service-table th, .service-table td { padding: 10px; font-size: 0.9rem; }
 }

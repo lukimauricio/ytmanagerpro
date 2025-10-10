@@ -115,7 +115,7 @@ function showDescription(service) {
       margin-top: -40px; /* 🔼 sube un poco el cuadro */
     ">
       <h2 style="font-size: 20px; font-weight: 700; margin-bottom: 8px; text-align: left;">
-        ${service.title}
+        ${service.service}
       </h2>
       <p style="font-size: 14px; color: #555; text-align: left; margin-bottom: 10px;">
         ${desc}
@@ -164,28 +164,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentOrder = {};
 
-  // 💬 Al presionar "Comprar"
-  document.addEventListener("click", e => {
-    const btn = e.target.closest(".buy-btn");
-    if (!btn) return;
-
-    const id = btn.dataset.id;
-    const service = findServiceById(id);
-    if (!service) return alert("Servicio no encontrado.");
-
-    const qtyInput = document.querySelector(`#qty-${id}`);
-    const qty = parseFloat(qtyInput?.value || 1000);
+  // ✅ Escuchar el evento personalizado desde services.ejs
+  document.addEventListener('openOrderModal', e => {
+    const { id, quantity, service, price } = e.detail;
 
     const curr = localStorage.getItem("currency") || CONFIG.defaultCurrency || "PEN";
     const rate = Number(CONFIG.exchangeRate || 4);
-    const pricePen = service.pricePerThousandPEN;
-    const total = (qty / 1000) * (curr === "USD" ? pricePen / rate : pricePen);
+    const total = (quantity / 1000) * (curr === "USD" ? price / rate : price);
 
-    currentOrder = { id, service: service.title, quantity: qty, price: pricePen };
+    currentOrder = { id, service: service, quantity: quantity, price: price };
 
     document.getElementById("order-id").textContent = id;
-    document.getElementById("order-service").textContent = service.title;
-    document.getElementById("order-quantity").textContent = qty;
+    document.getElementById("order-service").textContent = service;
+    document.getElementById("order-quantity").textContent = quantity;
     document.getElementById("order-total").textContent =
       curr === "USD" ? `$${total.toFixed(2)}` : `S/. ${total.toFixed(2)}`;
 
