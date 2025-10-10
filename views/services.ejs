@@ -596,7 +596,6 @@
     const rate = Number(CONFIG.exchangeRate || 4);
     const curr = localStorage.getItem("currency") || CONFIG.defaultCurrency || "PEN";
 
-    // Actualizar tabla (escritorio)
     document.querySelectorAll(".price-per-1000").forEach(el => {
       const basePen = parseFloat(el.dataset.pricePen);
       if (isNaN(basePen)) return;
@@ -620,8 +619,13 @@
           : `Total: S/. ${total.toFixed(2)}`;
       }
     });
+  }
 
-    // ✅ ACTUALIZAR TARJETAS MÓVILES (nuevo)
+  // Función para actualizar solo las tarjetas móviles (necesaria para celulares)
+  function updateMobileCardPrices() {
+    const rate = Number(CONFIG.exchangeRate || 4);
+    const curr = localStorage.getItem("currency") || CONFIG.defaultCurrency || "PEN";
+
     document.querySelectorAll(".service-card").forEach(card => {
       const serviceId = card.dataset.id;
       const service = Object.values(window.SERVICES).flat().find(s => s.id == serviceId);
@@ -653,6 +657,7 @@
     if (currencySelect) {
       currencySelect.addEventListener('change', () => {
         updatePrices();
+        updateMobileCardPrices(); // ✅ Forzar actualización en móviles
       });
     }
   });
