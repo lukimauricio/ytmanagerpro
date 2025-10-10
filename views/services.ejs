@@ -1,3 +1,4 @@
+```ejs
 <% /* views/services.ejs */ %>
 
 <h2 class="page-title">✨ Servicios disponibles</h2>
@@ -413,73 +414,13 @@
     font-size: 1.2rem;
   }
 
-  ```css
-/* === MODAL DE COMPRA (NUEVA ORDEN) === */
+  .order-modal-content p, .order-modal-content label {
+    margin: 8px 0 4px;
+    font-weight: 600;
+    color: #5e00a8;
+    text-align: left;
+  }
 
-/* Estilos generales para el contenido del modal */
-.order-modal-content {
-  /* ... tus estilos existentes ... */
-}
-
-/* Cambiar las etiquetas (Plataforma, ID, Servicio, Cantidad) a NEGRO */
-.order-modal-content label,
-.order-modal-content p {
-  margin: 8px 0 4px;
-  font-weight: 600;
-  color: #000; /* 👈 Color negro para las etiquetas y párrafos */
-  text-align: left;
-}
-
-/* Cambiar los DATOS (el texto que sigue a las etiquetas) a MORADO */
-.order-modal-content p span {
-  color: #050886; /* 👈 Color morado para los datos */
-}
-
-/* Cambiar el título del modal a MORADO (opcional, como en tu imagen) */
-.order-modal-content h3 {
-  margin-top: 0;
-  color: #5e00a8; /* 👈 Color morado para el título */
-  text-align: center;
-  font-size: 1.2rem;
-}
-
-/* Cambiar el total a MORADO (opcional, como en tu imagen) */
-.order-modal-content #order-total {
-  font-weight: 700;
-  color: #5e00a8; /* 👈 Color morado para el total */
-  font-size: 1.1rem;
-  text-align: center;
-  margin: 12px 0;
-}
-
-/* Cambiar la etiqueta "Enlace del contenido:" a NEGRO */
-.order-modal-content label[for="order-link"] {
-  color: #5e00a8; /* 👈 Color negro para la palabra "Enlace del contenido:" */
-}
-
-/* Cambiar el placeholder del input de enlace a NEGRO */
-.order-modal-content #order-link::placeholder {
-  color: #938c96; /* 👈 Color negro para el texto de ayuda del input */
-}
-
-/* Cambiar el borde del input de enlace a NEGRO */
-.order-modal-content #order-link {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #5e00a8; /* 👈 Borde negro */
-  border-radius: 6px;
-  font-size: 0.9rem;
-  margin-top: 4px;
-  color: #000000; /* 👈 Texto negro dentro del input */
-}
-
-/* Si quieres que el texto *dentro* del input de enlace también sea negro cuando se escribe, usa esto */
-.order-modal-content #order-link {
-  /* ... estilos anteriores ... */
-  color: #000000; /* 👈 Texto negro dentro del input */
-}
-
-```
   .order-modal-content input {
     width: 100%;
     padding: 8px;
@@ -572,6 +513,100 @@
     from { opacity: 0; transform: scale(0.95); }
     to { opacity: 1; transform: scale(1); }
   }
+
+  /* === MODAL DE COMPRA (NUEVA ORDEN) - ESTILOS RESPONSIVE === */
+
+  /* Estilos para pantallas pequeñas (móviles) */
+  @media (max-width: 480px) {
+    .order-modal-content {
+      padding: 20px; /* Reducimos el padding para aprovechar mejor el espacio */
+      max-width: 95%; /* Aumentamos el ancho máximo para ocupar más pantalla */
+    }
+
+    .order-modal-content h3 {
+      font-size: 1.1rem; /* Reducimos el tamaño del título */
+    }
+
+    .order-modal-content p, .order-modal-content label {
+      font-size: 0.8rem; /* Reducimos el tamaño de fuente */
+      margin: 6px 0 3px; /* Ajustamos los márgenes */
+    }
+
+    .order-modal-content input {
+      font-size: 0.85rem; /* Reducimos el tamaño de fuente del input */
+      padding: 6px; /* Reducimos el padding del input */
+    }
+
+    #order-quantity-input {
+      width: 25%; /* Aumentamos ligeramente el ancho del input de cantidad */
+      padding: 5px; /* Reducimos el padding */
+      font-size: 0.85rem; /* Reducimos el tamaño de fuente */
+      height: 30px; /* Reducimos la altura */
+    }
+
+    .order-modal-content #order-total {
+      font-size: 1.0rem; /* Reducimos el tamaño del total */
+      margin: 10px 0; /* Ajustamos el margen */
+    }
+
+    .modal-buttons {
+      margin-top: 16px; /* Ajustamos el margen superior */
+      gap: 8px; /* Reducimos el espacio entre botones */
+    }
+
+    .confirm-btn, .cancel-btn {
+      padding: 8px; /* Reducimos el padding de los botones */
+      font-size: 0.85rem; /* Reducimos el tamaño de fuente */
+      border-radius: 6px; /* Reducimos el radio de borde */
+    }
+
+    .close-btn {
+      top: 10px; /* Ajustamos la posición del botón de cierre */
+      right: 10px; /* Ajustamos la posición del botón de cierre */
+      font-size: 20px; /* Reducimos el tamaño del botón de cierre */
+    }
+  }
+
+  /* === NUEVOS ESTILOS PARA CENTRAR CANTIDAD Y TOTAL === */
+
+  .amount-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .quantity-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .quantity-wrapper label {
+    margin: 0;
+  }
+
+  .quantity-wrapper input {
+    width: 60px;
+    text-align: center;
+  }
+
+  .total-wrapper {
+    text-align: center;
+  }
+
+  #order-total {
+    font-weight: 700;
+    color: #5e00a8;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  #order-total span {
+    font-weight: 600;
+    color: #333333;
+  }
+
 </style>
 
 <!-- 🔹 Pasar los servicios al front -->
@@ -804,23 +839,25 @@
     <p><b>Servicio:</b> <span id="order-service"></span></p>
     
     <!-- Contenedor para Cantidad y Total -->
-<div class="amount-container">
-  <div class="quantity-wrapper">
-    <label for="order-quantity-input">Cantidad:</label>
-    <input type="number" id="order-quantity-input" min="0" step="1" />
-    <div class="error-msg" id="order-error"></div>
-  </div>
+    <div class="amount-container">
+      <div class="quantity-wrapper">
+        <label for="order-quantity-input">Cantidad:</label>
+        <input type="number" id="order-quantity-input" min="0" step="1" />
+        <div class="error-msg" id="order-error"></div>
+      </div>
 
-  <!-- Contenedor para el Total a Pagar -->
-  <div class="total-wrapper">
-    <div id="order-total"><span>Total a Pagar:</span> S/. 0.00</div>
-    
-    <label for="order-link">Enlace del contenido:</label>
-    <input type="text" id="order-link" placeholder="  https://www.youtube.com/...  " />
-    
-    <div class="modal-buttons">
-      <button class="cancel-btn" onclick="closeOrderModal()">Cancelar</button>
-      <button class="confirm-btn" id="confirmOrder" disabled>Confirmar pedido</button>
+      <!-- Contenedor para el Total a Pagar -->
+      <div class="total-wrapper">
+        <div id="order-total"><span>Total a Pagar:</span> S/. 0.00</div>
+        
+        <label for="order-link">Enlace del contenido:</label>
+        <input type="text" id="order-link" placeholder="    https://www.youtube.com/...    " />
+        
+        <div class="modal-buttons">
+          <button class="cancel-btn" onclick="closeOrderModal()">Cancelar</button>
+          <button class="confirm-btn" id="confirmOrder" disabled>Confirmar pedido</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -924,23 +961,23 @@
   }
 
   function updateOrderTotal(qty) {
-  if (!currentOrder) return;
+    if (!currentOrder) return;
 
-  const rate = Number(window.APP_CONFIG?.exchangeRate || 4);
-  const curr = localStorage.getItem("currency") || window.APP_CONFIG?.defaultCurrency || "PEN";
-  const total = (qty / 1000) * currentOrder.pricePen;
-  const totalInCurr = curr === "USD" ? total / rate : total;
-  const symbol = curr === "USD" ? "$" : "S/.";
+    const rate = Number(window.APP_CONFIG?.exchangeRate || 4);
+    const curr = localStorage.getItem("currency") || window.APP_CONFIG?.defaultCurrency || "PEN";
+    const total = (qty / 1000) * currentOrder.pricePen;
+    const totalInCurr = curr === "USD" ? total / rate : total;
+    const symbol = curr === "USD" ? "$" : "S/.";
 
-  const totalElement = document.getElementById("order-total");
-  if (totalElement) {
-    // Solo actualizamos el texto dentro del <span> o el contenido después del span
-    // Si usaste la estructura <span>Total a Pagar:</span> S/. 0.00
-    // Podemos hacerlo así:
-    const spanText = "Total a Pagar: ";
-    totalElement.innerHTML = `<span>${spanText}</span> ${symbol} ${totalInCurr.toFixed(2)}`;
+    const totalElement = document.getElementById("order-total");
+    if (totalElement) {
+      // Solo actualizamos el texto dentro del <span> o el contenido después del span
+      // Si usaste la estructura <span>Total a Pagar:</span> S/. 0.00
+      // Podemos hacerlo así:
+      const spanText = "Total a Pagar: ";
+      totalElement.innerHTML = `<span>${spanText}</span> ${symbol} ${totalInCurr.toFixed(2)}`;
+    }
   }
-}
 
   function validateQuantity(qty) {
     const errorEl = document.getElementById("order-error");
@@ -1015,7 +1052,7 @@
     }
 
     // --- CORRECCIÓN: Eliminación de espacios en la URL ---
-    const url = `https://wa.me/${telefono}?text=${mensaje}`;
+    const url = `https://wa.me/  ${telefono}?text=${mensaje}`;
     window.open(url, "_blank");
 
     closeOrderModal();
@@ -1035,3 +1072,4 @@
     }
   });
 </script>
+```
