@@ -6,6 +6,7 @@
   <title><%= title %> | YT MANAGER</title>
 
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
   <style>
     /* ===== RESETEO GLOBAL ===== */
@@ -125,7 +126,7 @@
     }
 
     /* ===============================
-      📘 Modal de Descripción
+      📘 Modal de Descripción (Scrollable)
     =============================== */
     .desc-modal {
       display: none;
@@ -150,6 +151,8 @@
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
       position: relative;
       animation: fadeIn 0.25s ease;
+      max-height: 80vh; /* Altura máxima */
+      overflow-y: auto; /* Scroll vertical */
     }
 
     .desc-box h3 {
@@ -170,10 +173,6 @@
       display: flex;
       gap: 6px;
       align-items: flex-start;
-    }
-
-    .desc-box li span {
-      flex: 1;
     }
 
     .desc-box .note {
@@ -200,13 +199,8 @@
       color: #000;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     /* ===============================
-      💬 Modal de Nueva Orden
+      💬 Modal de Nueva Orden (Centrado, validación en tiempo real)
     =============================== */
     .modal {
       display: none;
@@ -231,76 +225,117 @@
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
       position: relative;
       animation: fadeIn 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .modal-content h3 {
       margin-top: 0;
       color: #6B00FF;
+      text-align: center;
+      font-size: 1.2rem;
+    }
+
+    .modal-content p, .modal-content label {
+      margin: 8px 0 4px;
+      font-weight: 600;
+      color: #5e00a8;
+      text-align: left;
     }
 
     .modal-content input {
       width: 100%;
       padding: 8px;
-      border: 1px solid #ccc;
+      border: 1px solid #ddd;
       border-radius: 6px;
-      margin-top: 6px;
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+
+    .modal-content #order-total {
+      font-weight: 700;
+      color: #5e00a8;
+      font-size: 1.1rem;
+      text-align: center;
+      margin: 12px 0;
+    }
+
+    /* Campo de cantidad más pequeño */
+    #order-quantity-input {
+      width: 100%;
+      padding: 6px 8px;
+      font-size: 0.9rem;
+      height: 32px;
     }
 
     .modal-buttons {
-      margin-top: 14px;
+      margin-top: 20px;
       display: flex;
-      justify-content: space-between;
-      gap: 8px;
+      gap: 12px;
+    }
+
+    .confirm-btn, .cancel-btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
     }
 
     .confirm-btn {
-      background: #6B00FF;
+      background: linear-gradient(135deg, #9c4ae2, #7c00ff);
       color: white;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s;
     }
 
     .confirm-btn:hover {
-      background: #5700cc;
+      opacity: 0.9;
+    }
+
+    .confirm-btn:disabled {
+      background: #cccccc;
+      cursor: not-allowed;
+      opacity: 0.7;
     }
 
     .cancel-btn {
-      background: #ccc;
-      color: #333;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s;
+      background: #f0f0f0;
+      color: #555;
     }
 
     .cancel-btn:hover {
-      background: #b3b3b3;
+      background: #e0e0e0;
     }
 
     .close-btn {
       position: absolute;
-      top: 8px;
-      right: 12px;
+      top: 12px;
+      right: 16px;
       font-size: 22px;
       cursor: pointer;
-      color: #666;
+      color: #888;
+      font-weight: bold;
     }
 
     .close-btn:hover {
       color: #000;
     }
-    /* ====== MENSAJE DE ERROR EN CANTIDAD ====== */
-.error-msg {
-  color: #d90429;
-  font-size: 0.85em;
-  margin-top: 4px;
-  min-height: 16px;
-}
 
+    /* ====== MENSAJE DE ERROR EN CANTIDAD ====== */
+    .error-msg {
+      color: #d90429;
+      font-size: 0.85em;
+      margin-top: 4px;
+      min-height: 16px;
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
   </style>
 </head>
 
@@ -339,7 +374,7 @@
   <div id="descModal" class="desc-modal">
     <div class="desc-box">
       <button class="desc-close" id="closeDesc">&times;</button>
-      <h3>Descripción</h3>
+      <h3>Descripción del servicio</h3>
       <div id="descContent"></div>
     </div>
   </div>
@@ -349,36 +384,62 @@
     <div class="modal-content">
       <span class="close-btn" id="closeOrderModal">&times;</span>
       <h3>🧾 Nueva orden</h3>
+      
+      <p><b>Plataforma:</b> <span id="order-platform"></span></p>
       <p><b>ID:</b> <span id="order-id"></span></p>
       <p><b>Servicio:</b> <span id="order-service"></span></p>
-      <p><b>Cantidad:</b> <span id="order-quantity"></span></p>
-      <p><b>Total a pagar:</b> <span id="order-total"></span></p>
-      <label for="order-link"><b>Enlace del contenido:</b></label>
+      
+      <label for="order-quantity-input">Cantidad:</label>
+      <input type="number" id="order-quantity-input" min="0" step="1" />
+      <div class="error-msg" id="order-error"></div>
+      
+      <div id="order-total"><span>Total a Pagar:</span> S/. 0.00</div>
+      
+      <label for="order-link">Enlace del contenido:</label>
       <input type="text" id="order-link" placeholder="https://www.youtube.com/..." />
+      
       <div class="modal-buttons">
-        <button id="confirmOrder" class="confirm-btn">Confirmar pedido</button>
         <button id="cancelOrder" class="cancel-btn">Cancelar</button>
+        <button id="confirmOrder" class="confirm-btn">Confirmar pedido</button>
       </div>
     </div>
   </div>
 
+  <!-- === Funcionalidad de modales === -->
   <script>
-    // Modal de descripción
-    function showDescription(descHtml) {
-      const modal = document.getElementById("descModal");
-      document.getElementById("descContent").innerHTML = descHtml;
-      modal.classList.add("active");
+    // === Modal de descripción ===
+    function showDescription(html) {
+      document.getElementById("descContent").innerHTML = html;
+      document.getElementById("descModal").classList.add("active");
     }
 
-    document.getElementById("closeDesc").onclick = () =>
+    document.getElementById("closeDesc").addEventListener("click", () => {
       document.getElementById("descModal").classList.remove("active");
+    });
 
-    document.getElementById("descModal").addEventListener("click", e => {
-      if (e.target.id === "descModal") e.currentTarget.classList.remove("active");
+    document.getElementById("descModal").addEventListener("click", (e) => {
+      if (e.target.id === "descModal") {
+        e.currentTarget.classList.remove("active");
+      }
+    });
+
+    // === Modal de orden ===
+    document.getElementById("closeOrderModal")?.addEventListener("click", () => {
+      document.getElementById("orderModal").classList.remove("active");
+    });
+
+    document.getElementById("cancelOrder")?.addEventListener("click", () => {
+      document.getElementById("orderModal").classList.remove("active");
+    });
+
+    document.getElementById("orderModal")?.addEventListener("click", (e) => {
+      if (e.target.id === "orderModal") {
+        e.currentTarget.classList.remove("active");
+      }
     });
   </script>
 
-  <!-- Configuración global -->
+  <!-- === Configuración global === -->
   <script>
     window.APP_CONFIG = <%- JSON.stringify(config || {}) %>;
     window.APP_STATE = {
@@ -386,7 +447,7 @@
     };
   </script>
 
-  <!-- Script principal -->
+  <!-- === Script principal === -->
   <script src="/script.js"></script>
 </body>
 </html>

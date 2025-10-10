@@ -1,0 +1,964 @@
+<% /* views/services.ejs */ %>																			<!-- Comentario: Define la vista EJS para servicios -->
+<h2 class="page-title">✨ Servicios disponibles</h2>													<!-- HTML: Título principal de la página -->
+
+<!-- 🔹 Barra de filtros -->
+<div class="filter-bar">																				<!-- HTML: Contenedor de la barra de filtros -->
+  <label for="platformFilter">Filtrar por plataforma:</label>										<!-- HTML: Etiqueta para el selector de plataforma -->
+  <select id="platformFilter" class="filter-select">													<!-- HTML: Selector de plataforma -->
+    <option value="all">Todas</option>																<!-- HTML: Opción "Todas" en el selector de plataforma -->
+    <% Object.keys(services).forEach(cat => { %>													<!-- EJS: Itera sobre las claves del objeto services -->
+      <option value="<%= cat %>"><%= cat.charAt(0).toUpperCase() + cat.slice(1) %></option>			<!-- HTML: Opción dinámica en el selector de plataforma -->
+    <% }) %>																						<!-- EJS: Fin de la iteración -->
+  </select>																							<!-- HTML: Fin del selector de plataforma -->
+
+  <label for="categoryFilter">Filtrar por categoría:</label>										<!-- HTML: Etiqueta para el selector de categoría -->
+  <select id="categoryFilter" class="filter-select">												<!-- HTML: Selector de categoría -->
+    <option value="all">Todas</option>																<!-- HTML: Opción "Todas" en el selector de categoría -->
+  </select>																							<!-- HTML: Fin del selector de categoría -->
+</div>																								<!-- HTML: Fin del contenedor de la barra de filtros -->
+
+<style>																								<!-- CSS: Bloque de estilos -->
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');	<!-- CSS: Importa la fuente Poppins -->
+
+  body {																							<!-- CSS: Estilos generales para el cuerpo de la página -->
+    font-family: 'Poppins', sans-serif;															<!-- CSS: Establece la fuente -->
+    background: #f9f7ff;																			<!-- CSS: Color de fondo -->
+    color: #333;																					<!-- CSS: Color del texto -->
+    margin: 0;																						<!-- CSS: Margen -->
+    padding: 0;																					<!-- CSS: Relleno -->
+  }																									<!-- CSS: Fin de estilos para body -->
+
+  .page-title {																					<!-- CSS: Estilos para el título de la página -->
+    text-align: center;																				<!-- CSS: Alineación del texto -->
+    font-size: 1.76rem;																			<!-- CSS: Tamaño de fuente -->
+    color: #5e00a8;																				<!-- CSS: Color del texto -->
+    margin: -20px 0 0px;																			<!-- CSS: Margen -->
+    font-weight: 700;																				<!-- CSS: Peso de la fuente -->
+    letter-spacing: 0.5px;																			<!-- CSS: Espaciado entre letras -->
+    text-shadow: 0 2px 4px rgba(0,0,0,0.05);														<!-- CSS: Sombra del texto -->
+  }																									<!-- CSS: Fin de estilos para .page-title -->
+
+  .filter-bar {																					<!-- CSS: Estilos para la barra de filtros -->
+    display: flex;																					<!-- CSS: Muestra como flexbox -->
+    justify-content: center;																		<!-- CSS: Alinea elementos al centro horizontalmente -->
+    align-items: center;																			<!-- CSS: Alinea elementos al centro verticalmente -->
+    gap: 16px;																					<!-- CSS: Espacio entre elementos -->
+    margin-bottom: 15px;																			<!-- CSS: Margen inferior -->
+    flex-wrap: wrap;																				<!-- CSS: Permite que los elementos se envuelvan -->
+    padding: 12px;																				<!-- CSS: Relleno interior -->
+    background: white;																				<!-- CSS: Color de fondo -->
+    border-radius: 12px;																			<!-- CSS: Radio de borde -->
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);														<!-- CSS: Sombra de la caja -->
+  }																									<!-- CSS: Fin de estilos para .filter-bar -->
+
+  .filter-bar label {																				<!-- CSS: Estilos para etiquetas dentro de .filter-bar -->
+    font-weight: 600;																				<!-- CSS: Peso de la fuente -->
+    color: #5e00a8;																				<!-- CSS: Color del texto -->
+    font-size: 0.76rem;																			<!-- CSS: Tamaño de fuente -->
+  }																									<!-- CSS: Fin de estilos para .filter-bar label -->
+
+  .filter-select {																				<!-- CSS: Estilos para selects dentro de .filter-bar -->
+    padding: 8px 12.8px;																			<!-- CSS: Relleno interior -->
+    border-radius: 8px;																			<!-- CSS: Radio de borde -->
+    border: 2px solid #ddd;																		<!-- CSS: Borde -->
+    font-size: 0.76rem;																			<!-- CSS: Tamaño de fuente -->
+    background: #fff;																				<!-- CSS: Color de fondo -->
+    cursor: pointer;																				<!-- CSS: Cursor -->
+    transition: all 0.3s ease;																		<!-- CSS: Transición -->
+    min-width: 150px;																				<!-- CSS: Ancho mínimo -->
+  }																									<!-- CSS: Fin de estilos para .filter-select -->
+
+  .filter-select:hover {																			<!-- CSS: Estilos hover para .filter-select -->
+    border-color: #7c00ff;																		<!-- CSS: Color del borde al pasar el mouse -->
+    box-shadow: 0 0 8px rgba(124, 0, 255, 0.2);													<!-- CSS: Sombra al pasar el mouse -->
+  }																									<!-- CSS: Fin de estilos hover para .filter-select -->
+
+  .filter-select:focus {																			<!-- CSS: Estilos focus para .filter-select -->
+    outline: none;																					<!-- CSS: Elimina el contorno predeterminado -->
+    border-color: #7c00ff;																		<!-- CSS: Color del borde al enfocar -->
+    box-shadow: 0 0 10px rgba(124, 0, 255, 0.3);													<!-- CSS: Sombra al enfocar -->
+  }																									<!-- CSS: Fin de estilos focus para .filter-select -->
+
+  /* Contenedor general por plataforma */
+  .category-section {																				<!-- CSS: Estilos para cada sección de categoría/plataforma -->
+    background: white;																				<!-- CSS: Color de fondo -->
+    border-radius: 16px;																			<!-- CSS: Radio de borde -->
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);														<!-- CSS: Sombra de la caja -->
+    padding: 10px;																					<!-- CSS: Relleno interior -->
+    margin: 15px 0;																				<!-- CSS: Margen -->
+    width: 100%;																					<!-- CSS: Ancho -->
+    max-width: 100%;																				<!-- CSS: Ancho máximo -->
+    transition: all 0.3s ease;																		<!-- CSS: Transición -->
+    overflow-x: auto;																				<!-- CSS: Permite desplazamiento horizontal si es necesario -->
+    border-left: 5px solid #7c00ff;																<!-- CSS: Borde izquierdo -->
+  }																									<!-- CSS: Fin de estilos para .category-section -->
+
+  .category-section.hidden {																		<!-- CSS: Estilos para .category-section cuando tiene la clase 'hidden' -->
+    display: none;																					<!-- CSS: Oculta el elemento -->
+  }																									<!-- CSS: Fin de estilos para .category-section.hidden -->
+
+  .category-section:hover {																		<!-- CSS: Estilos hover para .category-section -->
+    transform: translateY(-2px);																	<!-- CSS: Mueve el elemento ligeramente hacia arriba -->
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);														<!-- CSS: Aumenta la sombra al pasar el mouse -->
+  }																									<!-- CSS: Fin de estilos hover para .category-section -->
+
+  /* Encabezado de plataforma */
+  .category-header {																				<!-- CSS: Estilos para el encabezado de cada sección -->
+    font-size: 17.6px;																			<!-- CSS: Tamaño de fuente -->
+    font-weight: 700;																				<!-- CSS: Peso de la fuente -->
+    color: #5e00a8;																				<!-- CSS: Color del texto -->
+    margin-bottom: 10px;																			<!-- CSS: Margen inferior -->
+    display: flex;																					<!-- CSS: Muestra como flexbox -->
+    align-items: center;																			<!-- CSS: Alinea elementos verticalmente -->
+    gap: 8px;																					<!-- CSS: Espacio entre elementos -->
+    padding-bottom: 8px;																			<!-- CSS: Relleno inferior -->
+    border-bottom: 2px solid #eee;																<!-- CSS: Borde inferior -->
+    position: relative;																			<!-- CSS: Posición relativa -->
+  }																									<!-- CSS: Fin de estilos para .category-header -->
+
+  .category-header::after {																		<!-- CSS: Pseudo-elemento para la línea decorativa bajo el encabezado -->
+    content: '';																					<!-- CSS: Contenido (vacío) -->
+    position: absolute;																			<!-- CSS: Posición absoluta -->
+    bottom: -2px;																					<!-- CSS: Posición desde abajo -->
+    left: 0;																					<!-- CSS: Posición desde la izquierda -->
+    width: 60px;																					<!-- CSS: Ancho -->
+    height: 3px;																					<!-- CSS: Alto -->
+    background: linear-gradient(90deg, #7c00ff, #b100ff);											<!-- CSS: Gradiente de fondo -->
+    border-radius: 2px;																			<!-- CSS: Radio de borde -->
+  }																									<!-- CSS: Fin de estilos para .category-header::after -->
+
+  .category-header i {																				<!-- CSS: Estilos para iconos dentro del encabezado -->
+    font-size: 19.2px;																			<!-- CSS: Tamaño de fuente del icono -->
+    color: #7c00ff;																				<!-- CSS: Color del icono -->
+  }																									<!-- CSS: Fin de estilos para .category-header i -->
+
+  /* Tarjeta de servicio (para móviles) */
+  .service-card {																					<!-- CSS: Estilos para la tarjeta de servicio (móvil) -->
+    background: white;																				<!-- CSS: Color de fondo -->
+    border: 2px solid #f0ecf8;																	<!-- CSS: Borde -->
+    border-radius: 12px;																			<!-- CSS: Radio de borde -->
+    padding: 18px;																					<!-- CSS: Relleno interior -->
+    margin-bottom: 15px;																			<!-- CSS: Margen inferior -->
+    box-shadow: 0 4px 10px rgba(0,0,0,0.06);														<!-- CSS: Sombra de la caja -->
+    display: flex;																					<!-- CSS: Muestra como flexbox -->
+    flex-direction: column;																		<!-- CSS: Dirección de los elementos (columna) -->
+    gap: 12px;																					<!-- CSS: Espacio entre elementos -->
+  }																									<!-- CSS: Fin de estilos para .service-card -->
+
+  .service-card-row {																				<!-- CSS: Estilos para una fila dentro de la tarjeta de servicio -->
+    display: flex;																					<!-- CSS: Muestra como flexbox -->
+    justify-content: space-between;																<!-- CSS: Distribuye elementos -->
+    align-items: center;																			<!-- CSS: Alinea elementos verticalmente -->
+    gap: 8px;																					<!-- CSS: Espacio entre elementos -->
+  }																									<!-- CSS: Fin de estilos para .service-card-row -->
+
+  .service-label {																				<!-- CSS: Estilos para la etiqueta de un campo en la tarjeta -->
+    font-weight: 600;																				<!-- CSS: Peso de la fuente -->
+    color: #5e00a8;																				<!-- CSS: Color del texto -->
+    font-size: 0.72rem;																			<!-- CSS: Tamaño de fuente -->
+    min-width: 100px;																				<!-- CSS: Ancho mínimo -->
+    word-break: break-word;																		<!-- CSS: Rompe palabras largas si es necesario -->
+  }																									<!-- CSS: Fin de estilos para .service-label -->
+
+  .service-value {																				<!-- CSS: Estilos para el valor de un campo en la tarjeta -->
+    font-size: 0.76rem;																			<!-- CSS: Tamaño de fuente -->
+    color: #333;																					<!-- CSS: Color del texto -->
+    word-break: break-word;																		<!-- CSS: Rompe palabras largas si es necesario -->
+    flex: 1;																					<!-- CSS: Flexibilidad -->
+    text-align: right;																			<!-- CSS: Alineación del texto -->
+  }																									<!-- CSS: Fin de estilos para .service-value -->
+
+  .service-value.price {																			<!-- CSS: Estilos para el valor del precio en la tarjeta -->
+    font-weight: 700;																				<!-- CSS: Peso de la fuente -->
+    color: #5e00a8;																				<!-- CSS: Color del texto -->
+  }																									<!-- CSS: Fin de estilos para .service-value.price -->
+
+  .service-actions {																				<!-- CSS: Estilos para el contenedor de botones en la tarjeta -->
+    display: flex;																					<!-- CSS: Muestra como flexbox -->
+    gap: 8px;																					<!-- CSS: Espacio entre botones -->
+    justify-content: center;																		<!-- CSS: Alinea botones al centro -->
+    margin-top: 12px;																				<!-- CSS: Margen superior -->
+  }																									<!-- CSS: Fin de estilos para .service-actions -->
+
+  .desc-btn, .buy-btn {																			<!-- CSS: Estilos para botones de descripción y compra -->
+    padding: 8px 16px;																			<!-- CSS: Relleno interior -->
+    border-radius: 6px;																			<!-- CSS: Radio de borde -->
+    border: none;																					<!-- CSS: Sin borde -->
+    cursor: pointer;																				<!-- CSS: Cursor -->
+    font-size: 0.76rem;																			<!-- CSS: Tamaño de fuente -->
+    font-weight: 600;																				<!-- CSS: Peso de la fuente -->
+    transition: all 0.25s ease;																	<!-- CSS: Transición -->
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);														<!-- CSS: Sombra de la caja -->
+    width: 100%;																					<!-- CSS: Ancho -->
+    text-align: center;																			<!-- CSS: Alineación del texto -->
+  }																									<!-- CSS: Fin de estilos para .desc-btn, .buy-btn -->
+
+  .desc-btn {																					<!-- CSS: Estilos específicos para el botón de descripción -->
+    background: #f0e6ff;																			<!-- CSS: Color de fondo -->
+    color: #7b4ae2;																				<!-- CSS: Color del texto -->
+  }																									<!-- CSS: Fin de estilos para .desc-btn -->
+
+  .desc-btn:hover {																				<!-- CSS: Estilos hover para .desc-btn -->
+    background: #e0d6ff;																			<!-- CSS: Color de fondo al pasar el mouse -->
+    transform: translateY(-1px);																	<!-- CSS: Mueve el botón ligeramente hacia arriba -->
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);														<!-- CSS: Aumenta la sombra al pasar el mouse -->
+  }																									<!-- CSS: Fin de estilos hover para .desc-btn -->
+
+  .buy-btn {																					<!-- CSS: Estilos específicos para el botón de compra -->
+    background: #9c4ae2;																			<!-- CSS: Color de fondo -->
+    color: white;																					<!-- CSS: Color del texto -->
+    box-shadow: 0 4px 12px rgba(124, 0, 255, 0.25);												<!-- CSS: Sombra de la caja -->
+  }																									<!-- CSS: Fin de estilos para .buy-btn -->
+
+  .buy-btn:hover {																				<!-- CSS: Estilos hover para .buy-btn -->
+    background: #8c3fd2;																			<!-- CSS: Color de fondo al pasar el mouse -->
+    transform: translateY(-1px);																	<!-- CSS: Mueve el botón ligeramente hacia arriba -->
+    box-shadow: 0 6px 15px rgba(124, 0, 255, 0.3);												<!-- CSS: Aumenta la sombra al pasar el mouse -->
+  }																									<!-- CSS: Fin de estilos hover para .buy-btn -->
+
+  /* ===== TABLA PARA ESCRITORIO ===== */
+  .service-table {																				<!-- CSS: Estilos para la tabla de servicios -->
+    width: 100%;																					<!-- CSS: Ancho -->
+    border-collapse: collapse;																	<!-- CSS: Colapsa los bordes de la tabla -->
+    border-radius: 12px;																			<!-- CSS: Radio de borde -->
+    overflow: hidden;																				<!-- CSS: Oculta el desbordamiento -->
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);														<!-- CSS: Sombra de la caja -->
+    background: #fff;																				<!-- CSS: Color de fondo -->
+  }																									<!-- CSS: Fin de estilos para .service-table -->
+
+  thead {																							<!-- CSS: Estilos para la cabecera de la tabla -->
+    background: linear-gradient(90deg, #f3eaff, #ede6ff);											<!-- CSS: Gradiente de fondo -->
+    color: #5e00a8;																				<!-- CSS: Color del texto -->
+  }																									<!-- CSS: Fin de estilos para thead -->
+
+  thead th {																					<!-- CSS: Estilos para las celdas de encabezado -->
+    font-weight: 600;																				<!-- CSS: Peso de la fuente -->
+    font-size: 0.76rem;																			<!-- CSS: Tamaño de fuente -->
+    padding: 11.2px 14.4px;																		<!-- CSS: Relleno interior -->
+    text-align: left;																				<!-- CSS: Alineación del texto -->
+    white-space: nowrap;																			<!-- CSS: No permite saltos de línea -->
+    border-bottom: 2px solid #dcd0ff;															<!-- CSS: Borde inferior -->
+  }																									<!-- CSS: Fin de estilos para thead th -->
+
+  th, td {																						<!-- CSS: Estilos para celdas de encabezado y datos -->
+    padding: 11.2px 8px;																			<!-- CSS: Relleno interior -->
+    text-align: left;																				<!-- CSS: Alineación del texto -->
+    border-bottom: 1px solid #f0ecf8;															<!-- CSS: Borde inferior -->
+    vertical-align: middle;																		<!-- CSS: Alineación vertical -->
+    font-size: 0.76rem;																			<!-- CSS: Tamaño de fuente -->
+  }																									<!-- CSS: Fin de estilos para th, td -->
+
+  tr:nth-child(even) {																			<!-- CSS: Estilos para filas pares -->
+    background-color: #faf8ff;																	<!-- CSS: Color de fondo -->
+  }																									<!-- CSS: Fin de estilos para tr:nth-child(even) -->
+
+  tr:hover {																					<!-- CSS: Estilos hover para filas -->
+    background-color: #f3eaff;																	<!-- CSS: Color de fondo al pasar el mouse -->
+    transform: scale(1.005);																		<!-- CSS: Escala ligeramente la fila -->
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);														<!-- CSS: Añade sombra al pasar el mouse -->
+  }																									<!-- CSS: Fin de estilos hover para tr -->
+
+  /* Columnas específicas */
+  th:nth-child(1), td:nth-child(1) { width: 40px; text-align: center; }							<!-- CSS: Estilos para la primera columna -->
+  th:nth-child(2), td:nth-child(2) { width: 110px; }												<!-- CSS: Estilos para la segunda columna -->
+  th:nth-child(3), td:nth-child(3) { width: 950px; word-break: break-word; }						<!-- CSS: Estilos para la tercera columna -->
+  th:nth-child(4), td:nth-child(4) { width: 70px; text-align: center; white-space: nowrap; }		<!-- CSS: Estilos para la cuarta columna -->
+  th:nth-child(5), td:nth-child(5) { width: 20px; text-align: center; }							<!-- CSS: Estilos para la quinta columna -->
+  th:nth-child(6), td:nth-child(6) { width: 30px; text-align: center; }							<!-- CSS: Estilos para la sexta columna -->
+  th:nth-child(7), td:nth-child(7) { width: 170px; }												<!-- CSS: Estilos para la séptima columna -->
+  th:nth-child(8), td:nth-child(8) { width: 50px; text-align: center; }							<!-- CSS: Estilos para la octava columna -->
+
+  .price-per-1000 {																				<!-- CSS: Estilos para el precio por 1000 -->
+    font-weight: 700;																				<!-- CSS: Peso de la fuente -->
+    color: #5e00a8;																				<!-- CSS: Color del texto -->
+    text-align: center;																			<!-- CSS: Alineación del texto -->
+    font-size: 0.8rem;																			<!-- CSS: Tamaño de fuente -->
+  }																									<!-- CSS: Fin de estilos para .price-per-1000 -->
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {																		<!-- CSS: Media query para pantallas <= 768px -->
+    .service-table { display: none; }																<!-- CSS: Oculta la tabla -->
+    .service-card { padding: 15px; margin-bottom: 15px; }											<!-- CSS: Ajusta estilos para tarjeta de servicio -->
+    .service-card-row { flex-direction: column; align-items: stretch; }							<!-- CSS: Cambia la dirección de la fila en la tarjeta -->
+    .service-label { font-size: 0.68rem; min-width: auto; text-align: left; }						<!-- CSS: Ajusta estilos para etiqueta en tarjeta -->
+    .service-value { font-size: 0.72rem; text-align: left; }										<!-- CSS: Ajusta estilos para valor en tarjeta -->
+    .service-value.price { font-size: 0.8rem; }													<!-- CSS: Ajusta estilos para precio en tarjeta -->
+    .service-actions { flex-direction: column; }													<!-- CSS: Cambia la dirección de los botones -->
+    .desc-btn, .buy-btn { font-size: 0.8rem; padding: 11.2px; }									<!-- CSS: Ajusta estilos para botones -->
+    .category-section { padding: 15px; }															<!-- CSS: Ajusta relleno de la sección -->
+    .filter-bar { padding: 10px; }																<!-- CSS: Ajusta relleno de la barra de filtros -->
+    .page-title { font-size: 1.44rem; }															<!-- CSS: Ajusta tamaño de fuente del título -->
+  }																									<!-- CSS: Fin de media query -->
+
+  @media (max-width: 480px) {																		<!-- CSS: Media query para pantallas <= 480px -->
+    .filter-bar { flex-direction: column; gap: 10px; }											<!-- CSS: Cambia dirección de la barra de filtros -->
+    .filter-select { min-width: 100%; }															<!-- CSS: Ancho completo para selects -->
+    .service-card { padding: 12px; }																<!-- CSS: Ajusta relleno de la tarjeta -->
+    .service-label { font-size: 0.64rem; }														<!-- CSS: Ajusta tamaño de fuente de etiqueta -->
+    .service-value { font-size: 0.68rem; }														<!-- CSS: Ajusta tamaño de fuente de valor -->
+    .desc-btn, .buy-btn { font-size: 0.88rem; padding: 12.8px; }									<!-- CSS: Ajusta estilos para botones -->
+  }																									<!-- CSS: Fin de media query -->
+
+  /* ===============================																<!-- CSS: Comentario -->
+      MODAL DE DESCRIPCIÓN																			<!-- CSS: Comentario -->
+  =============================== */
+  .desc-modal {																					<!-- CSS: Estilos para el modal de descripción -->
+    display: none;																					<!-- CSS: Oculto por defecto -->
+    position: fixed;																				<!-- CSS: Posición fija -->
+    inset: 0;																					<!-- CSS: Ocupa todo el viewport -->
+    background: rgba(0, 0, 0, 0.5);																<!-- CSS: Fondo semitransparente -->
+    align-items: center;																			<!-- CSS: Alinea al centro verticalmente -->
+    justify-content: center;																		<!-- CSS: Alinea al centro horizontalmente -->
+    z-index: 9999;																				<!-- CSS: Z-index alto -->
+    backdrop-filter: blur(4px);																	<!-- CSS: Filtro de desenfoque para el fondo -->
+  }																									<!-- CSS: Fin de estilos para .desc-modal -->
+
+  .desc-modal.active {																				<!-- CSS: Estilos para .desc-modal cuando tiene la clase 'active' -->
+    display: flex;																					<!-- CSS: Muestra como flexbox -->
+  }																									<!-- CSS: Fin de estilos para .desc-modal.active -->
+
+  .desc-box {																					<!-- CSS: Estilos para el cuadro de contenido del modal -->
+    background: #fff;																				<!-- CSS: Color de fondo -->
+    border-radius: 16px;																			<!-- CSS: Radio de borde -->
+    max-width: 600px;																				<!-- CSS: Ancho máximo -->
+    width: 90%;																					<!-- CSS: Ancho -->
+    padding: 24px;																				<!-- CSS: Relleno interior -->
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);													<!-- CSS: Sombra de la caja -->
+    position: relative;																			<!-- CSS: Posición relativa -->
+    animation: fadeIn 0.25s ease;																	<!-- CSS: Animación de aparición -->
+    max-height: 80vh;																				<!-- CSS: Altura máxima -->
+    overflow-y: auto;																				<!-- CSS: Permite desplazamiento vertical -->
+  }																									<!-- CSS: Fin de estilos para .desc-box -->
+
+  .desc-box h3 {																					<!-- CSS: Estilos para el título dentro del modal -->
+    margin-top: 0;																				<!-- CSS: Margen superior -->
+    color: #6B00FF;																				<!-- CSS: Color del texto -->
+    font-size: 1.3rem;																			<!-- CSS: Tamaño de fuente -->
+    margin-bottom: 12px;																			<!-- CSS: Margen inferior -->
+  }																									<!-- CSS: Fin de estilos para .desc-box h3 -->
+
+  .desc-box ul {																					<!-- CSS: Estilos para lista dentro del modal -->
+    list-style: none;																				<!-- CSS: Sin viñetas -->
+    padding: 0;																					<!-- CSS: Sin relleno -->
+    margin: 10px 0;																				<!-- CSS: Margen -->
+  }																									<!-- CSS: Fin de estilos para .desc-box ul -->
+
+  .desc-box li {																					<!-- CSS: Estilos para elemento de lista dentro del modal -->
+    margin: 6px 0;																				<!-- CSS: Margen -->
+    display: flex;																					<!-- CSS: Muestra como flexbox -->
+    gap: 6px;																					<!-- CSS: Espacio entre elementos -->
+    align-items: flex-start;																		<!-- CSS: Alinea elementos al inicio -->
+  }																									<!-- CSS: Fin de estilos para .desc-box li -->
+
+  .desc-box .note {																				<!-- CSS: Estilos para nota dentro del modal -->
+    background: #fff8e1;																			<!-- CSS: Color de fondo -->
+    border-left: 4px solid #facc15;																<!-- CSS: Borde izquierdo -->
+    padding: 8px 10px;																			<!-- CSS: Relleno interior -->
+    border-radius: 8px;																			<!-- CSS: Radio de borde -->
+    margin-top: 12px;																				<!-- CSS: Margen superior -->
+    font-size: 0.9em;																				<!-- CSS: Tamaño de fuente -->
+  }																									<!-- CSS: Fin de estilos para .desc-box .note -->
+
+  .desc-close {																					<!-- CSS: Estilos para botón de cierre del modal -->
+    position: absolute;																			<!-- CSS: Posición absoluta -->
+    top: 10px;																					<!-- CSS: Posición desde arriba -->
+    right: 14px;																					<!-- CSS: Posición desde la derecha -->
+    font-size: 24px;																				<!-- CSS: Tamaño de fuente -->
+    color: #666;																					<!-- CSS: Color del texto -->
+    background: none;																				<!-- CSS: Sin fondo -->
+    border: none;																					<!-- CSS: Sin borde -->
+    cursor: pointer;																				<!-- CSS: Cursor -->
+  }																									<!-- CSS: Fin de estilos para .desc-close -->
+
+  .desc-close:hover {																				<!-- CSS: Estilos hover para .desc-close -->
+    color: #000;																					<!-- CSS: Color del texto al pasar el mouse -->
+  }																									<!-- CSS: Fin de estilos hover para .desc-close -->
+
+  /* ===============================																<!-- CSS: Comentario -->
+      MODAL DE COMPRA (NUEVA ORDEN)																<!-- CSS: Comentario -->
+  =============================== */
+  .order-modal {																					<!-- CSS: Estilos para el modal de compra -->
+    display: none;																					<!-- CSS: Oculto por defecto -->
+    position: fixed;																				<!-- CSS: Posición fija -->
+    inset: 0;																					<!-- CSS: Ocupa todo el viewport -->
+    background: rgba(0, 0, 0, 0.55);																<!-- CSS: Fondo semitransparente -->
+    align-items: center;																			<!-- CSS: Alinea al centro verticalmente -->
+    justify-content: center;																		<!-- CSS: Alinea al centro horizontalmente -->
+    z-index: 10000;																				<!-- CSS: Z-index más alto -->
+    backdrop-filter: blur(4px);																	<!-- CSS: Filtro de desenfoque para el fondo -->
+  }																									<!-- CSS: Fin de estilos para .order-modal -->
+
+  .order-modal.active {																			<!-- CSS: Estilos para .order-modal cuando tiene la clase 'active' -->
+    display: flex;																					<!-- CSS: Muestra como flexbox -->
+  }																									<!-- CSS: Fin de estilos para .order-modal.active -->
+
+  .order-modal-content {																			<!-- CSS: Estilos para el contenido del modal de compra -->
+    background: #fff;																				<!-- CSS: Color de fondo -->
+    border-radius: 12px;																			<!-- CSS: Radio de borde -->
+    padding: 24px;																				<!-- CSS: Relleno interior -->
+    width: 90%;																					<!-- CSS: Ancho -->
+    max-width: 420px;																				<!-- CSS: Ancho máximo -->
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);													<!-- CSS: Sombra de la caja -->
+    position: relative;																			<!-- CSS: Posición relativa -->
+    animation: fadeIn 0.25s ease;																	<!-- CSS: Animación de aparición -->
+    /* Eliminar scroll vertical */																<!-- CSS: Comentario -->
+    overflow: hidden;																				<!-- CSS: Oculta desbordamiento vertical -->
+  }																									<!-- CSS: Fin de estilos para .order-modal-content -->
+
+  .order-modal-content h3 {																		<!-- CSS: Estilos para el título dentro del modal de compra -->
+    margin-top: 0;																				<!-- CSS: Margen superior -->
+    color: #5e00a8;																				<!-- CSS: Color del texto -->
+    text-align: center;																			<!-- CSS: Alineación del texto -->
+    font-size: 1.2rem;																			<!-- CSS: Tamaño de fuente -->
+  }																									<!-- CSS: Fin de estilos para .order-modal-content h3 -->
+
+  .order-modal-content p, .order-modal-content label {												<!-- CSS: Estilos para p y label dentro del modal de compra -->
+    margin: 8px 0 4px;																			<!-- CSS: Margen -->
+    font-weight: 600;																				<!-- CSS: Peso de la fuente -->
+    color: #5e00a8;																				<!-- CSS: Color del texto -->
+    text-align: left;																				<!-- CSS: Alineación del texto -->
+  }																									<!-- CSS: Fin de estilos para .order-modal-content p, .order-modal-content label -->
+
+  .order-modal-content input {																		<!-- CSS: Estilos para inputs dentro del modal de compra -->
+    width: 100%;																					<!-- CSS: Ancho -->
+    padding: 8px;																					<!-- CSS: Relleno interior -->
+    border: 1px solid #ddd;																		<!-- CSS: Borde -->
+    border-radius: 6px;																			<!-- CSS: Radio de borde -->
+    font-size: 0.9rem;																			<!-- CSS: Tamaño de fuente -->
+    margin-top: 4px;																				<!-- CSS: Margen superior -->
+  }																									<!-- CSS: Fin de estilos para .order-modal-content input -->
+
+  .order-modal-content #order-total {																<!-- CSS: Estilos para el total en el modal de compra -->
+    font-weight: 700;																				<!-- CSS: Peso de la fuente -->
+    color: #5e00a8;																				<!-- CSS: Color del texto -->
+    font-size: 1.1rem;																			<!-- CSS: Tamaño de fuente -->
+    text-align: center;																			<!-- CSS: Alineación del texto -->
+    margin: 12px 0;																				<!-- CSS: Margen -->
+  }																									<!-- CSS: Fin de estilos para .order-modal-content #order-total -->
+
+  /* Campo de cantidad más pequeño */
+  #order-quantity-input {																			<!-- CSS: Estilos específicos para el input de cantidad -->
+    width: 20%;																					<!-- CSS: Ancho -->
+    padding: 6px 8px;																			<!-- CSS: Relleno interior -->
+    font-size: 0.9rem;																			<!-- CSS: Tamaño de fuente -->
+    height: 32px;																					<!-- CSS: Alto -->
+  }																									<!-- CSS: Fin de estilos para #order-quantity-input -->
+
+  .modal-buttons {																				<!-- CSS: Estilos para el contenedor de botones en el modal -->
+    margin-top: 20px;																				<!-- CSS: Margen superior -->
+    display: flex;																					<!-- CSS: Muestra como flexbox -->
+    gap: 12px;																					<!-- CSS: Espacio entre botones -->
+  }																									<!-- CSS: Fin de estilos para .modal-buttons -->
+
+  .confirm-btn, .cancel-btn {																		<!-- CSS: Estilos para botones de confirmar y cancelar -->
+    flex: 1;																					<!-- CSS: Flexibilidad -->
+    padding: 10px;																				<!-- CSS: Relleno interior -->
+    border: none;																					<!-- CSS: Sin borde -->
+    border-radius: 8px;																			<!-- CSS: Radio de borde -->
+    font-weight: 600;																				<!-- CSS: Peso de la fuente -->
+    font-size: 0.92rem;																			<!-- CSS: Tamaño de fuente -->
+    cursor: pointer;																				<!-- CSS: Cursor -->
+  }																									<!-- CSS: Fin de estilos para .confirm-btn, .cancel-btn -->
+
+  .confirm-btn {																					<!-- CSS: Estilos específicos para el botón de confirmar -->
+    background: linear-gradient(135deg, #9c4ae2, #7c00ff);											<!-- CSS: Gradiente de fondo -->
+    color: white;																					<!-- CSS: Color del texto -->
+  }																									<!-- CSS: Fin de estilos para .confirm-btn -->
+
+  .confirm-btn:hover {																				<!-- CSS: Estilos hover para .confirm-btn -->
+    opacity: 0.9;																				<!-- CSS: Opacidad al pasar el mouse -->
+  }																									<!-- CSS: Fin de estilos hover para .confirm-btn -->
+
+  .confirm-btn:disabled {																			<!-- CSS: Estilos para .confirm-btn cuando está deshabilitado -->
+    background: #cccccc;																			<!-- CSS: Color de fondo -->
+    cursor: not-allowed;																			<!-- CSS: Cursor -->
+    opacity: 0.7;																				<!-- CSS: Opacidad -->
+  }																									<!-- CSS: Fin de estilos para .confirm-btn:disabled -->
+
+  .cancel-btn {																					<!-- CSS: Estilos específicos para el botón de cancelar -->
+    background: #f0f0f0;																			<!-- CSS: Color de fondo -->
+    color: #555;																					<!-- CSS: Color del texto -->
+  }																									<!-- CSS: Fin de estilos para .cancel-btn -->
+
+  .cancel-btn:hover {																				<!-- CSS: Estilos hover para .cancel-btn -->
+    background: #e0e0e0;																			<!-- CSS: Color de fondo al pasar el mouse -->
+  }																									<!-- CSS: Fin de estilos hover para .cancel-btn -->
+
+  .close-btn {																					<!-- CSS: Estilos para botón de cierre del modal de compra -->
+    position: absolute;																			<!-- CSS: Posición absoluta -->
+    top: 12px;																					<!-- CSS: Posición desde arriba -->
+    right: 16px;																					<!-- CSS: Posición desde la derecha -->
+    font-size: 22px;																				<!-- CSS: Tamaño de fuente -->
+    cursor: pointer;																				<!-- CSS: Cursor -->
+    color: #888;																					<!-- CSS: Color del texto -->
+    font-weight: bold;																			<!-- CSS: Peso de la fuente -->
+  }																									<!-- CSS: Fin de estilos para .close-btn -->
+
+  .close-btn:hover {																				<!-- CSS: Estilos hover para .close-btn -->
+    color: #000;																					<!-- CSS: Color del texto al pasar el mouse -->
+  }																									<!-- CSS: Fin de estilos hover para .close-btn -->
+
+  /* ====== MENSAJE DE ERROR EN CANTIDAD ====== */
+  .error-msg {																					<!-- CSS: Estilos para el mensaje de error -->
+    color: #d90429;																				<!-- CSS: Color del texto -->
+    font-size: 0.85em;																			<!-- CSS: Tamaño de fuente -->
+    margin-top: 4px;																				<!-- CSS: Margen superior -->
+    min-height: 16px;																				<!-- CSS: Altura mínima -->
+    display: none;																					<!-- CSS: Oculto por defecto -->
+  }																									<!-- CSS: Fin de estilos para .error-msg -->
+
+  @keyframes fadeIn {																				<!-- CSS: Definición de la animación fadeIn -->
+    from { opacity: 0; transform: scale(0.95); }													<!-- CSS: Estado inicial de la animación -->
+    to { opacity: 1; transform: scale(1); }														<!-- CSS: Estado final de la animación -->
+  }																									<!-- CSS: Fin de la definición de la animación fadeIn -->
+</style>																							<!-- CSS: Fin del bloque de estilos -->
+
+<!-- 🔹 Pasar los servicios al front -->
+<script>																							<!-- JS: Bloque de script -->
+  window.SERVICES = <%- JSON.stringify(services || {}) %>;											<!-- JS: Pasa el objeto services del backend al frontend -->
+</script>																							<!-- JS: Fin del bloque de script -->
+
+<!-- 🔹 Script para manejar los filtros -->
+<script>																							<!-- JS: Bloque de script -->
+  // Función para actualizar las categorías en el segundo filtro según la plataforma seleccionada		<!-- JS: Comentario -->
+  function updateCategoryFilter(platform) {														<!-- JS: Define la función updateCategoryFilter -->
+    const categorySelect = document.getElementById('categoryFilter');								<!-- JS: Obtiene el elemento select de categoría -->
+    // Limpiar opciones existentes (excepto "Todas")												<!-- JS: Comentario -->
+    while (categorySelect.options.length > 1) {													<!-- JS: Bucle para limpiar opciones -->
+      categorySelect.remove(1);																	<!-- JS: Elimina la opción -->
+    }																								<!-- JS: Fin del bucle -->
+
+    if (platform === 'all') {																		<!-- JS: Condición si la plataforma es 'all' -->
+      // Si se selecciona "Todas", no llenamos el filtro de categoría, solo mostramos "Todas"		<!-- JS: Comentario -->
+      return;																					<!-- JS: Sale de la función -->
+    }																								<!-- JS: Fin de la condición -->
+
+    // Obtener todas las categorías únicas de la plataforma seleccionada							<!-- JS: Comentario -->
+    const categories = new Set();																	<!-- JS: Crea un conjunto para categorías únicas -->
+    const servicesForPlatform = window.SERVICES[platform] || [];									<!-- JS: Obtiene servicios para la plataforma -->
+    servicesForPlatform.forEach(service => {														<!-- JS: Itera sobre los servicios -->
+      if (service.category) {																		<!-- JS: Condición si el servicio tiene categoría -->
+        categories.add(service.category);															<!-- JS: Añade la categoría al conjunto -->
+      }																							<!-- JS: Fin de la condición -->
+    });																							<!-- JS: Fin de la iteración -->
+
+    // Añadir cada categoría como opción																<!-- JS: Comentario -->
+    categories.forEach(category => {																<!-- JS: Itera sobre las categorías únicas -->
+      const option = document.createElement('option');												<!-- JS: Crea un elemento option -->
+      option.value = category;																		<!-- JS: Establece el valor -->
+      option.textContent = category;																<!-- JS: Establece el texto -->
+      categorySelect.appendChild(option);															<!-- JS: Añade la opción al select -->
+    });																							<!-- JS: Fin de la iteración -->
+  }																									<!-- JS: Fin de la función updateCategoryFilter -->
+
+  // Función para aplicar los filtros																<!-- JS: Comentario -->
+  function applyFilters() {																			<!-- JS: Define la función applyFilters -->
+    const platformFilter = document.getElementById('platformFilter').value;							<!-- JS: Obtiene el valor del filtro de plataforma -->
+    const categoryFilter = document.getElementById('categoryFilter').value;							<!-- JS: Obtiene el valor del filtro de categoría -->
+
+    // Mostrar u ocultar secciones de plataforma													<!-- JS: Comentario -->
+    Object.keys(window.SERVICES).forEach(platform => {												<!-- JS: Itera sobre las claves de servicios -->
+      const section = document.getElementById(platform);											<!-- JS: Obtiene la sección de la plataforma -->
+      if (platformFilter === 'all' || platform === platformFilter) {								<!-- JS: Condición para mostrar sección -->
+        section.classList.remove('hidden');														<!-- JS: Remueve la clase 'hidden' -->
+      } else {																					<!-- JS: Condición alternativa -->
+        section.classList.add('hidden');															<!-- JS: Añade la clase 'hidden' -->
+      }																							<!-- JS: Fin de la condición -->
+    });																							<!-- JS: Fin de la iteración -->
+
+    // Filtrar filas dentro de cada tabla visible													<!-- JS: Comentario -->
+    Object.keys(window.SERVICES).forEach(platform => {												<!-- JS: Itera sobre las claves de servicios -->
+      const section = document.getElementById(platform);											<!-- JS: Obtiene la sección de la plataforma -->
+      if (!section.classList.contains('hidden')) {													<!-- JS: Condición si la sección no está oculta -->
+        const tableRows = section.querySelectorAll('.service-table tbody tr');						<!-- JS: Selecciona filas de la tabla -->
+        tableRows.forEach(row => {																<!-- JS: Itera sobre las filas -->
+          const rowCategory = row.querySelector('td:nth-child(2)').textContent.trim(); // Categoría está en la 2da columna	<!-- JS: Obtiene la categoría de la fila -->
+          if (categoryFilter === 'all' || rowCategory === categoryFilter) {							<!-- JS: Condición para mostrar fila -->
+            row.style.display = 'table-row';														<!-- JS: Muestra la fila -->
+          } else {																				<!-- JS: Condición alternativa -->
+            row.style.display = 'none';															<!-- JS: Oculta la fila -->
+          }																						<!-- JS: Fin de la condición -->
+        });																						<!-- JS: Fin de la iteración -->
+
+        // También filtrar tarjetas móviles															<!-- JS: Comentario -->
+        const mobileCards = section.querySelectorAll('.mobile-service-cards .service-card');		<!-- JS: Selecciona tarjetas móviles -->
+        mobileCards.forEach(card => {																<!-- JS: Itera sobre las tarjetas -->
+          const cardCategory = card.querySelector('.service-card-row:nth-child(2) .service-value').textContent.trim(); // Categoría en la 2da fila	<!-- JS: Obtiene la categoría de la tarjeta -->
+          if (categoryFilter === 'all' || cardCategory === categoryFilter) {						<!-- JS: Condición para mostrar tarjeta -->
+            card.style.display = 'flex'; // o 'block', dependiendo de tu CSS							<!-- JS: Muestra la tarjeta -->
+          } else {																				<!-- JS: Condición alternativa -->
+            card.style.display = 'none';															<!-- JS: Oculta la tarjeta -->
+          }																						<!-- JS: Fin de la condición -->
+        });																						<!-- JS: Fin de la iteración -->
+      }																							<!-- JS: Fin de la condición -->
+    });																							<!-- JS: Fin de la iteración -->
+  }																									<!-- JS: Fin de la función applyFilters -->
+
+  // Eventos para los selectores																		<!-- JS: Comentario -->
+  document.getElementById('platformFilter').addEventListener('change', function() {					<!-- JS: Añade evento change al select de plataforma -->
+    const selectedPlatform = this.value;															<!-- JS: Obtiene la plataforma seleccionada -->
+    updateCategoryFilter(selectedPlatform);														<!-- JS: Actualiza el filtro de categoría -->
+    applyFilters();																				<!-- JS: Aplica los filtros -->
+  });																								<!-- JS: Fin del evento -->
+
+  document.getElementById('categoryFilter').addEventListener('change', function() {					<!-- JS: Añade evento change al select de categoría -->
+    applyFilters();																				<!-- JS: Aplica los filtros -->
+  });																								<!-- JS: Fin del evento -->
+
+  // Inicializar el filtro de categoría con la primera plataforma seleccionada (si no es "all")		<!-- JS: Comentario -->
+  document.addEventListener('DOMContentLoaded', function() {										<!-- JS: Añade evento DOMContentLoaded -->
+    const initialPlatform = document.getElementById('platformFilter').value;						<!-- JS: Obtiene la plataforma inicial -->
+    if (initialPlatform !== 'all') {																<!-- JS: Condición si la plataforma no es 'all' -->
+      updateCategoryFilter(initialPlatform);														<!-- JS: Actualiza el filtro de categoría -->
+    }																								<!-- JS: Fin de la condición -->
+  });																								<!-- JS: Fin del evento -->
+</script>																							<!-- JS: Fin del bloque de script -->
+
+<!-- 🔹 Render HTML de categorías -->
+<% Object.keys(services).forEach(cat => { %>														<!-- EJS: Itera sobre las claves del objeto services -->
+  <div class="category-section" id="<%= cat %>">													<!-- HTML: Contenedor para cada categoría/plataforma -->
+    <div class="category-header">																	<!-- HTML: Encabezado de la sección -->
+      <% if (cat === 'facebook') { %><i class="fab fa-facebook-f"></i> Facebook<% } %>				<!-- HTML: Icono y texto para Facebook -->
+      <% if (cat === 'youtube') { %><i class="fab fa-youtube"></i> YouTube<% } %>					<!-- HTML: Icono y texto para YouTube -->
+      <% if (cat === 'tiktok') { %><i class="fab fa-tiktok"></i> TikTok<% } %>					<!-- HTML: Icono y texto para TikTok -->
+      <% if (cat === 'instagram') { %><i class="fab fa-instagram"></i> Instagram<% } %>			<!-- HTML: Icono y texto para Instagram -->
+    </div>																							<!-- HTML: Fin del encabezado -->
+
+    <!-- Tabla para escritorio -->
+    <table class="service-table">																	<!-- HTML: Tabla de servicios -->
+      <thead>																						<!-- HTML: Cabecera de la tabla -->
+        <tr>																						<!-- HTML: Fila de encabezado -->
+          <th>ID</th>																				<!-- HTML: Celda de encabezado ID -->
+          <th>Categoría</th>																		<!-- HTML: Celda de encabezado Categoría -->
+          <th>Servicio</th>																		<!-- HTML: Celda de encabezado Servicio -->
+          <th>Precio x 1000</th>																	<!-- HTML: Celda de encabezado Precio x 1000 -->
+          <th>Mínimo</th>																			<!-- HTML: Celda de encabezado Mínimo -->
+          <th>Máximo</th>																			<!-- HTML: Celda de encabezado Máximo -->
+          <th>Descripción</th>																		<!-- HTML: Celda de encabezado Descripción -->
+          <th>Acciones</th>																		<!-- HTML: Celda de encabezado Acciones -->
+        </tr>																						<!-- HTML: Fin de la fila de encabezado -->
+      </thead>																						<!-- HTML: Fin de la cabecera -->
+      <tbody>																						<!-- HTML: Cuerpo de la tabla -->
+        <% services[cat].forEach(service => { 														<!-- EJS: Itera sobre los servicios de la categoría actual -->
+          const pricePen = Number(service.pricePerThousandPEN || 0);								<!-- EJS: Calcula el precio en PEN -->
+        %>																							<!-- EJS: Fin de la lógica EJS -->
+        <tr>																						<!-- HTML: Fila de datos -->
+          <td data-label="ID"><%= service.id %></td>												<!-- HTML: Celda de ID -->
+          <td data-label="Categoría"><%= service.category || '-' %></td>							<!-- HTML: Celda de Categoría -->
+          <td data-label="Servicio"><%= service.service %></td>									<!-- HTML: Celda de Servicio -->
+          <td data-label="Precio x 1000" class="price-per-1000" data-id="<%= service.id %>" data-price-pen="<%= pricePen %>">S/. <%= pricePen.toFixed(2) %></td>	<!-- HTML: Celda de Precio -->
+          <td data-label="Mínimo"><%= service.min.toLocaleString('es-ES') %></td>					<!-- HTML: Celda de Mínimo -->
+          <td data-label="Máximo"><%= service.max.toLocaleString('es-ES') %></td>					<!-- HTML: Celda de Máximo -->
+          <td data-label="Descripción"><button class="desc-btn" data-id="<%= service.id %>">Ver descripción</button></td>	<!-- HTML: Celda con botón de descripción -->
+          <td data-label="Acciones">																<!-- HTML: Celda de Acciones -->
+            <button																					<!-- HTML: Botón de compra -->
+              class="buy-btn"																		<!-- HTML: Clase del botón -->
+              data-platform="<%= cat %>"															<!-- HTML: Atributo de datos plataforma -->
+              data-id="<%= service.id %>"															<!-- HTML: Atributo de datos ID -->
+              data-service="<%= encodeURIComponent(service.service) %>"							<!-- HTML: Atributo de datos servicio -->
+              data-min="<%= service.min %>"															<!-- HTML: Atributo de datos mínimo -->
+              data-max="<%= service.max %>"															<!-- HTML: Atributo de datos máximo -->
+              data-price-pen="<%= pricePen %>"														<!-- HTML: Atributo de datos precio PEN -->
+            >																						<!-- HTML: Fin de los atributos del botón -->
+              Comprar																				<!-- HTML: Texto del botón -->
+            </button>																				<!-- HTML: Fin del botón -->
+          </td>																					<!-- HTML: Fin de la celda de acciones -->
+        </tr>																						<!-- HTML: Fin de la fila de datos -->
+        <% }) %>																					<!-- EJS: Fin de la iteración de servicios -->
+      </tbody>																						<!-- HTML: Fin del cuerpo -->
+    </table>																						<!-- HTML: Fin de la tabla -->
+
+    <!-- Tarjetas para móviles -->
+    <div class="mobile-service-cards" style="display: none;">										<!-- HTML: Contenedor de tarjetas móviles -->
+      <% services[cat].forEach(service => { 														<!-- EJS: Itera sobre los servicios de la categoría actual -->
+        const pricePen = Number(service.pricePerThousandPEN || 0);								<!-- EJS: Calcula el precio en PEN -->
+      %>																							<!-- EJS: Fin de la lógica EJS -->
+      <div class="service-card" data-id="<%= service.id %>">										<!-- HTML: Tarjeta de servicio -->
+        <div class="service-card-row">																<!-- HTML: Fila dentro de la tarjeta -->
+          <span class="service-label">ID</span>													<!-- HTML: Etiqueta ID -->
+          <span class="service-value"><%= service.id %></span>									<!-- HTML: Valor ID -->
+        </div>																						<!-- HTML: Fin de la fila -->
+        <div class="service-card-row">																<!-- HTML: Fila dentro de la tarjeta -->
+          <span class="service-label">Categoría</span>												<!-- HTML: Etiqueta Categoría -->
+          <span class="service-value"><%= service.category || '-' %></span>						<!-- HTML: Valor Categoría -->
+        </div>																						<!-- HTML: Fin de la fila -->
+        <div class="service-card-row">																<!-- HTML: Fila dentro de la tarjeta -->
+          <span class="service-label">Servicio</span>												<!-- HTML: Etiqueta Servicio -->
+          <span class="service-value"><%= service.service %></span>								<!-- HTML: Valor Servicio -->
+        </div>																						<!-- HTML: Fin de la fila -->
+        <div class="service-card-row">																<!-- HTML: Fila dentro de la tarjeta -->
+          <span class="service-label">Precio x 1000</span>											<!-- HTML: Etiqueta Precio x 1000 -->
+          <span class="service-value price">S/. <%= pricePen.toFixed(2) %></span>					<!-- HTML: Valor Precio x 1000 -->
+        </div>																						<!-- HTML: Fin de la fila -->
+        <div class="service-card-row">																<!-- HTML: Fila dentro de la tarjeta -->
+          <span class="service-label">Mínimo</span>												<!-- HTML: Etiqueta Mínimo -->
+          <span class="service-value"><%= service.min.toLocaleString('es-ES') %></span>			<!-- HTML: Valor Mínimo -->
+        </div>																						<!-- HTML: Fin de la fila -->
+        <div class="service-card-row">																<!-- HTML: Fila dentro de la tarjeta -->
+          <span class="service-label">Máximo</span>												<!-- HTML: Etiqueta Máximo -->
+          <span class="service-value"><%= service.max.toLocaleString('es-ES') %></span>			<!-- HTML: Valor Máximo -->
+        </div>																						<!-- HTML: Fin de la fila -->
+        <div class="service-card-row">																<!-- HTML: Fila dentro de la tarjeta -->
+          <span class="service-label">Descripción</span>											<!-- HTML: Etiqueta Descripción -->
+          <button class="desc-btn" data-id="<%= service.id %>">Ver descripción</button>			<!-- HTML: Botón de descripción -->
+        </div>																						<!-- HTML: Fin de la fila -->
+        <div class="service-actions">																<!-- HTML: Contenedor de acciones -->
+          <button																					<!-- HTML: Botón de compra -->
+            class="buy-btn"																			<!-- HTML: Clase del botón -->
+            data-platform="<%= cat %>"																<!-- HTML: Atributo de datos plataforma -->
+            data-id="<%= service.id %>"																<!-- HTML: Atributo de datos ID -->
+            data-service="<%= encodeURIComponent(service.service) %>"								<!-- HTML: Atributo de datos servicio -->
+            data-min="<%= service.min %>"															<!-- HTML: Atributo de datos mínimo -->
+            data-max="<%= service.max %>"															<!-- HTML: Atributo de datos máximo -->
+            data-price-pen="<%= pricePen %>"														<!-- HTML: Atributo de datos precio PEN -->
+          >																						<!-- HTML: Fin de los atributos del botón -->
+            Comprar																				<!-- HTML: Texto del botón -->
+          </button>																				<!-- HTML: Fin del botón -->
+        </div>																						<!-- HTML: Fin del contenedor de acciones -->
+      </div>																						<!-- HTML: Fin de la tarjeta -->
+      <% }) %>																					<!-- EJS: Fin de la iteración de servicios -->
+    </div>																							<!-- HTML: Fin del contenedor de tarjetas móviles -->
+  </div>																							<!-- HTML: Fin del contenedor de categoría -->
+<% }) %>																							<!-- EJS: Fin de la iteración de categorías -->
+
+<!-- 🔹 Modal de descripción -->
+<div id="descModal" class="desc-modal">															<!-- HTML: Contenedor del modal de descripción -->
+  <div class="desc-box">																			<!-- HTML: Cuadro de contenido del modal -->
+    <button class="desc-close" onclick="closeDescModal()">&times;</button>							<!-- HTML: Botón de cierre del modal -->
+    <h3>Descripción del servicio</h3>																<!-- HTML: Título del modal -->
+    <div id="descContent"></div>																	<!-- HTML: Contenedor para el contenido dinámico -->
+  </div>																							<!-- HTML: Fin del cuadro de contenido -->
+</div>																								<!-- HTML: Fin del contenedor del modal -->
+
+<!-- 🔹 Modal de compra (nueva orden) -->
+<div id="orderModal" class="order-modal">															<!-- HTML: Contenedor del modal de compra -->
+  <div class="order-modal-content">																<!-- HTML: Contenido del modal de compra -->
+    <span class="close-btn" onclick="closeOrderModal()">&times;</span>								<!-- HTML: Botón de cierre del modal -->
+    <h3>🧾 Nueva orden</h3>																		<!-- HTML: Título del modal -->
+    
+    <p><b>Plataforma:</b> <span id="order-platform"></span></p>									<!-- HTML: Párrafo con plataforma -->
+    <p><b>ID:</b> <span id="order-id"></span></p>													<!-- HTML: Párrafo con ID -->
+    <p><b>Servicio:</b> <span id="order-service"></span></p>										<!-- HTML: Párrafo con servicio -->
+    
+    <label for="order-quantity-input">Cantidad:</label>											<!-- HTML: Etiqueta para input de cantidad -->
+    <input type="number" id="order-quantity-input" min="0" step="1" />								<!-- HTML: Input para cantidad -->
+    <div class="error-msg" id="order-error"></div>												<!-- HTML: Contenedor para mensaje de error -->
+    
+    <div id="order-total">Total a pagar: S/. 0.00</div>											<!-- HTML: Div para mostrar total -->
+    
+    <label for="order-link">Enlace del contenido:</label>											<!-- HTML: Etiqueta para input de enlace -->
+    <input type="text" id="order-link" placeholder="    https://www.youtube.com/...    " />		<!-- HTML: Input para enlace (con espacios en el placeholder) -->
+    
+    <div class="modal-buttons">																		<!-- HTML: Contenedor de botones del modal -->
+      <button class="cancel-btn" onclick="closeOrderModal()">Cancelar</button>						<!-- HTML: Botón de cancelar -->
+      <button class="confirm-btn" id="confirmOrder" disabled>Confirmar pedido</button>				<!-- HTML: Botón de confirmar (deshabilitado inicialmente) -->
+    </div>																							<!-- HTML: Fin del contenedor de botones -->
+  </div>																							<!-- HTML: Fin del contenido del modal -->
+</div>																								<!-- HTML: Fin del contenedor del modal -->
+
+<script>																							<!-- JS: Bloque de script -->
+  // === Variables globales ===																		<!-- JS: Comentario -->
+  let currentOrder = null;																			<!-- JS: Variable para almacenar la orden actual -->
+
+  // === Funciones de cierre de modales ===															<!-- JS: Comentario -->
+  function closeDescModal() {																		<!-- JS: Función para cerrar modal de descripción -->
+    document.getElementById("descModal").classList.remove("active");								<!-- JS: Remueve la clase 'active' -->
+  }																									<!-- JS: Fin de la función -->
+
+  function closeOrderModal() {																		<!-- JS: Función para cerrar modal de compra -->
+    document.getElementById("orderModal").classList.remove("active");								<!-- JS: Remueve la clase 'active' -->
+  }																									<!-- JS: Fin de la función -->
+
+  // === Modal de descripción ===																	<!-- JS: Comentario -->
+  document.querySelectorAll(".desc-btn").forEach(btn => {											<!-- JS: Selecciona todos los botones de descripción y añade evento -->
+    btn.addEventListener("click", e => {															<!-- JS: Añade evento click -->
+      const id = e.target.dataset.id;																<!-- JS: Obtiene el ID del servicio -->
+      const service = Object.values(window.SERVICES).flat().find(s => s.id == id);					<!-- JS: Busca el servicio correspondiente -->
+      if (!service) return;																		<!-- JS: Sale si no encuentra el servicio -->
+
+      const desc = service.description || "Sin descripción disponible.";							<!-- JS: Obtiene la descripción -->
+      const notes = service.notes_es || service.notes || [];										<!-- JS: Obtiene las notas -->
+      const quality = service.quality || "No especificado";											<!-- JS: Obtiene la calidad -->
+      const start = service.start_time || "-";														<!-- JS: Obtiene el tiempo de inicio -->
+      const speed = service.speed || "-";															<!-- JS: Obtiene la velocidad -->
+      const refill = service.refill || "No aplica";												<!-- JS: Obtiene la recarga -->
+      const drop = service.drop || "No";															<!-- JS: Obtiene el drop -->
+
+      let html = `																					<!-- JS: Inicia la construcción del HTML -->
+        <h3>${service.service}</h3>																<!-- JS: Título del servicio -->
+        <p>${desc}</p>																				<!-- JS: Descripción -->
+        <hr>																					<!-- JS: Línea divisoria -->
+        <ul>																					<!-- JS: Lista de detalles -->
+          <li>💎 <strong>Calidad:</strong> ${quality}</li>											<!-- JS: Calidad -->
+          <li>⏱️ <strong>Inicio:</strong> ${start}</li>											<!-- JS: Inicio -->
+          <li>⚡ <strong>Velocidad:</strong> ${speed}</li>											<!-- JS: Velocidad -->
+          <li>🔁 <strong>Recarga:</strong> ${refill}</li>											<!-- JS: Recarga -->
+          <li>📉 <strong>Drop:</strong> ${drop}</li>												<!-- JS: Drop -->
+        </ul>																					<!-- JS: Fin de la lista -->
+      `;																							<!-- JS: Fin de la primera parte del HTML -->
+
+      if (notes.length > 0) {																		<!-- JS: Condición si hay notas -->
+        html += `																					<!-- JS: Añade HTML para notas -->
+          <hr>																					<!-- JS: Línea divisoria -->
+          <div class="note">																		<!-- JS: Contenedor de nota -->
+            <strong>⚠️ Notas:</strong>																<!-- JS: Título de notas -->
+            <ul style="padding-left: 18px; margin-top: 6px;">										<!-- JS: Lista de notas -->
+              ${notes.map(n => `<li>${n}</li>`).join("")}											<!-- JS: Mapea y une las notas -->
+            </ul>																					<!-- JS: Fin de la lista de notas -->
+          </div>																					<!-- JS: Fin del contenedor de nota -->
+        `;																							<!-- JS: Fin de la parte de notas -->
+      }																								<!-- JS: Fin de la condición -->
+
+      document.getElementById("descContent").innerHTML = html;										<!-- JS: Inserta el HTML generado -->
+      document.getElementById("descModal").classList.add("active");								<!-- JS: Añade la clase 'active' al modal -->
+    });																							<!-- JS: Fin del evento click -->
+  });																								<!-- JS: Fin del bucle forEach -->
+
+  // === Modal de compra ===																		<!-- JS: Comentario -->
+  document.querySelectorAll(".buy-btn").forEach(btn => {											<!-- JS: Selecciona todos los botones de compra y añade evento -->
+    btn.addEventListener("click", () => {															<!-- JS: Añade evento click -->
+      const platform = btn.dataset.platform;														<!-- JS: Obtiene la plataforma -->
+      const id = btn.dataset.id;																	<!-- JS: Obtiene el ID -->
+      const service = decodeURIComponent(btn.dataset.service);										<!-- JS: Obtiene y decodifica el nombre del servicio -->
+      const min = parseInt(btn.dataset.min);														<!-- JS: Obtiene el mínimo -->
+      const max = parseInt(btn.dataset.max);														<!-- JS: Obtiene el máximo -->
+      const pricePen = parseFloat(btn.dataset.pricePen);											<!-- JS: Obtiene el precio en PEN -->
+
+      currentOrder = { platform, id, service, min, max, pricePen };								<!-- JS: Almacena la orden actual -->
+
+      // Rellenar modal																			<!-- JS: Comentario -->
+      document.getElementById("order-platform").textContent = platform.charAt(0).toUpperCase() + platform.slice(1);	<!-- JS: Rellena la plataforma -->
+      document.getElementById("order-id").textContent = id;											<!-- JS: Rellena el ID -->
+      document.getElementById("order-service").textContent = service;								<!-- JS: Rellena el servicio -->
+      document.getElementById("order-quantity-input").value = min;									<!-- JS: Rellena la cantidad con el mínimo -->
+      document.getElementById("order-link").value = "";											<!-- JS: Limpia el enlace -->
+      document.getElementById("order-error").textContent = "";										<!-- JS: Limpia el mensaje de error -->
+      document.getElementById("order-error").style.display = "none";								<!-- JS: Oculta el mensaje de error -->
+      
+      // Forzar actualización del total															<!-- JS: Comentario -->
+      updateOrderTotal(min);																		<!-- JS: Actualiza el total -->
+      validateQuantity(min);																		<!-- JS: Valida la cantidad -->
+
+      // Mostrar modal																				<!-- JS: Comentario -->
+      document.getElementById("orderModal").classList.add("active");								<!-- JS: Muestra el modal -->
+    });																							<!-- JS: Fin del evento click -->
+  });																								<!-- JS: Fin del bucle forEach -->
+
+  // Actualizar total en tiempo real																<!-- JS: Comentario -->
+  const quantityInput = document.getElementById("order-quantity-input");							<!-- JS: Obtiene el input de cantidad -->
+  if (quantityInput) {																				<!-- JS: Condición si el input existe -->
+    quantityInput.addEventListener("input", function(e) {											<!-- JS: Añade evento input -->
+      const qty = parseInt(this.value) || 0;														<!-- JS: Obtiene la cantidad -->
+      updateOrderTotal(qty);																		<!-- JS: Actualiza el total -->
+      validateQuantity(qty);																		<!-- JS: Valida la cantidad -->
+    });																							<!-- JS: Fin del evento input -->
+  }																									<!-- JS: Fin de la condición -->
+
+  function updateOrderTotal(qty) {																	<!-- JS: Define la función updateOrderTotal -->
+    if (!currentOrder) return;																		<!-- JS: Sale si no hay orden -->
+
+    const rate = Number(window.APP_CONFIG?.exchangeRate || 4);										<!-- JS: Obtiene el tipo de cambio -->
+    const curr = localStorage.getItem("currency") || window.APP_CONFIG?.defaultCurrency || "PEN";	<!-- JS: Obtiene la moneda -->
+    const total = (qty / 1000) * currentOrder.pricePen;											<!-- JS: Calcula el total en PEN -->
+    const totalInCurr = curr === "USD" ? total / rate : total;										<!-- JS: Convierte a la moneda seleccionada -->
+    const symbol = curr === "USD" ? "$" : "S/.";													<!-- JS: Obtiene el símbolo de moneda -->
+
+    const totalElement = document.getElementById("order-total");									<!-- JS: Obtiene el elemento del total -->
+    if (totalElement) {																			<!-- JS: Condición si el elemento existe -->
+      totalElement.textContent = `${symbol} ${totalInCurr.toFixed(2)}`;							<!-- JS: Actualiza el texto del total -->
+    }																								<!-- JS: Fin de la condición -->
+  }																									<!-- JS: Fin de la función -->
+
+  function validateQuantity(qty) {																	<!-- JS: Define la función validateQuantity -->
+    const errorEl = document.getElementById("order-error");										<!-- JS: Obtiene el elemento de error -->
+    const confirmBtn = document.getElementById("confirmOrder");										<!-- JS: Obtiene el botón de confirmar -->
+
+    if (!currentOrder) return;																		<!-- JS: Sale si no hay orden -->
+
+    if (qty < currentOrder.min) {																	<!-- JS: Condición si la cantidad es menor al mínimo -->
+      errorEl.textContent = `⚠️ Mínimo: ${currentOrder.min}`;										<!-- JS: Muestra mensaje de error -->
+      errorEl.style.display = "block";																<!-- JS: Muestra el mensaje -->
+      confirmBtn.disabled = true;																	<!-- JS: Deshabilita el botón -->
+    } else if (qty > currentOrder.max) {															<!-- JS: Condición si la cantidad es mayor al máximo -->
+      errorEl.textContent = `⚠️ Máximo: ${currentOrder.max}`;										<!-- JS: Muestra mensaje de error -->
+      errorEl.style.display = "block";																<!-- JS: Muestra el mensaje -->
+      confirmBtn.disabled = true;																	<!-- JS: Deshabilita el botón -->
+    } else {																					<!-- JS: Condición alternativa (cantidad válida) -->
+      errorEl.style.display = "none";																<!-- JS: Oculta el mensaje -->
+      confirmBtn.disabled = false;																	<!-- JS: Habilita el botón -->
+    }																								<!-- JS: Fin de la condición -->
+  }																									<!-- JS: Fin de la función -->
+
+    // Confirmar orden																				<!-- JS: Comentario -->
+  document.getElementById("confirmOrder")?.addEventListener("click", () => {						<!-- JS: Añade evento click al botón de confirmar -->
+    const qtyInput = document.getElementById("order-quantity-input");								<!-- JS: Obtiene el input de cantidad -->
+    const linkInput = document.getElementById("order-link");										<!-- JS: Obtiene el input de enlace -->
+    const qty = parseInt(qtyInput.value) || 0;														<!-- JS: Obtiene la cantidad -->
+    const link = linkInput.value.trim();															<!-- JS: Obtiene y limpia el enlace -->
+    const errorEl = document.getElementById("order-error");										<!-- JS: Obtiene el elemento de error -->
+
+    if (!currentOrder) {																			<!-- JS: Condición si no hay orden -->
+      alert("Error interno. Recarga la página.");													<!-- JS: Muestra alerta -->
+      return;																					<!-- JS: Sale de la función -->
+    }																								<!-- JS: Fin de la condición -->
+
+    if (qty < currentOrder.min) {																	<!-- JS: Condición si la cantidad es menor al mínimo -->
+      errorEl.textContent = `Mínimo: ${currentOrder.min}`;											<!-- JS: Muestra mensaje de error -->
+      errorEl.style.display = "block";																<!-- JS: Muestra el mensaje -->
+      return;																					<!-- JS: Sale de la función -->
+    }																								<!-- JS: Fin de la condición -->
+    if (qty > currentOrder.max) {																	<!-- JS: Condición si la cantidad es mayor al máximo -->
+      errorEl.textContent = `Máximo: ${currentOrder.max}`;											<!-- JS: Muestra mensaje de error -->
+      errorEl.style.display = "block";																<!-- JS: Muestra el mensaje -->
+      return;																					<!-- JS: Sale de la función -->
+    }																								<!-- JS: Fin de la condición -->
+    if (!link) {																					<!-- JS: Condición si no hay enlace -->
+      errorEl.textContent = "Ingresa el enlace del contenido.";									<!-- JS: Muestra mensaje de error -->
+      errorEl.style.display = "block";																<!-- JS: Muestra el mensaje -->
+      return;																					<!-- JS: Sale de la función -->
+    }																								<!-- JS: Fin de la condición -->
+
+    const rate = Number(window.APP_CONFIG?.exchangeRate || 4);										<!-- JS: Obtiene el tipo de cambio -->
+    const curr = localStorage.getItem("currency") || window.APP_CONFIG?.defaultCurrency || "PEN";	<!-- JS: Obtiene la moneda -->
+    const total = (qty / 1000) * currentOrder.pricePen;											<!-- JS: Calcula el total en PEN -->
+    const totalInCurr = curr === "USD" ? total / rate : total;										<!-- JS: Convierte a la moneda seleccionada -->
+    const symbol = curr === "USD" ? "$" : "S/.";													<!-- JS: Obtiene el símbolo de moneda -->
+
+    const mensaje = `🧾 *Nueva orden YT Manager*%0A` +												<!-- JS: Construye el mensaje para WhatsApp -->
+                    `🔹 *Plataforma:* ${currentOrder.platform.charAt(0).toUpperCase() + currentOrder.platform.slice(1)}%0A` +
+                    `🔹 *ID:* ${currentOrder.id}%0A` +
+                    `🔹 *Servicio:* ${currentOrder.service}%0A` +
+                    `🔹 *Cantidad:* ${qty}%0A` +
+                    `🔹 *Enlace:* ${encodeURIComponent(link)}%0A%0A` +
+                    `💰 *Total:* ${symbol} ${totalInCurr.toFixed(2)} (${curr})`;
+
+    // --- CORRECCIÓN: Comentario sobre la ubicación del número ---								<!-- JS: Comentario -->
+    // El número de WhatsApp se espera que esté disponible en window.APP_CONFIG?.whatsapp			<!-- JS: Comentario -->
+    // Esta variable debería ser cargada previamente desde config.json ubicado en images/public		<!-- JS: Comentario -->
+    const telefono = (window.APP_CONFIG?.whatsapp || "").replace(/\D/g, "");						<!-- JS: Obtiene y limpia el número de teléfono -->
+    if (!telefono) {																				<!-- JS: Condición si no hay número -->
+      alert("⚠️ WhatsApp no configurado.");														<!-- JS: Muestra alerta -->
+      return;																					<!-- JS: Sale de la función -->
+    }																								<!-- JS: Fin de la condición -->
+
+    // --- CORRECCIÓN: Eliminación de espacios en la URL ---										<!-- JS: Comentario -->
+    const url = `https://wa.me/  ${telefono}?text=${mensaje}`;										<!-- JS: Construye la URL de WhatsApp (CORREGIR ESTA LÍNEA) -->
+    window.open(url, "_blank");																		<!-- JS: Abre la URL en una nueva pestaña -->
+
+    closeOrderModal();																				<!-- JS: Cierra el modal -->
+  });																								<!-- JS: Fin del evento click -->
+
+  // Cerrar modal de orden al hacer clic fuera														<!-- JS: Comentario -->
+  document.getElementById("orderModal")?.addEventListener("click", e => {							<!-- JS: Añade evento click al contenedor del modal -->
+    if (e.target.id === "orderModal") {															<!-- JS: Condición si se hizo clic fuera del contenido -->
+      closeOrderModal();																			<!-- JS: Cierra el modal -->
+    }																								<!-- JS: Fin de la condición -->
+  });																								<!-- JS: Fin del evento -->
+
+  // Cerrar modal de descripción al hacer clic fuera												<!-- JS: Comentario -->
+  document.getElementById("descModal")?.addEventListener("click", e => {							<!-- JS: Añade evento click al contenedor del modal -->
+    if (e.target.id === "descModal") {															<!-- JS: Condición si se hizo clic fuera del contenido -->
+      closeDescModal();																			<!-- JS: Cierra el modal -->
+    }																								<!-- JS: Fin de la condición -->
+  });																								<!-- JS: Fin del evento -->
+</script>																							<!-- JS: Fin del bloque de script -->

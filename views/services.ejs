@@ -33,7 +33,7 @@
     text-align: center;
     font-size: 1.76rem;
     color: #5e00a8;
-    margin: -20px 0 0px; /* 👈 Reducido para acercar al contenido */
+    margin: -20px 0 0px;
     font-weight: 700;
     letter-spacing: 0.5px;
     text-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -44,7 +44,7 @@
     justify-content: center;
     align-items: center;
     gap: 16px;
-    margin-bottom: 15px; /* 👈 Reducido para acercar a la tabla */
+    margin-bottom: 15px;
     flex-wrap: wrap;
     padding: 12px;
     background: white;
@@ -81,18 +81,18 @@
   }
 
   /* Contenedor general por plataforma */
-.category-section {
+  .category-section {
     background: white;
     border-radius: 16px;
     box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-    padding: 10px; /* 👈 Reducido para acercar contenido */
-    margin: 15px 0; /* 👈 Reducido */
+    padding: 10px;
+    margin: 15px 0;
     width: 100%;
     max-width: 100%;
     transition: all 0.3s ease;
     overflow-x: auto;
     border-left: 5px solid #7c00ff;
-}
+  }
 
   .category-section.hidden {
     display: none;
@@ -108,7 +108,7 @@
     font-size: 17.6px;
     font-weight: 700;
     color: #5e00a8;
-    margin-bottom: 10px; /* 👈 Reducido */
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -217,51 +217,6 @@
     box-shadow: 0 6px 15px rgba(124, 0, 255, 0.3);
   }
 
-  .buy-btn.disabled {
-    background: #cccccc;
-    cursor: not-allowed;
-    box-shadow: none;
-    opacity: 0.8;
-  }
-
-  /* Input de cantidad */
-  input.qty-input {
-    width: 80px;
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    text-align: center;
-    font-size: 0.76rem;
-    transition: all 0.2s ease;
-    background: #faf8ff;
-    font-weight: 600;
-  }
-
-  input.qty-input:focus {
-    border-color: #7c00ff;
-    box-shadow: 0 0 8px rgba(124, 0, 255, 0.2);
-    outline: none;
-    background: white;
-  }
-
-  /* Total y error */
-  .price-total {
-    font-size: 10.4px;
-    color: #777;
-    margin-top: 6px;
-    font-weight: 500;
-    text-align: center;
-  }
-
-  .error-msg {
-    color: #e74c3c;
-    font-size: 9.6px;
-    margin-top: 4px;
-    display: none;
-    font-weight: 600;
-    text-align: center;
-  }
-
   /* ===== TABLA PARA ESCRITORIO ===== */
   .service-table {
     width: 100%;
@@ -304,47 +259,16 @@
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   }
 
-  /* Columnas específicas (ajustadas para coincidir con la imagen) */
-  th:nth-child(1), td:nth-child(1) { 
-    width: 40px; 
-    text-align: center; 
-    font-size: 0.76rem;
-  }
-  th:nth-child(2), td:nth-child(2) { 
-    width: 110px; 
-  }
-  th:nth-child(3), td:nth-child(3) { 
-    width: 950px; /* Servicio más ancho */
-    word-break: break-word;
-  }
-  th:nth-child(4), td:nth-child(4) { 
-    width: 70px; 
-    text-align: center; 
-    white-space: nowrap;
-  }
-  th:nth-child(5), td:nth-child(5) { 
-    width: 20px; 
-    text-align: center; 
-    font-size: 0.76rem;
-  }
-  th:nth-child(6), td:nth-child(6) { 
-    width: 30px; 
-    text-align: center; 
-    font-size: 0.76rem;
-  }
-  th:nth-child(7), td:nth-child(7) { 
-    width: 130px; 
-    text-align: center; 
-  }
-  th:nth-child(8), td:nth-child(8) { 
-    width: 170px; 
-  }
-  th:nth-child(9), td:nth-child(9) { 
-    width: 50px; 
-    text-align: center; 
-  }
+  /* Columnas específicas */
+  th:nth-child(1), td:nth-child(1) { width: 40px; text-align: center; }
+  th:nth-child(2), td:nth-child(2) { width: 110px; }
+  th:nth-child(3), td:nth-child(3) { width: 950px; word-break: break-word; }
+  th:nth-child(4), td:nth-child(4) { width: 70px; text-align: center; white-space: nowrap; }
+  th:nth-child(5), td:nth-child(5) { width: 20px; text-align: center; }
+  th:nth-child(6), td:nth-child(6) { width: 30px; text-align: center; }
+  th:nth-child(7), td:nth-child(7) { width: 170px; }
+  th:nth-child(8), td:nth-child(8) { width: 50px; text-align: center; }
 
-  /* Precio por 1000 */
   .price-per-1000 {
     font-weight: 700;
     color: #5e00a8;
@@ -352,148 +276,273 @@
     font-size: 0.8rem;
   }
 
-  /* ===== RESPONSIVE: Pantallas pequeñas ===== */
+  /* ===== RESPONSIVE ===== */
   @media (max-width: 768px) {
-    .service-table {
-      display: none;
-    }
-
-    .service-card {
-      padding: 15px;
-      margin-bottom: 15px;
-    }
-
-    .service-card-row {
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    .service-label {
-      font-size: 0.68rem;
-      min-width: auto;
-      text-align: left;
-    }
-
-    .service-value {
-      font-size: 0.72rem;
-      text-align: left;
-    }
-
-    .service-value.price {
-      font-size: 0.8rem;
-    }
-
-    .service-actions {
-      flex-direction: column;
-    }
-
-    .qty-input {
-      font-size: 0.8rem;
-      padding: 9.6px;
-    }
-
-    .price-total {
-      font-size: 0.72rem;
-    }
-
-    .desc-btn, .buy-btn {
-      font-size: 0.8rem;
-      padding: 11.2px;
-    }
-
-    .category-section {
-      padding: 15px;
-    }
-
-    .filter-bar {
-      padding: 10px;
-    }
-
-    .page-title {
-      font-size: 1.44rem;
-    }
-
-    .modal-content {
-      width: 95%;
-      margin: 10% auto;
-      padding: 16px;
-    }
+    .service-table { display: none; }
+    .service-card { padding: 15px; margin-bottom: 15px; }
+    .service-card-row { flex-direction: column; align-items: stretch; }
+    .service-label { font-size: 0.68rem; min-width: auto; text-align: left; }
+    .service-value { font-size: 0.72rem; text-align: left; }
+    .service-value.price { font-size: 0.8rem; }
+    .service-actions { flex-direction: column; }
+    .desc-btn, .buy-btn { font-size: 0.8rem; padding: 11.2px; }
+    .category-section { padding: 15px; }
+    .filter-bar { padding: 10px; }
+    .page-title { font-size: 1.44rem; }
   }
 
   @media (max-width: 480px) {
-    .filter-bar {
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .filter-select {
-      min-width: 100%;
-    }
-
-    .service-card {
-      padding: 12px;
-    }
-
-    .service-label {
-      font-size: 0.64rem;
-    }
-
-    .service-value {
-      font-size: 0.68rem;
-    }
-
-    .qty-input {
-      font-size: 0.88rem;
-      padding: 11.2px;
-    }
-
-    .desc-btn, .buy-btn {
-      font-size: 0.88rem;
-      padding: 12.8px;
-    }
+    .filter-bar { flex-direction: column; gap: 10px; }
+    .filter-select { min-width: 100%; }
+    .service-card { padding: 12px; }
+    .service-label { font-size: 0.64rem; }
+    .service-value { font-size: 0.68rem; }
+    .desc-btn, .buy-btn { font-size: 0.88rem; padding: 12.8px; }
   }
 
-  /* ===== Modal general ===== */
-  .modal {
+  /* ===============================
+      MODAL DE DESCRIPCIÓN
+  =============================== */
+  .desc-modal {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
     align-items: center;
+    justify-content: center;
     z-index: 9999;
     backdrop-filter: blur(4px);
   }
 
-  .modal.active {
+  .desc-modal.active {
     display: flex;
   }
 
-  .modal-content {
+  .desc-box {
     background: #fff;
-    padding: 24px;
-    border-radius: 12px;
+    border-radius: 16px;
+    max-width: 600px;
     width: 90%;
-    max-width: 400px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+    padding: 24px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     position: relative;
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
-    animation: fadeIn 0.3s ease;
-    max-height: 80vh; /* 👈 Limita altura */
-    overflow-y: auto; /* 👈 Permite scroll si el contenido es largo */
+    animation: fadeIn 0.25s ease;
+    max-height: 80vh;
+    overflow-y: auto;
   }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+  .desc-box h3 {
+    margin-top: 0;
+    color: #6B00FF;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
   }
 
-  .modal-content h3 {
+  .desc-box ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+  }
+
+  .desc-box li {
+    margin: 6px 0;
+    display: flex;
+    gap: 6px;
+    align-items: flex-start;
+  }
+
+  .desc-box .note {
+    background: #fff8e1;
+    border-left: 4px solid #facc15;
+    padding: 8px 10px;
+    border-radius: 8px;
+    margin-top: 12px;
+    font-size: 0.9em;
+  }
+
+  .desc-close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    font-size: 24px;
+    color: #666;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .desc-close:hover {
+    color: #000;
+  }
+
+  /* ===============================
+      MODAL DE COMPRA (NUEVA ORDEN)
+  =============================== */
+  .order-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    backdrop-filter: blur(4px);
+  }
+
+  .order-modal.active {
+    display: flex;
+  }
+
+  .order-modal-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+    position: relative;
+    animation: fadeIn 0.25s ease;
+    /* Eliminar scroll vertical */
+    overflow: hidden;
+  }
+
+  .order-modal-content h3 {
+    margin-top: 0;
     color: #5e00a8;
-    margin-bottom: 16px;
-    font-weight: 600;
+    text-align: center;
     font-size: 1.2rem;
+  }
+
+  ```css
+/* === MODAL DE COMPRA (NUEVA ORDEN) === */
+
+/* Estilos generales para el contenido del modal */
+.order-modal-content {
+  /* ... tus estilos existentes ... */
+}
+
+/* Cambiar las etiquetas (Plataforma, ID, Servicio, Cantidad) a NEGRO */
+.order-modal-content label,
+.order-modal-content p {
+  margin: 8px 0 4px;
+  font-weight: 600;
+  color: #000; /* 👈 Color negro para las etiquetas y párrafos */
+  text-align: left;
+}
+
+/* Cambiar los DATOS (el texto que sigue a las etiquetas) a MORADO */
+.order-modal-content p span {
+  color: #050886; /* 👈 Color morado para los datos */
+}
+
+/* Cambiar el título del modal a MORADO (opcional, como en tu imagen) */
+.order-modal-content h3 {
+  margin-top: 0;
+  color: #5e00a8; /* 👈 Color morado para el título */
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+/* Cambiar el total a MORADO (opcional, como en tu imagen) */
+.order-modal-content #order-total {
+  font-weight: 700;
+  color: #5e00a8; /* 👈 Color morado para el total */
+  font-size: 1.1rem;
+  text-align: center;
+  margin: 12px 0;
+}
+
+/* Cambiar la etiqueta "Enlace del contenido:" a NEGRO */
+.order-modal-content label[for="order-link"] {
+  color: #5e00a8; /* 👈 Color negro para la palabra "Enlace del contenido:" */
+}
+
+/* Cambiar el placeholder del input de enlace a NEGRO */
+.order-modal-content #order-link::placeholder {
+  color: #938c96; /* 👈 Color negro para el texto de ayuda del input */
+}
+
+/* Cambiar el borde del input de enlace a NEGRO */
+.order-modal-content #order-link {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #5e00a8; /* 👈 Borde negro */
+  border-radius: 6px;
+  font-size: 0.9rem;
+  margin-top: 4px;
+  color: #000000; /* 👈 Texto negro dentro del input */
+}
+
+/* Si quieres que el texto *dentro* del input de enlace también sea negro cuando se escribe, usa esto */
+.order-modal-content #order-link {
+  /* ... estilos anteriores ... */
+  color: #000000; /* 👈 Texto negro dentro del input */
+}
+
+```
+  .order-modal-content input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-top: 4px;
+  }
+
+  .order-modal-content #order-total {
+    font-weight: 700;
+    color: #5e00a8;
+    font-size: 1.1rem;
+    text-align: center;
+    margin: 12px 0;
+  }
+
+  /* Campo de cantidad más pequeño */
+  #order-quantity-input {
+    width: 20%;
+    padding: 6px 8px;
+    font-size: 0.9rem;
+    height: 32px;
+  }
+
+  .modal-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 12px;
+  }
+
+  .confirm-btn, .cancel-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    cursor: pointer;
+  }
+
+  .confirm-btn {
+    background: linear-gradient(135deg, #9c4ae2, #7c00ff);
+    color: white;
+  }
+
+  .confirm-btn:hover {
+    opacity: 0.9;
+  }
+
+  .confirm-btn:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  .cancel-btn {
+    background: #f0f0f0;
+    color: #555;
+  }
+
+  .cancel-btn:hover {
+    background: #e0e0e0;
   }
 
   .close-btn {
@@ -504,161 +553,126 @@
     cursor: pointer;
     color: #888;
     font-weight: bold;
-    transition: color 0.2s ease;
   }
+
   .close-btn:hover {
     color: #000;
   }
 
-  .modal-buttons {
-    margin-top: 20px;
-    display: flex;
-    gap: 12px;
-    justify-content: center;
+  /* ====== MENSAJE DE ERROR EN CANTIDAD ====== */
+  .error-msg {
+    color: #d90429;
+    font-size: 0.85em;
+    margin-top: 4px;
+    min-height: 16px;
+    display: none;
   }
 
-  .confirm-btn,
-  .cancel-btn {
-    flex: 1;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    font-size: 0.92rem;
-    transition: all 0.2s ease;
-  }
-
-  .confirm-btn {
-    background: linear-gradient(135deg, #009b4d, #00c853);
-    color: white;
-    box-shadow: 0 2px 6px rgba(0, 155, 77, 0.3);
-  }
-  .confirm-btn:hover {
-    background: linear-gradient(135deg, #007a3d, #00a040);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(0, 155, 77, 0.4);
-  }
-
-  .cancel-btn {
-    background: #f0f0f0;
-    color: #555;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  .cancel-btn:hover {
-    background: #e0e0e0;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-  }
-
-  /* ===== Estilo general de enlaces ===== */
-  a {
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.2s ease;
-  }
-  a:hover {
-    transform: scale(1.05);
-    background-color: #ffcc00;
-    border-radius: 4px;
-    padding: 2px 6px;
-  }
-
-  /* Quitar márgenes del contenedor principal si existe */
-  .container {
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100%;
-    max-width: none;
-  }
-
-  /* ===== Responsive ===== */
-  @media (max-width: 1200px) {
-    .category-section {
-      width: calc(100% - 10px);
-      padding: 18px;
-    }
-    .service-table th,
-    .service-table td {
-      padding: 10px;
-      font-size: 0.9rem;
-    }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
   }
 </style>
 
 <!-- 🔹 Pasar los servicios al front -->
 <script>
   window.SERVICES = <%- JSON.stringify(services || {}) %>;
+</script>
 
-  // Función para actualizar precios cuando cambie la moneda
-  function updatePrices() {
-    const rate = Number(CONFIG.exchangeRate || 4);
-    const curr = localStorage.getItem("currency") || CONFIG.defaultCurrency || "PEN";
+<!-- 🔹 Script para manejar los filtros -->
+<script>
+  // Función para actualizar las categorías en el segundo filtro según la plataforma seleccionada
+  function updateCategoryFilter(platform) {
+    const categorySelect = document.getElementById('categoryFilter');
+    // Limpiar opciones existentes (excepto "Todas")
+    while (categorySelect.options.length > 1) {
+      categorySelect.remove(1);
+    }
 
-    document.querySelectorAll(".price-per-1000").forEach(el => {
-      const basePen = parseFloat(el.dataset.pricePen);
-      if (isNaN(basePen)) return;
+    if (platform === 'all') {
+      // Si se selecciona "Todas", no llenamos el filtro de categoría, solo mostramos "Todas"
+      return;
+    }
 
-      const converted = curr === "USD" ? basePen / rate : basePen;
-      el.innerText = curr === "USD"
-        ? `$${converted.toFixed(2)}`
-        : `S/. ${basePen.toFixed(2)}`;
+    // Obtener todas las categorías únicas de la plataforma seleccionada
+    const categories = new Set();
+    const servicesForPlatform = window.SERVICES[platform] || [];
+    servicesForPlatform.forEach(service => {
+      if (service.category) {
+        categories.add(service.category);
+      }
     });
 
-    document.querySelectorAll(".qty-input").forEach(input => {
-      const row = input.closest("tr");
-      const totalEl = row?.querySelector(".price-total");
-      const pricePen = parseFloat(row.querySelector(".price-per-1000").dataset.pricePen);
-      const qty = parseFloat(input.value || 0);
+    // Añadir cada categoría como opción
+    categories.forEach(category => {
+      const option = document.createElement('option');
+      option.value = category;
+      option.textContent = category;
+      categorySelect.appendChild(option);
+    });
+  }
 
-      const total = (qty / 1000) * (curr === "USD" ? pricePen / rate : pricePen);
-      if (totalEl) {
-        totalEl.innerText = curr === "USD"
-          ? `Total: $${total.toFixed(2)}`
-          : `Total: S/. ${total.toFixed(2)}`;
+  // Función para aplicar los filtros
+  function applyFilters() {
+    const platformFilter = document.getElementById('platformFilter').value;
+    const categoryFilter = document.getElementById('categoryFilter').value;
+
+    // Mostrar u ocultar secciones de plataforma
+    Object.keys(window.SERVICES).forEach(platform => {
+      const section = document.getElementById(platform);
+      if (platformFilter === 'all' || platform === platformFilter) {
+        section.classList.remove('hidden');
+      } else {
+        section.classList.add('hidden');
+      }
+    });
+
+    // Filtrar filas dentro de cada tabla visible
+    Object.keys(window.SERVICES).forEach(platform => {
+      const section = document.getElementById(platform);
+      if (!section.classList.contains('hidden')) {
+        const tableRows = section.querySelectorAll('.service-table tbody tr');
+        tableRows.forEach(row => {
+          const rowCategory = row.querySelector('td:nth-child(2)').textContent.trim(); // Categoría está en la 2da columna
+
+          if (categoryFilter === 'all' || rowCategory === categoryFilter) {
+            row.style.display = 'table-row';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+
+        // También filtrar tarjetas móviles
+        const mobileCards = section.querySelectorAll('.mobile-service-cards .service-card');
+        mobileCards.forEach(card => {
+          const cardCategory = card.querySelector('.service-card-row:nth-child(2) .service-value').textContent.trim(); // Categoría en la 2da fila
+
+          if (categoryFilter === 'all' || cardCategory === categoryFilter) {
+            card.style.display = 'flex'; // o 'block', dependiendo de tu CSS
+          } else {
+            card.style.display = 'none';
+          }
+        });
       }
     });
   }
 
-  // Función para actualizar solo las tarjetas móviles (necesaria para celulares)
-  function updateMobileCardPrices() {
-    const rate = Number(CONFIG.exchangeRate || 4);
-    const curr = localStorage.getItem("currency") || CONFIG.defaultCurrency || "PEN";
+  // Eventos para los selectores
+  document.getElementById('platformFilter').addEventListener('change', function() {
+    const selectedPlatform = this.value;
+    updateCategoryFilter(selectedPlatform);
+    applyFilters();
+  });
 
-    document.querySelectorAll(".service-card").forEach(card => {
-      const serviceId = card.dataset.id;
-      const service = Object.values(window.SERVICES).flat().find(s => s.id == serviceId);
-      if (!service) return;
+  document.getElementById('categoryFilter').addEventListener('change', function() {
+    applyFilters();
+  });
 
-      const pricePen = Number(service.pricePerThousandPEN || 0);
-      const priceEl = card.querySelector(".service-value.price");
-      if (priceEl) {
-        priceEl.innerText = curr === "USD"
-          ? `$${(pricePen / rate).toFixed(2)}`
-          : `S/. ${pricePen.toFixed(2)}`;
-      }
-
-      const qtyInput = card.querySelector(".qty-input");
-      const qty = parseFloat(qtyInput?.value || service.min) || 0;
-      const totalEl = card.querySelector(".price-total");
-      if (totalEl) {
-        const total = (qty / 1000) * pricePen;
-        totalEl.innerText = curr === "USD"
-          ? `Total: $${(total / rate).toFixed(2)}`
-          : `Total: S/. ${total.toFixed(2)}`;
-      }
-    });
-  }
-
-  // Ejecutar al cargar si hay cambio de moneda
-  document.addEventListener('DOMContentLoaded', () => {
-    const currencySelect = document.getElementById('currencySelect');
-    if (currencySelect) {
-      currencySelect.addEventListener('change', () => {
-        updatePrices();
-        updateMobileCardPrices(); // ✅ Forzar actualización en móviles
-      });
+  // Inicializar el filtro de categoría con la primera plataforma seleccionada (si no es "all")
+  document.addEventListener('DOMContentLoaded', function() {
+    const initialPlatform = document.getElementById('platformFilter').value;
+    if (initialPlatform !== 'all') {
+      updateCategoryFilter(initialPlatform);
     }
   });
 </script>
@@ -677,23 +691,19 @@
     <table class="service-table">
       <thead>
         <tr>
-          <th style="width: 40px; text-align: center;">ID</th>
-          <th style="width: 110px;">Categoría</th>
-          <th style="width: 950px; word-break: break-word;">Servicio</th>
-          <th style="width: 70px; text-align: center; white-space: nowrap;">Precio x 1000</th>
-          <th style="width: 20px; text-align: center;">Mínimo</th>
-          <th style="width: 30px; text-align: center;">Máximo</th>
-          <th style="width: 130px; text-align: center;">Cantidad</th>
-          <th style="width: 170px;">Descripción</th>
-          <th style="width: 50px; text-align: center;">Acciones</th>
+          <th>ID</th>
+          <th>Categoría</th>
+          <th>Servicio</th>
+          <th>Precio x 1000</th>
+          <th>Mínimo</th>
+          <th>Máximo</th>
+          <th>Descripción</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
         <% services[cat].forEach(service => { 
           const pricePen = Number(service.pricePerThousandPEN || 0);
-          const minQty = Number(service.min || 0);
-          const maxQty = Number(service.max || 0);
-          const total = (minQty / 1000) * pricePen;
         %>
         <tr>
           <td data-label="ID"><%= service.id %></td>
@@ -702,42 +712,21 @@
           <td data-label="Precio x 1000" class="price-per-1000" data-id="<%= service.id %>" data-price-pen="<%= pricePen %>">S/. <%= pricePen.toFixed(2) %></td>
           <td data-label="Mínimo"><%= service.min.toLocaleString('es-ES') %></td>
           <td data-label="Máximo"><%= service.max.toLocaleString('es-ES') %></td>
-          <td data-label="Cantidad">
-            <input 
-              type="number" 
-              class="qty-input" 
-              id="qty-<%= service.id %>" 
-              value="<%= minQty %>" 
-              min="<%= minQty %>" 
-              max="<%= maxQty %>" 
-              step="1"
-              oninput="updateTotal(<%= service.id %>, <%= minQty %>, <%= maxQty %>, <%= pricePen %>)"
-            />
-            <div class="price-total" id="price-<%= service.id %>">Total: S/. <%= total.toFixed(2) %></div>
-            <div class="error-msg" id="error-<%= service.id %>"></div>
-          </td>
           <td data-label="Descripción"><button class="desc-btn" data-id="<%= service.id %>">Ver descripción</button></td>
           <td data-label="Acciones">
             <button 
               class="buy-btn" 
+              data-platform="<%= cat %>"
               data-id="<%= service.id %>" 
-              data-title="<%= (service.service || '').replace(/'/g, "\\'") %>" 
+              data-service="<%= encodeURIComponent(service.service) %>" 
+              data-min="<%= service.min %>"
+              data-max="<%= service.max %>"
               data-price-pen="<%= pricePen %>"
-              onclick="openOrderModal(<%= service.id %>)"
             >
               Comprar
             </button>
           </td>
         </tr>
-        <script>
-          // Ejecutar validación al cargar para habilitar/deshabilitar botón inicialmente
-          updateTotal(<%= service.id %>, <%= minQty %>, <%= maxQty %>, <%= pricePen %>);
-
-          // Agregar evento de actualización de precios si existe
-          if (typeof updatePrices === 'function') {
-            document.addEventListener('currencyChanged', updatePrices);
-          }
-        </script>
         <% }) %>
       </tbody>
     </table>
@@ -746,9 +735,6 @@
     <div class="mobile-service-cards" style="display: none;">
       <% services[cat].forEach(service => { 
         const pricePen = Number(service.pricePerThousandPEN || 0);
-        const minQty = Number(service.min || 0);
-        const maxQty = Number(service.max || 0);
-        const total = (minQty / 1000) * pricePen;
       %>
       <div class="service-card" data-id="<%= service.id %>">
         <div class="service-card-row">
@@ -776,278 +762,276 @@
           <span class="service-value"><%= service.max.toLocaleString('es-ES') %></span>
         </div>
         <div class="service-card-row">
-          <span class="service-label">Cantidad</span>
-          <div style="width: 100%;">
-            <input 
-              type="number" 
-              class="qty-input" 
-              id="qty-mobile-<%= service.id %>" 
-              value="<%= minQty %>" 
-              min="<%= minQty %>" 
-              max="<%= maxQty %>" 
-              step="1"
-              oninput="updateTotalMobile(<%= service.id %>, <%= minQty %>, <%= maxQty %>, <%= pricePen %>)"
-            />
-            <div class="price-total" id="price-mobile-<%= service.id %>">Total: S/. <%= total.toFixed(2) %></div>
-            <div class="error-msg" id="error-mobile-<%= service.id %>"></div>
-          </div>
-        </div>
-        <div class="service-card-row">
           <span class="service-label">Descripción</span>
           <button class="desc-btn" data-id="<%= service.id %>">Ver descripción</button>
         </div>
         <div class="service-actions">
           <button 
             class="buy-btn" 
+            data-platform="<%= cat %>"
             data-id="<%= service.id %>" 
-            data-title="<%= (service.service || '').replace(/'/g, "\\'") %>" 
+            data-service="<%= encodeURIComponent(service.service) %>" 
+            data-min="<%= service.min %>"
+            data-max="<%= service.max %>"
             data-price-pen="<%= pricePen %>"
-            onclick="openOrderModal(<%= service.id %>)"
           >
             Comprar
           </button>
         </div>
       </div>
-      <script>
-        // Ejecutar validación al cargar para habilitar/deshabilitar botón inicialmente
-        updateTotalMobile(<%= service.id %>, <%= minQty %>, <%= maxQty %>, <%= pricePen %>);
-
-        // Agregar evento de actualización de precios si existe
-        if (typeof updatePrices === 'function') {
-          document.addEventListener('currencyChanged', updatePrices);
-        }
-      </script>
       <% }) %>
     </div>
   </div>
 <% }) %>
 
-<!-- 🔹 Modal -->
-<div id="descModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn" onclick="closeModal()">&times;</span>
-    <div id="modalBody"></div>
+<!-- 🔹 Modal de descripción -->
+<div id="descModal" class="desc-modal">
+  <div class="desc-box">
+    <button class="desc-close" onclick="closeDescModal()">&times;</button>
+    <h3>Descripción del servicio</h3>
+    <div id="descContent"></div>
+  </div>
+</div>
+
+<!-- 🔹 Modal de compra (nueva orden) -->
+<div id="orderModal" class="order-modal">
+  <div class="order-modal-content">
+    <span class="close-btn" onclick="closeOrderModal()">&times;</span>
+    <h3>🧾 Nueva orden</h3>
+    
+    <p><b>Plataforma:</b> <span id="order-platform"></span></p>
+    <p><b>ID:</b> <span id="order-id"></span></p>
+    <p><b>Servicio:</b> <span id="order-service"></span></p>
+    
+    <!-- Contenedor para Cantidad y Total -->
+<div class="amount-container">
+  <div class="quantity-wrapper">
+    <label for="order-quantity-input">Cantidad:</label>
+    <input type="number" id="order-quantity-input" min="0" step="1" />
+    <div class="error-msg" id="order-error"></div>
+  </div>
+
+  <!-- Contenedor para el Total a Pagar -->
+  <div class="total-wrapper">
+    <div id="order-total"><span>Total a Pagar:</span> S/. 0.00</div>
+    
+    <label for="order-link">Enlace del contenido:</label>
+    <input type="text" id="order-link" placeholder="  https://www.youtube.com/...  " />
+    
+    <div class="modal-buttons">
+      <button class="cancel-btn" onclick="closeOrderModal()">Cancelar</button>
+      <button class="confirm-btn" id="confirmOrder" disabled>Confirmar pedido</button>
+    </div>
   </div>
 </div>
 
 <script>
-  // Cerrar modal
-  function closeModal() {
-    document.getElementById("descModal").style.display = "none";
+  // === Variables globales ===
+  let currentOrder = null;
+
+  // === Funciones de cierre de modales ===
+  function closeDescModal() {
+    document.getElementById("descModal").classList.remove("active");
   }
 
-  // Abrir modal
+  function closeOrderModal() {
+    document.getElementById("orderModal").classList.remove("active");
+  }
+
+  // === Modal de descripción ===
   document.querySelectorAll(".desc-btn").forEach(btn => {
     btn.addEventListener("click", e => {
       const id = e.target.dataset.id;
       const service = Object.values(window.SERVICES).flat().find(s => s.id == id);
-      const modal = document.getElementById("descModal");
-      modal.querySelector("#modalBody").innerHTML = service.description || "Sin descripción disponible.";
-      modal.style.display = "block";
+      if (!service) return;
+
+      const desc = service.description || "Sin descripción disponible.";
+      const notes = service.notes_es || service.notes || [];
+      const quality = service.quality || "No especificado";
+      const start = service.start_time || "-";
+      const speed = service.speed || "-";
+      const refill = service.refill || "No aplica";
+      const drop = service.drop || "No";
+
+      let html = `
+        <h3>${service.service}</h3>
+        <p>${desc}</p>
+        <hr>
+        <ul>
+          <li>💎 <strong>Calidad:</strong> ${quality}</li>
+          <li>⏱️ <strong>Inicio:</strong> ${start}</li>
+          <li>⚡ <strong>Velocidad:</strong> ${speed}</li>
+          <li>🔁 <strong>Recarga:</strong> ${refill}</li>
+          <li>📉 <strong>Drop:</strong> ${drop}</li>
+        </ul>
+      `;
+
+      if (notes.length > 0) {
+        html += `
+          <hr>
+          <div class="note">
+            <strong>⚠️ Notas:</strong>
+            <ul style="padding-left: 18px; margin-top: 6px;">
+              ${notes.map(n => `<li>${n}</li>`).join("")}
+            </ul>
+          </div>
+        `;
+      }
+
+      document.getElementById("descContent").innerHTML = html;
+      document.getElementById("descModal").classList.add("active");
     });
   });
 
-  // Cerrar si clickea fuera
-  window.onclick = e => {
-    const modal = document.getElementById("descModal");
-    if (e.target === modal) modal.style.display = "none";
-  };
+  // === Modal de compra ===
+  document.querySelectorAll(".buy-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const platform = btn.dataset.platform;
+      const id = btn.dataset.id;
+      const service = decodeURIComponent(btn.dataset.service);
+      const min = parseInt(btn.dataset.min);
+      const max = parseInt(btn.dataset.max);
+      const pricePen = parseFloat(btn.dataset.pricePen);
 
-  // Filtro por plataforma y categoría
-  const platformFilter = document.getElementById('platformFilter');
-  const categoryFilter = document.getElementById('categoryFilter');
+      currentOrder = { platform, id, service, min, max, pricePen };
 
-  // Actualizar opciones de categoría según plataforma
-  platformFilter.addEventListener('change', (e) => {
-    const platform = e.target.value;
-    const categories = new Set();
+      // Rellenar modal
+      document.getElementById("order-platform").textContent = platform.charAt(0).toUpperCase() + platform.slice(1);
+      document.getElementById("order-id").textContent = id;
+      document.getElementById("order-service").textContent = service;
+      document.getElementById("order-quantity-input").value = min;
+      document.getElementById("order-link").value = "";
+      document.getElementById("order-error").textContent = "";
+      document.getElementById("order-error").style.display = "none";
+      
+      // Forzar actualización del total
+      updateOrderTotal(min);
+      validateQuantity(min);
 
-    if (platform === 'all') {
-      // Mostrar todas las categorías
-      Object.values(window.SERVICES).forEach(categoryServices => {
-        categoryServices.forEach(service => {
-          categories.add(service.category);
-        });
-      });
-    } else {
-      // Mostrar solo categorías de la plataforma seleccionada
-      const servicesForPlatform = window.SERVICES[platform] || [];
-      servicesForPlatform.forEach(service => {
-        categories.add(service.category);
-      });
-    }
-
-    // Limpiar y rellenar el select de categoría
-    categoryFilter.innerHTML = '<option value="all">Todas</option>';
-    categories.forEach(cat => {
-      const option = document.createElement('option');
-      option.value = cat;
-      option.textContent = cat;
-      categoryFilter.appendChild(option);
+      // Mostrar modal
+      document.getElementById("orderModal").classList.add("active");
     });
-
-    // Aplicar filtro
-    applyFilters();
   });
 
-  // Filtrar por categoría
-  categoryFilter.addEventListener('change', applyFilters);
-
-  function applyFilters() {
-    const platformValue = platformFilter.value;
-    const categoryValue = categoryFilter.value;
-
-    document.querySelectorAll('.category-section').forEach(section => {
-      const platformId = section.id;
-      const shouldShowPlatform = platformValue === 'all' || platformId === platformValue;
-
-      if (!shouldShowPlatform) {
-        section.classList.add('hidden');
-        return;
-      }
-
-      // Filtrar filas dentro de la sección
-      const rows = section.querySelectorAll('tbody tr');
-      rows.forEach(row => {
-        const categoryCell = row.querySelector('td:nth-child(2)'); // Categoría está en la 2da columna
-        const categoryText = categoryCell ? categoryCell.textContent.trim() : '';
-
-        const shouldShowRow = categoryValue === 'all' || categoryText === categoryValue;
-        row.style.display = shouldShowRow ? 'table-row' : 'none';
-      });
-
-      // Mostrar/ocultar sección si tiene filas visibles
-      const visibleRows = Array.from(rows).filter(row => row.style.display !== 'none');
-      section.classList.toggle('hidden', visibleRows.length === 0);
-    });
-
-    // Actualizar tarjetas móviles
-    updateMobileCards();
-  }
-
-  // Función para actualizar total y validar rango (escritorio)
-  function updateTotal(serviceId, minQty, maxQty, pricePen) {
-    const input = document.getElementById(`qty-${serviceId}`);
-    const qty = parseInt(input.value) || 0;
-    const errorMsg = document.getElementById(`error-${serviceId}`);
-    const buyBtn = document.querySelector(`[data-id="${serviceId}"].buy-btn`);
-    const totalEl = document.getElementById(`price-${serviceId}`);
-
-    let isValid = true;
-
-    if (qty < minQty) {
-      errorMsg.textContent = `⚠️ La cantidad mínima es ${minQty}.`;
-      errorMsg.style.display = 'block';
-      isValid = false;
-    } else if (qty > maxQty) {
-      errorMsg.textContent = `⚠️ La cantidad máxima es ${maxQty}.`;
-      errorMsg.style.display = 'block';
-      isValid = false;
-    } else {
-      errorMsg.style.display = 'none';
-    }
-
-    // Actualizar total
-    const total = (qty / 1000) * pricePen;
-    totalEl.textContent = `Total: S/. ${total.toFixed(2)}`;
-
-    // Habilitar/deshabilitar botón Comprar en Acciones
-    if (isValid && qty >= minQty && qty <= maxQty) {
-      buyBtn.disabled = false;
-      buyBtn.classList.remove('disabled');
-    } else {
-      buyBtn.disabled = true;
-      buyBtn.classList.add('disabled');
-    }
-  }
-
-  // Función para actualizar total y validar rango (móvil)
-  function updateTotalMobile(serviceId, minQty, maxQty, pricePen) {
-    const input = document.getElementById(`qty-mobile-${serviceId}`);
-    const qty = parseInt(input.value) || 0;
-    const errorMsg = document.getElementById(`error-mobile-${serviceId}`);
-    const buyBtn = document.querySelector(`[data-id="${serviceId}"].buy-btn`);
-    const totalEl = document.getElementById(`price-mobile-${serviceId}`);
-
-    let isValid = true;
-
-    if (qty < minQty) {
-      errorMsg.textContent = `⚠️ La cantidad mínima es ${minQty}.`;
-      errorMsg.style.display = 'block';
-      isValid = false;
-    } else if (qty > maxQty) {
-      errorMsg.textContent = `⚠️ La cantidad máxima es ${maxQty}.`;
-      errorMsg.style.display = 'block';
-      isValid = false;
-    } else {
-      errorMsg.style.display = 'none';
-    }
-
-    // Actualizar total
-    const total = (qty / 1000) * pricePen;
-    totalEl.textContent = `Total: S/. ${total.toFixed(2)}`;
-
-    // Habilitar/deshabilitar botón Comprar en Acciones
-    if (isValid && qty >= minQty && qty <= maxQty) {
-      buyBtn.disabled = false;
-      buyBtn.classList.remove('disabled');
-    } else {
-      buyBtn.disabled = true;
-      buyBtn.classList.add('disabled');
-    }
-  }
-
-  // Función para abrir modal de compra (con validación)
-  function openOrderModal(serviceId) {
-    const input = document.getElementById(`qty-${serviceId}`) || document.getElementById(`qty-mobile-${serviceId}`);
-    const qty = parseInt(input.value) || 0;
-    const service = Object.values(window.SERVICES).flat().find(s => s.id == serviceId);
-
-    if (!service) {
-      alert("Servicio no encontrado.");
-      return;
-    }
-
-    const minQty = Number(service.min || 0);
-    const maxQty = Number(service.max || 0);
-
-    // Validar rango antes de abrir el modal
-    if (qty < minQty) {
-      alert(`⚠️ La cantidad mínima es ${minQty}.`);
-      return;
-    }
-    if (qty > maxQty) {
-      alert(`⚠️ La cantidad máxima es ${maxQty}.`);
-      return;
-    }
-
-    // Disparar evento personalizado para que script.js abra el modal real
-    document.dispatchEvent(new CustomEvent('openOrderModal', {
-      detail: {
-        id: serviceId,
-        quantity: qty,
-        service: service.service,
-        price: service.pricePerThousandPEN
-      }
-    }));
-  }
-
-  // Actualizar tarjetas móviles según pantalla
-  function updateMobileCards() {
-    const isMobile = window.innerWidth <= 768;
-    const tables = document.querySelectorAll('.service-table');
-    const mobileCards = document.querySelectorAll('.mobile-service-cards');
-
-    tables.forEach(table => {
-      table.style.display = isMobile ? 'none' : 'table';
-    });
-
-    mobileCards.forEach(cards => {
-      cards.style.display = isMobile ? 'block' : 'none';
+  // Actualizar total en tiempo real
+  const quantityInput = document.getElementById("order-quantity-input");
+  if (quantityInput) {
+    quantityInput.addEventListener("input", function(e) {
+      const qty = parseInt(this.value) || 0;
+      updateOrderTotal(qty);
+      validateQuantity(qty);
     });
   }
 
-  // Ejecutar al cargar y al cambiar tamaño
-  window.addEventListener('load', updateMobileCards);
-  window.addEventListener('resize', updateMobileCards);
+  function updateOrderTotal(qty) {
+  if (!currentOrder) return;
+
+  const rate = Number(window.APP_CONFIG?.exchangeRate || 4);
+  const curr = localStorage.getItem("currency") || window.APP_CONFIG?.defaultCurrency || "PEN";
+  const total = (qty / 1000) * currentOrder.pricePen;
+  const totalInCurr = curr === "USD" ? total / rate : total;
+  const symbol = curr === "USD" ? "$" : "S/.";
+
+  const totalElement = document.getElementById("order-total");
+  if (totalElement) {
+    // Solo actualizamos el texto dentro del <span> o el contenido después del span
+    // Si usaste la estructura <span>Total a Pagar:</span> S/. 0.00
+    // Podemos hacerlo así:
+    const spanText = "Total a Pagar: ";
+    totalElement.innerHTML = `<span>${spanText}</span> ${symbol} ${totalInCurr.toFixed(2)}`;
+  }
+}
+
+  function validateQuantity(qty) {
+    const errorEl = document.getElementById("order-error");
+    const confirmBtn = document.getElementById("confirmOrder");
+
+    if (!currentOrder) return;
+
+    if (qty < currentOrder.min) {
+      errorEl.textContent = `⚠️ Mínimo: ${currentOrder.min}`;
+      errorEl.style.display = "block";
+      confirmBtn.disabled = true;
+    } else if (qty > currentOrder.max) {
+      errorEl.textContent = `⚠️ Máximo: ${currentOrder.max}`;
+      errorEl.style.display = "block";
+      confirmBtn.disabled = true;
+    } else {
+      errorEl.style.display = "none";
+      confirmBtn.disabled = false;
+    }
+  }
+
+    // Confirmar orden
+  document.getElementById("confirmOrder")?.addEventListener("click", () => {
+    const qtyInput = document.getElementById("order-quantity-input");
+    const linkInput = document.getElementById("order-link");
+    const qty = parseInt(qtyInput.value) || 0;
+    const link = linkInput.value.trim();
+    const errorEl = document.getElementById("order-error");
+
+    if (!currentOrder) {
+      alert("Error interno. Recarga la página.");
+      return;
+    }
+
+    if (qty < currentOrder.min) {
+      errorEl.textContent = `Mínimo: ${currentOrder.min}`;
+      errorEl.style.display = "block";
+      return;
+    }
+    if (qty > currentOrder.max) {
+      errorEl.textContent = `Máximo: ${currentOrder.max}`;
+      errorEl.style.display = "block";
+      return;
+    }
+    if (!link) {
+      errorEl.textContent = "Ingresa el enlace del contenido.";
+      errorEl.style.display = "block";
+      return;
+    }
+
+    const rate = Number(window.APP_CONFIG?.exchangeRate || 4);
+    const curr = localStorage.getItem("currency") || window.APP_CONFIG?.defaultCurrency || "PEN";
+    const total = (qty / 1000) * currentOrder.pricePen;
+    const totalInCurr = curr === "USD" ? total / rate : total;
+    const symbol = curr === "USD" ? "$" : "S/.";
+
+    const mensaje = `🧾 *Nueva orden YT Manager*%0A` +
+                    `🔹 *Plataforma:* ${currentOrder.platform.charAt(0).toUpperCase() + currentOrder.platform.slice(1)}%0A` +
+                    `🔹 *ID:* ${currentOrder.id}%0A` +
+                    `🔹 *Servicio:* ${currentOrder.service}%0A` +
+                    `🔹 *Cantidad:* ${qty}%0A` +
+                    `🔹 *Enlace:* ${encodeURIComponent(link)}%0A%0A` +
+                    `💰 *Total:* ${symbol} ${totalInCurr.toFixed(2)} (${curr})`;
+
+    // --- CORRECCIÓN: Comentario sobre la ubicación del número ---
+    // El número de WhatsApp se espera que esté disponible en window.APP_CONFIG?.whatsapp
+    // Esta variable debería ser cargada previamente desde config.json ubicado en images/public
+    const telefono = (window.APP_CONFIG?.whatsapp || "").replace(/\D/g, "");
+    if (!telefono) {
+      alert("⚠️ WhatsApp no configurado.");
+      return;
+    }
+
+    // --- CORRECCIÓN: Eliminación de espacios en la URL ---
+    const url = `https://wa.me/${telefono}?text=${mensaje}`;
+    window.open(url, "_blank");
+
+    closeOrderModal();
+  });
+
+  // Cerrar modal de orden al hacer clic fuera
+  document.getElementById("orderModal")?.addEventListener("click", e => {
+    if (e.target.id === "orderModal") {
+      closeOrderModal();
+    }
+  });
+
+  // Cerrar modal de descripción al hacer clic fuera
+  document.getElementById("descModal")?.addEventListener("click", e => {
+    if (e.target.id === "descModal") {
+      closeDescModal();
+    }
+  });
 </script>
