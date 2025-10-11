@@ -77,74 +77,24 @@
 </style>
 
 <script>
-  let CONFIG = null;
-
-  // 📦 Cargar configuración desde config.json
-  async function loadConfig() {
-    try {
-      const res = await fetch("/config.json");
-      CONFIG = await res.json();
-      console.log("✅ Configuración cargada:", CONFIG);
-    } catch (err) {
-      console.error("❌ Error al cargar config.json:", err);
-      CONFIG = { exchangeRate: 1, defaultCurrency: "PEN", whatsappNumber: "51999999999" };
-    }
+  // Cargar configuración global si no está ya cargada
+  if (typeof window.APP_CONFIG === 'undefined') {
+    window.APP_CONFIG = { exchangeRate: 4, defaultCurrency: "PEN" };
+    fetch("/config.json")
+      .then(res => res.json())
+      .then(cfg => window.APP_CONFIG = cfg)
+      .catch(err => console.warn("Usando configuración por defecto", err));
   }
 
-  document.addEventListener("DOMContentLoaded", async () => {
-    await loadConfig();
-
-    const currSel = document.getElementById("currencySelect");
-    currSel.value = localStorage.getItem("currency") || CONFIG.defaultCurrency || "PEN";
-
-    updateInterface();
-
-    // 🔁 Escuchar cambios en otras pestañas o vistas abiertas
-    window.addEventListener("storage", (e) => {
-      if (e.key === "currency") updateInterface();
-    });
-  });
-
-  // 💰 Cambiar moneda y actualizar todo en vivo
-  function setCurrency(curr) {
-    localStorage.setItem("currency", curr);
-    updateInterface(); // ⚡ Actualiza precios en el momento
-    window.dispatchEvent(new Event("currencyChanged")); // 🔔 Notificar a otras vistas
+  // Cambiar moneda y notificar
+  function setCurrency(currency) {
+    localStorage.setItem("currency", currency);
+    window.dispatchEvent(new Event("currencyChanged"));
   }
 
-  // 🧮 Actualizar interfaz según la moneda seleccionada
-  function updateInterface() {
-    if (!CONFIG) return;
-
-    const curr = localStorage.getItem("currency") || CONFIG.defaultCurrency || "PEN";
-    const rate = Number(CONFIG.exchangeRate || 1);
-
-    // 🔹 Actualizar precios por mil
-    document.querySelectorAll(".price-per-1000").forEach(el => {
-      const pen = parseFloat(el.dataset.pricePen);
-      if (isNaN(pen)) return;
-      el.innerText = curr === "USD"
-        ? `$${(pen / rate).toFixed(2)}`
-        : `S/. ${pen.toFixed(2)}`;
-    });
-
-    // 🔹 Actualizar totales
-    document.querySelectorAll(".qty-input").forEach(input => {
-      const row = input.closest("tr");
-      const totalEl = row?.querySelector(".price-total");
-      const pen = parseFloat(row?.querySelector(".price-per-1000")?.dataset.pricePen || 0);
-      const qty = parseFloat(input.value) || 0;
-      const total = (qty / 1000) * (curr === "USD" ? pen / rate : pen);
-      if (totalEl)
-        totalEl.innerText = curr === "USD"
-          ? `Total: $${total.toFixed(2)}`
-          : `Total: S/. ${total.toFixed(2)}`;
-    });
-  }
-
-  // 🔄 Recalcular al escribir cantidades
-  document.addEventListener("input", (e) => {
-    if (e.target.classList.contains("qty-input")) updateInterface();
+  // Inicializar selector de moneda al cargar
+  document.addEventListener("DOMContentLoaded", () => {
+    const saved = localStorage.getItem("currency") || (window.APP_CONFIG?.defaultCurrency || "PEN");
+    document.getElementById("currencySelect").value = saved;
   });
 </script>
-

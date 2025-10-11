@@ -544,29 +544,20 @@
 
 <!-- 🔹 Script para manejar los filtros -->
 <script>
-  // Función para actualizar las categorías en el segundo filtro según la plataforma seleccionada
   function updateCategoryFilter(platform) {
     const categorySelect = document.getElementById('categoryFilter');
-    // Limpiar opciones existentes (excepto "Todas")
     while (categorySelect.options.length > 1) {
       categorySelect.remove(1);
     }
 
-    if (platform === 'all') {
-      // Si se selecciona "Todas", no llenamos el filtro de categoría, solo mostramos "Todas"
-      return;
-    }
+    if (platform === 'all') return;
 
-    // Obtener todas las categorías únicas de la plataforma seleccionada
     const categories = new Set();
     const servicesForPlatform = window.SERVICES[platform] || [];
     servicesForPlatform.forEach(service => {
-      if (service.category) {
-        categories.add(service.category);
-      }
+      if (service.category) categories.add(service.category);
     });
 
-    // Añadir cada categoría como opción
     categories.forEach(category => {
       const option = document.createElement('option');
       option.value = category;
@@ -575,12 +566,10 @@
     });
   }
 
-  // Función para aplicar los filtros
   function applyFilters() {
     const platformFilter = document.getElementById('platformFilter').value;
     const categoryFilter = document.getElementById('categoryFilter').value;
 
-    // Mostrar u ocultar secciones de plataforma
     Object.keys(window.SERVICES).forEach(platform => {
       const section = document.getElementById(platform);
       if (platformFilter === 'all' || platform === platformFilter) {
@@ -590,14 +579,12 @@
       }
     });
 
-    // Filtrar filas dentro de cada tabla visible
     Object.keys(window.SERVICES).forEach(platform => {
       const section = document.getElementById(platform);
       if (!section.classList.contains('hidden')) {
         const tableRows = section.querySelectorAll('.service-table tbody tr');
         tableRows.forEach(row => {
-          const rowCategory = row.querySelector('td:nth-child(2)').textContent.trim(); // Categoría está en la 2da columna
-
+          const rowCategory = row.querySelector('td:nth-child(2)').textContent.trim();
           if (categoryFilter === 'all' || rowCategory === categoryFilter) {
             row.style.display = 'table-row';
           } else {
@@ -605,11 +592,9 @@
           }
         });
 
-        // También filtrar tarjetas móviles
         const mobileCards = section.querySelectorAll('.mobile-service-cards .service-card');
         mobileCards.forEach(card => {
-          const cardCategory = card.querySelector('.service-card-row:nth-child(2) .service-value').textContent.trim(); // Categoría en la 2da fila
-
+          const cardCategory = card.querySelector('.service-card-row:nth-child(2) .service-value').textContent.trim();
           if (categoryFilter === 'all' || cardCategory === categoryFilter) {
             card.style.display = 'flex';
           } else {
@@ -620,7 +605,6 @@
     });
   }
 
-  // Eventos para los selectores
   document.getElementById('platformFilter').addEventListener('change', function() {
     const selectedPlatform = this.value;
     updateCategoryFilter(selectedPlatform);
@@ -631,7 +615,6 @@
     applyFilters();
   });
 
-  // Inicializar el filtro de categoría con la primera plataforma seleccionada (si no es "all")
   document.addEventListener('DOMContentLoaded', function() {
     const initialPlatform = document.getElementById('platformFilter').value;
     if (initialPlatform !== 'all') {
@@ -747,7 +730,7 @@
   </div>
 <% }) %>
 
-<!-- 🔹 Modal de descripción -->
+<!-- 🔹 Modales -->
 <div id="descModal" class="desc-modal">
   <div class="desc-box">
     <button class="desc-close" onclick="closeDescModal()">&times;</button>
@@ -756,7 +739,6 @@
   </div>
 </div>
 
-<!-- 🔹 Modal de compra (nueva orden) -->
 <div id="orderModal" class="order-modal">
   <div class="order-modal-content">
     <span class="close-btn" onclick="closeOrderModal()">&times;</span>
@@ -766,7 +748,6 @@
     <p><b>ID:</b> <span id="order-id"></span></p>
     <p><b>Servicio:</b> <span id="order-service"></span></p>
     
-    <!-- Contenedor para Cantidad y Total -->
     <div class="amount-container">
       <div class="quantity-wrapper">
         <label for="order-quantity-input">Cantidad:</label>
@@ -774,13 +755,10 @@
         <div class="error-msg" id="order-error"></div>
       </div>
 
-      <!-- Contenedor para el Total a Pagar -->
       <div class="total-wrapper">
         <div id="order-total"><span>Total a Pagar:</span> S/. 0.00</div>
-        
         <label for="order-link">Enlace del contenido:</label>
         <input type="text" id="order-link" placeholder="https://www.youtube.com/..." />
-        
         <div class="modal-buttons">
           <button class="cancel-btn" onclick="closeOrderModal()">Cancelar</button>
           <button class="confirm-btn" id="confirmOrder" disabled>Confirmar pedido</button>
@@ -791,10 +769,8 @@
 </div>
 
 <script>
-  // === Variables globales ===
   let currentOrder = null;
 
-  // === Funciones de cierre de modales ===
   function closeDescModal() {
     document.getElementById("descModal").classList.remove("active");
   }
@@ -803,7 +779,7 @@
     document.getElementById("orderModal").classList.remove("active");
   }
 
-  // === Modal de descripción ===
+  // === MODAL DE DESCRIPCIÓN ===
   document.querySelectorAll(".desc-btn").forEach(btn => {
     btn.addEventListener("click", e => {
       const id = e.target.dataset.id;
@@ -848,7 +824,7 @@
     });
   });
 
-  // === Modal de compra ===
+  // === MODAL DE COMPRA ===
   document.querySelectorAll(".buy-btn").forEach(btn => {
     btn.addEventListener("click", () => {
       const platform = btn.dataset.platform;
@@ -860,7 +836,6 @@
 
       currentOrder = { platform, id, service, min, max, pricePen };
 
-      // Rellenar modal
       document.getElementById("order-platform").textContent = platform.charAt(0).toUpperCase() + platform.slice(1);
       document.getElementById("order-id").textContent = id;
       document.getElementById("order-service").textContent = service;
@@ -869,16 +844,12 @@
       document.getElementById("order-error").textContent = "";
       document.getElementById("order-error").style.display = "none";
       
-      // Forzar actualización del total
       updateOrderTotal(min);
       validateQuantity(min);
-
-      // Mostrar modal
       document.getElementById("orderModal").classList.add("active");
     });
   });
 
-  // Actualizar total en tiempo real
   const quantityInput = document.getElementById("order-quantity-input");
   if (quantityInput) {
     quantityInput.addEventListener("input", function(e) {
@@ -899,8 +870,7 @@
 
     const totalElement = document.getElementById("order-total");
     if (totalElement) {
-      const spanText = "Total a Pagar: ";
-      totalElement.innerHTML = `<span>${spanText}</span> ${symbol} ${totalInCurr.toFixed(2)}`;
+      totalElement.innerHTML = `<span>Total a Pagar:</span> ${symbol} ${totalInCurr.toFixed(2)}`;
     }
   }
 
@@ -911,11 +881,11 @@
     if (!currentOrder) return;
 
     if (qty < currentOrder.min) {
-      errorEl.textContent = `⚠️ Mínimo: ${currentOrder.min}`;
+      errorEl.textContent = `Mínimo: ${currentOrder.min}`;
       errorEl.style.display = "block";
       confirmBtn.disabled = true;
     } else if (qty > currentOrder.max) {
-      errorEl.textContent = `⚠️ Máximo: ${currentOrder.max}`;
+      errorEl.textContent = `Máximo: ${currentOrder.max}`;
       errorEl.style.display = "block";
       confirmBtn.disabled = true;
     } else {
@@ -924,7 +894,6 @@
     }
   }
 
-  // Confirmar orden
   document.getElementById("confirmOrder")?.addEventListener("click", () => {
     const qtyInput = document.getElementById("order-quantity-input");
     const linkInput = document.getElementById("order-link");
@@ -973,62 +942,33 @@
       return;
     }
 
-    // Corregido: sin espacios en la URL
     const url = `https://wa.me/${telefono}?text=${mensaje}`;
     window.open(url, "_blank");
-
     closeOrderModal();
   });
 
-  // Cerrar modal de orden al hacer clic fuera
   document.getElementById("orderModal")?.addEventListener("click", e => {
-    if (e.target.id === "orderModal") {
-      closeOrderModal();
-    }
+    if (e.target.id === "orderModal") closeOrderModal();
   });
 
-  // Cerrar modal de descripción al hacer clic fuera
   document.getElementById("descModal")?.addEventListener("click", e => {
-    if (e.target.id === "descModal") {
-      closeDescModal();
-    }
+    if (e.target.id === "descModal") closeDescModal();
   });
 
-  // === CORRECCIÓN PARA MÓVILES: Actualizar precios en tarjetas ===
-  document.addEventListener('DOMContentLoaded', function() {
-    // Solo en móviles (ancho <= 768px)
-    if (window.innerWidth > 768) return;
-
-    const rate = Number(window.APP_CONFIG?.exchangeRate || 4);
-    const curr = localStorage.getItem("currency") || window.APP_CONFIG?.defaultCurrency || "PEN";
-    const symbol = curr === "USD" ? "$" : "S/.";
-
-    // Actualizar todas las tarjetas móviles
-    document.querySelectorAll('.service-card').forEach(card => {
-      const priceElement = card.querySelector('.service-value.price');
-      if (!priceElement) return;
-
-      const pricePen = parseFloat(priceElement.getAttribute('data-price')) || 0;
-      let convertedPrice = pricePen;
-      if (curr === "USD") {
-        convertedPrice = pricePen / rate;
-      }
-      priceElement.textContent = `${symbol} ${convertedPrice.toFixed(2)}`;
-    });
-  });
-</script>
-<script>
+  // === ACTUALIZACIÓN EN TIEMPO REAL DE MONEDA ===
   function updateServicePrices() {
     const rate = Number(window.APP_CONFIG?.exchangeRate || 4);
     const curr = localStorage.getItem("currency") || window.APP_CONFIG?.defaultCurrency || "PEN";
     const symbol = curr === "USD" ? "$" : "S/.";
 
+    // Actualizar tabla (escritorio)
     document.querySelectorAll(".price-per-1000").forEach(cell => {
       const pricePen = parseFloat(cell.dataset.pricePen) || 0;
       const converted = curr === "USD" ? pricePen / rate : pricePen;
       cell.textContent = `${symbol} ${converted.toFixed(2)}`;
     });
 
+    // Actualizar tarjetas (móvil)
     document.querySelectorAll(".service-value.price").forEach(span => {
       const pricePen = parseFloat(span.dataset.price) || 0;
       const converted = curr === "USD" ? pricePen / rate : pricePen;
@@ -1036,6 +976,9 @@
     });
   }
 
+  // Escuchar cambio de moneda desde navbar
   window.addEventListener("currencyChanged", updateServicePrices);
+
+  // Inicializar precios al cargar
   document.addEventListener("DOMContentLoaded", updateServicePrices);
 </script>
