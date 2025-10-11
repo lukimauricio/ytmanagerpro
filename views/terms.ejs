@@ -1,31 +1,325 @@
+<!-- ===== SECCIÓN TÉRMINOS COMPLETA - YT MANAGER ===== -->
 <section style="
-  max-width: 900px;
-  margin: 60px auto;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  padding: 40px 50px;
+  max-width: 1080px;
+  margin: -20px auto;
+  background: #f9fbff;
+  border-radius: 18px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.08);
+  padding: 60px 70px;
   font-family: 'Poppins', sans-serif;
-  color: #333;
-  line-height: 1.8;
+  color: #222;
+  position: relative;
+  overflow: hidden;
 ">
 
-  <h2 style="color: #3d005f; font-size: 2rem; margin-bottom: 20px; text-align: center;">
-    📜 Términos del Servicio
-  </h2>
+  <!-- Cabecera -->
+  <div style="display: flex; justify-content: space-between; flex-wrap: wrap; margin-bottom: 40px; align-items: flex-start;">
+    <div style="flex: 1 1 45%;">
+      <h2 style="
+        color: #1b005f;
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin: 0 0 10px 0;
+      ">
+        <span style="color:#3d00a1;">Términos</span><br>
+        Condiciones de servicio y<br> política de privacidad
+      </h2>
+    </div>
 
-  <p style="font-size: 1.05rem; margin-bottom: 25px; text-align: justify;">
-    Al utilizar los servicios de <strong>YT MANAGER</strong>, aceptas los siguientes términos y condiciones de uso. 
-    Te recomendamos leerlos detenidamente antes de realizar cualquier pedido.
-  </p>
+    <div style="flex: 1 1 50%; font-size: 0.98rem; color: #444; line-height: 1.7;">
+      <p>
+        El uso de los servicios proporcionados por <strong>YT MANAGER</strong> implica la aceptación de todos los términos y políticas establecidas en esta página. 
+        Al registrarte o utilizar nuestros servicios, confirmas haber leído y comprendido completamente nuestras condiciones de uso.
+      </p>
+      <p style="margin-top:10px;">
+        <strong>YT MANAGER</strong> no se responsabiliza por pérdidas o daños derivados del uso indebido de los servicios.
+      </p>
+    </div>
+  </div>
 
-  <ul style="list-style: none; padding-left: 0; font-size: 1rem;">
-    <li style="margin-bottom: 10px;">✅ No se realizan <strong>reembolsos</strong> una vez iniciado el servicio.</li>
-    <li style="margin-bottom: 10px;">⚠️ No somos responsables de <strong>cambios o restricciones</strong> aplicadas por las plataformas de redes sociales.</li>
-    <li style="margin-bottom: 10px;">🚫 El uso indebido o fraudulento de los servicios puede conllevar la <strong>suspensión inmediata</strong> del pedido.</li>
-  </ul>
+  <hr style="border: none; border-top: 1px solid #ddd; margin-bottom: 40px;">
 
-  <p style="margin-top: 30px; color: #666; font-size: 0.95rem; text-align: right;">
-    Última actualización: <strong>Octubre 2025</strong>
-  </p>
+  <!-- Contenedor principal -->
+  <div style="display: flex; gap: 30px; flex-wrap: wrap;">
+
+    <!-- Menú lateral -->
+    <div style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 12px;">
+      <button class="tab-btn active" data-target="general" style="
+        background: #3d00a1;
+        color: white;
+        padding: 14px 18px;
+        border-radius: 10px;
+        font-weight: 600;
+        border: none;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.3s;
+      ">📘 Política General</button>
+
+      <button class="tab-btn" data-target="servicios" style="
+        background: white;
+        color: #333;
+        padding: 14px 18px;
+        border-radius: 10px;
+        font-weight: 600;
+        border: 1px solid #ddd;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.3s;
+      ">⚙️ Política de Servicios</button>
+
+      <button class="tab-btn" data-target="reembolso" style="
+        background: white;
+        color: #333;
+        padding: 14px 18px;
+        border-radius: 10px;
+        font-weight: 600;
+        border: 1px solid #ddd;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.3s;
+      ">💵 Política de Reembolso</button>
+
+      <button class="tab-btn" data-target="privacidad" style="
+        background: white;
+        color: #333;
+        padding: 14px 18px;
+        border-radius: 10px;
+        font-weight: 600;
+        border: 1px solid #ddd;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.3s;
+      ">🔒 Política de Privacidad</button>
+    </div>
+
+    <!-- Contenido dinámico -->
+    <div style="
+      flex: 1 1 600px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      padding: 30px;
+      height: 400px;
+      overflow-y: auto;
+      line-height: 1.7;
+    " id="tab-content">
+
+      <!-- GENERAL -->
+      <div id="general" class="tab-section">
+        <h3 style="color:#3d00a1; font-size:1.3rem; margin-bottom:12px;">Política General y Condiciones de Uso</h3>
+        <p>
+          Al realizar un pedido en <strong>YT MANAGER</strong>, el usuario acepta automáticamente todos los términos y condiciones establecidos en este sitio web, haya leído o no el presente documento.
+        </p>
+        <p>
+          Al crear una cuenta en nuestra plataforma, el usuario autoriza el envío de boletines informativos y notificaciones exclusivamente relacionadas con promociones, novedades y actualizaciones de servicios.
+        </p>
+        <p>
+          Nos reservamos el derecho de modificar, actualizar o ajustar los presentes términos sin previo aviso. Se recomienda revisar periódicamente esta sección antes de realizar un pedido, a fin de mantenerse informado sobre cualquier cambio o modificación futura.
+        </p>
+        <p>
+          El usuario se compromete a utilizar los servicios de YT MANAGER de acuerdo con las políticas y términos de uso de cada plataforma (YouTube, Instagram, TikTok, Facebook, entre otras), sin incurrir en prácticas que infrinjan las normas de dichas redes.
+        </p>
+        <p>
+          Las tarifas y precios de nuestros servicios están sujetos a cambios sin previo aviso. Los términos y condiciones se mantienen vigentes incluso si los precios son modificados.
+        </p>
+        <p>
+          <strong>YT MANAGER</strong> no garantiza tiempos exactos de entrega. Brindamos siempre una estimación aproximada según la demanda y las condiciones del servicio. Los pedidos en proceso no podrán ser reembolsados por demoras razonables.
+        </p>
+        <p>
+          En caso de requerirlo, <strong>YT MANAGER</strong> se reserva el derecho de ajustar o modificar el tipo de servicio solicitado con el único fin de completar correctamente el pedido y mantener la calidad esperada.
+        </p>
+        <h4 style="color:#3d00a1; margin-top:15px;">Descargo de Responsabilidad</h4>
+        <p>
+          <strong>YT MANAGER</strong> no será responsable de pérdidas, daños, suspensiones o eliminaciones de cuentas en redes sociales ocasionadas por decisiones de las plataformas externas (YouTube, Instagram, TikTok, etc.), cambios en sus algoritmos o incumplimiento de sus políticas por parte del usuario.
+        </p>
+        <h4 style="color:#3d00a1; margin-top:15px;">Pagos y Seguridad</h4>
+        <p>
+          Los pagos pueden realizarse mediante Yape, Plin, Transferencias Bancarias, tarjetas bancarias Visa, MasterCard, PayPal, Binance, Remesas y más. Durante el proceso de pago, el usuario será redirigido al servidor del sistema de pago correspondiente.
+        </p>
+        <p>
+          Todos los pagos son procesados mediante servidores seguros con tecnología de encriptación SSL y cumplimiento del estándar PCI DSS, lo que garantiza la protección de los datos financieros del titular.
+        </p>
+        <p>
+          Los datos confidenciales, como la información de la tarjeta, no se almacenan ni procesan directamente en YT MANAGER, sino en los centros de procesamiento de pago autorizados.
+        </p>
+        <p><strong>Tarjetas de pago aceptadas:</strong> VISA, MasterCard, Maestro, American Express.</p>
+        <p><strong>Para realizar un pago, se requerirá lo siguiente:</strong></p>
+        <ul style="padding-left:20px; margin:10px 0;">
+          <li>Tipo y número de tarjeta</li>
+          <li>Fecha de vencimiento</li>
+          <li>Nombre del titular (como figura en la tarjeta)</li>
+          <li>Código de seguridad CVC2/CVV2</li>
+        </ul>
+        <p>
+          Si la tarjeta está afiliada al servicio 3D Secure, se redirigirá automáticamente al sitio del banco emisor para completar la autenticación.
+        </p>
+        <h4 style="color:#3d00a1; margin-top:15px;">Condiciones Especiales</h4>
+        <ul style="padding-left:20px; margin:10px 0;">
+          <li>No se brindan servicios ni transacciones a países sancionados por la OFAC u organismos internacionales.</li>
+          <li>Los usuarios menores de 18 años no pueden registrarse ni realizar transacciones en el sitio web.</li>
+          <li>El titular de la tarjeta es responsable de conservar los comprobantes de transacciones y conocer las políticas del comercio.</li>
+          <li>Cada usuario es responsable de mantener la confidencialidad de su cuenta, credenciales de acceso y actividad dentro del sitio.</li>
+        </ul>
+      </div>
+
+      <!-- SERVICIOS -->
+      <div id="servicios" class="tab-section" style="display:none;">
+        <h3 style="color:#3d00a1; font-size:1.3rem; margin-bottom:12px;">Política de Servicios</h3>
+        <p>
+          Los servicios ofrecidos por <strong>YT MANAGER</strong> están destinados exclusivamente a la promoción y crecimiento digital de tus cuentas en YouTube, Instagram, TikTok, Facebook, y otras plataformas de redes sociales, con el objetivo de mejorar tu presencia y apariencia pública en línea.
+        </p>
+        <p>
+          No garantizamos que los nuevos seguidores, visualizaciones o interacciones generadas a través de nuestros servicios participen activamente con tu contenido. Nuestra responsabilidad se limita únicamente a entregar la cantidad contratada en cada pedido.
+        </p>
+        <p>
+          Está estrictamente prohibido solicitar servicios o cargar enlaces que contengan material inapropiado, ofensivo, violento, sexual o que infrinja las políticas de las plataformas sociales. Cualquier pedido que incumpla estas normas podrá ser cancelado sin derecho a reembolso.
+        </p>
+        <p>
+          Asimismo, si una cuenta ya contaba con más de 100,000 seguidores, likes o vistas antes de realizar el pedido, no aplicará la protección de recarga, incluso si se selecciona un servicio con dicha característica. Esto se debe a que no es posible verificar la fuente o causa de las variaciones en las métricas de cuentas con alto volumen de actividad previa.
+        </p>
+      </div>
+
+      <!-- REEMBOLSO -->
+      <div id="reembolso" class="tab-section" style="display:none;">
+        <h3 style="color:#3d00a1; font-size:1.3rem; margin-bottom:12px;">Política de Reembolso — YT MANAGER</h3>
+        <p>
+          En <strong>YT MANAGER</strong>, trabajamos para ofrecerte un servicio confiable, eficiente y transparente. No obstante, entendemos que pueden existir situaciones excepcionales en las que sea necesario solicitar un reembolso. Por ello, te presentamos nuestra política de reembolsos, aplicable a todos los pedidos realizados en nuestra plataforma.
+        </p>
+        <h4 style="color:#3d00a1; margin-top:15px;">1. Solicitud de reembolso</h4>
+        <p>
+          Los reembolsos solo aplican en casos donde el servicio no haya podido completarse por causas ajenas al cliente, como fallas técnicas o factores externos que impidan la entrega correcta.
+        </p>
+        <p>
+          Es importante tener en cuenta que, si realizas un pedido y eliminas, cambias o modificas el enlace durante el proceso de entrega, el pedido se considerará completado correctamente, y no procederá ningún reembolso.
+        </p>
+        <p>
+          Los reembolsos aprobados se procesan en un plazo de 24 a 48 horas después de recibir la solicitud y confirmar el motivo correspondiente.
+        </p>
+        <h4 style="color:#3d00a1; margin-top:15px;">2. Pedidos no entregados o fallidos</h4>
+        <p>
+          En caso de que un pedido no pueda ser completado por motivos atribuibles a YT MANAGER, el monto restante puedes utilizarlo con otros servicios o directamente solicitar un reembolso.
+        </p>
+        <h4 style="color:#3d00a1; margin-top:15px;">3. Pedidos no reembolsables</h4>
+        <p><strong>No se otorgarán reembolsos en los siguientes casos:</strong></p>
+        <ul style="padding-left:20px; margin:10px 0;">
+          <li>Si el pedido fue entregado parcialmente o completado correctamente.</li>
+          <li>Si la cuenta o enlace del cliente es privado, incorrecto o modificado durante la entrega.</li>
+          <li>Si el usuario usa varios servicios al mismo tiempo sobre el mismo enlace o publicación (lo que impide un conteo exacto del resultado).</li>
+          <li>Si el pedido se realizó con errores de enlace, categoría o cantidad ingresados por el cliente.</li>
+        </ul>
+        <p>
+          Por favor, revisa cuidadosamente tu pedido antes de confirmarlo.
+        </p>
+        <h4 style="color:#3d00a1; margin-top:15px;">4. Disputas y devoluciones de cargo</h4>
+        <p>
+          Si el usuario presenta una disputa bancaria o contracargo injustificado tras haber realizado un depósito, YT MANAGER se reserva el derecho de:
+        </p>
+        <ul style="padding-left:20px; margin:10px 0;">
+          <li>Suspender o eliminar su cuenta permanentemente.</li>
+          <li>Cancelar todos los pedidos activos o futuros.</li>
+          <li>Retirar los servicios entregados si fuera posible.</li>
+        </ul>
+        <p>
+          Recomendamos contactar primero con nuestro equipo de soporte antes de abrir cualquier disputa, para resolver el caso de forma rápida y transparente.
+        </p>
+        <h4 style="color:#3d00a1; margin-top:15px;">5. Actividades fraudulentas</h4>
+        <p>
+          Cualquier intento de fraude, incluyendo el uso de tarjetas robadas, no autorizadas o identidades falsas, resultará en la cancelación inmediata de la cuenta y posible reporte a las autoridades competentes. YT MANAGER colabora con las plataformas de pago para garantizar la seguridad de todas las transacciones.
+        </p>
+        <h4 style="color:#3d00a1; margin-top:15px;">6. Responsabilidad del usuario</h4>
+        <p>
+          El cliente es responsable de asegurarse de que toda la información proporcionada (enlaces, cantidad, tipo de servicio, etc.) sea correcta antes de confirmar su pedido. Una vez iniciado el proceso, no se podrán realizar cambios ni cancelaciones.
+        </p>
+        <h4 style="color:#3d00a1; margin-top:15px;">7. Tiempos de procesamiento</h4>
+        <p>
+          Los tiempos de reembolso pueden variar según el método de pago y el país del cliente.
+        </p>
+        <h4 style="color:#3d00a1; margin-top:15px;">8. Contacto</h4>
+        <p>
+          Para solicitar un reembolso o consultar el estado de un pedido, contáctanos a través de:<br>
+          📧 <strong>soporte@ytmanagerpro.com</strong>
+        </p>
+      </div>
+
+      <!-- PRIVACIDAD -->
+      <div id="privacidad" class="tab-section" style="display:none;">
+        <h3 style="color:#3d00a1; font-size:1.3rem; margin-bottom:12px;">Política de Privacidad — YT MANAGER</h3>
+        <p>
+          <strong>HOLA — ¡RESPETAMOS TU PRIVACIDAD!</strong><br>
+          En YT MANAGER, valoramos tu confianza y nos comprometemos a proteger tu información personal. Durante el proceso de uso de nuestros servicios, es posible que necesitemos recopilar y, en algunos casos, compartir ciertos datos con terceros de confianza únicamente para cumplir con la prestación del servicio.
+        </p>
+        <p>
+          Al realizar un pedido o utilizar los servicios de YT MANAGER, aceptas nuestros Términos y Condiciones y esta Política de Privacidad. Esta política puede ser modificada ocasionalmente para reflejar cambios legales, técnicos o de funcionamiento del sitio web.
+        </p>
+        <h4 style="color:#3d00a1; margin-top:15px;">1. Recopilación de datos</h4>
+        <p>
+          Esta política describe cómo YT MANAGER recopila, utiliza y protege la información de sus usuarios. Al visitar, registrarte o continuar utilizando nuestros servicios, se entiende que aceptas todos los puntos aquí descritos. Si no estás de acuerdo con esta política, te recomendamos no utilizar nuestro sitio web ni nuestros servicios.
+        </p>
+        <h4 style="color:#3d00a1; margin-top:15px;">2. Información que recopilamos</h4>
+        <p>
+          Podemos recopilar la siguiente información personal con el fin de procesar tus pedidos, mejorar el servicio y optimizar tu experiencia:
+        </p>
+        <ul style="padding-left:20px; margin:10px 0;">
+          <li>Nombre y apellidos (si aplica).</li>
+          <li>Nombre de la empresa (si aplica).</li>
+          <li>Usuario o enlace de tus redes sociales asociadas al pedido.</li>
+          <li>Correo electrónico de contacto.</li>
+          <li>Número de teléfono o WhatsApp.</li>
+        </ul>
+        <h4 style="color:#3d00a1; margin-top:15px;">3. Seguridad y confidencialidad</h4>
+        <p>
+          En YT MANAGER tomamos medidas técnicas y organizativas avanzadas para proteger tu información personal. Usamos cifrado SSL, servidores seguros y acceso restringido al personal autorizado. Aun así, ningún sistema de transmisión electrónica puede garantizar una seguridad total. Al utilizar nuestros servicios, reconoces y aceptas los riesgos inherentes a la comunicación en línea.
+        </p>
+        <h4 style="color:#3d00a1; margin-top:15px;">5. Compartición de información</h4>
+        <p>
+          No vendemos, alquilamos ni compartimos tus datos personales con terceros, excepto en los siguientes casos:
+        </p>
+        <ul style="padding-left:20px; margin:10px 0;">
+          <li>Para procesar pagos de forma segura a través de pasarelas certificadas.</li>
+          <li>Para colaborar con proveedores técnicos que ayudan en la operación de la plataforma (siempre bajo acuerdos de confidencialidad).</li>
+        </ul>
+        <h4 style="color:#3d00a1; margin-top:15px;">6. Modificaciones</h4>
+        <p>
+          YT MANAGER se reserva el derecho de modificar o actualizar esta política de privacidad sin previo aviso. Las versiones actualizadas entrarán en vigor de inmediato tras su publicación en el sitio web. Te recomendamos revisar periódicamente esta sección para mantenerte informado sobre cualquier cambio.
+        </p>
+        <h4 style="color:#3d00a1; margin-top:15px;">7. Responsabilidad sobre sitios externos</h4>
+        <p>
+          YT MANAGER puede incluir enlaces a sitios web de terceros. No somos responsables de las políticas de privacidad ni del manejo de datos en dichos sitios. Te recomendamos leer sus respectivas políticas antes de proporcionar información personal.
+        </p>
+        <h4 style="color:#3d00a1; margin-top:15px;">8. Contacto</h4>
+        <p>
+          Si tienes dudas, solicitudes o deseas ejercer tus derechos de acceso, rectificación o eliminación de datos, puedes contactarnos en:<br>
+          📧 <strong>soporte@ytmanagerpro.com</strong>
+        </p>
+      </div>
+
+    </div>
+  </div>
 </section>
+
+<!-- Script mejorado para pestañas -->
+<script>
+document.querySelectorAll('.tab-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    // Remover clase activa de todos
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.style.background = 'white';
+      btn.style.color = '#333';
+      btn.style.border = '1px solid #ddd';
+    });
+    
+    // Agregar clase activa al botón clickeado
+    button.style.background = '#3d00a1';
+    button.style.color = 'white';
+    button.style.border = 'none';
+
+    // Mostrar sección correspondiente
+    const target = button.getAttribute('data-target');
+    document.querySelectorAll('.tab-section').forEach(section => {
+      section.style.display = 'none';
+    });
+    document.getElementById(target).style.display = 'block';
+  });
+});
+</script>

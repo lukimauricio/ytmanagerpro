@@ -1,69 +1,492 @@
+<!-- ===== SECCIÓN FAQ PROFESIONAL - YT MANAGER ===== -->
 <section style="
-  max-width: 900px;
-  margin: 60px auto;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  padding: 50px 60px;
+  max-width: 1100px;
+  margin: -20px auto;
+  background: linear-gradient(135deg, #f9f7ff, #ffffff);
+  border-radius: 22px;
+  box-shadow: 0 10px 35px rgba(94, 0, 168, 0.12);
+  padding: 55px 60px;
   font-family: 'Poppins', sans-serif;
   color: #333;
-  line-height: 1.7;
+  line-height: 1.65;
+  position: relative;
+  overflow: hidden;
 ">
 
+  <!-- Fondo decorativo -->
+  <div style="
+    position: absolute;
+    top: -120px;
+    right: -120px;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(124, 0, 255, 0.07) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: -1;
+  "></div>
+
   <h2 style="
-    font-size: 2rem;
-    font-weight: 700;
-    color: #3d005f;
-    text-align: center;
-    margin-bottom: 40px;
-  ">
-    ❓ Preguntas Frecuentes
-  </h2>
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #5e00a8;
+  text-align: center;
+  margin-top: -50px;   <!-- 👈 ¡NUEVO! Elimina margen superior -->
+  margin-bottom: -50px; <!-- 👈 Opcional: reduce el espacio inferior -->
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+">
+  <span style="font-size: 1.6em;">❓</span> Preguntas Frecuentes
+</h2>
 
-  <div class="faq" style="display: flex; flex-direction: column; gap: 30px;">
-    <!-- PREGUNTA 1 -->
-    <div class="faq-item" style="border-left: 4px solid #FFD700; padding-left: 20px;">
-      <h3 style="font-size: 1.25rem; color: #3a0070; margin-bottom: 10px;">
-        ¿Los seguidores son reales?
-      </h3>
-      <p style="font-size: 1rem; color: #444;">
-        Sí. Trabajamos con estrategias de marketing digital y campañas segmentadas para garantizar un crecimiento auténtico, gradual y sostenible en tus redes sociales.
-      </p>
+  <div class="faq-container" style="display: flex; flex-direction: column; gap: 22px;">
+
+    <!-- Categoría: General -->
+    <div style="margin-top: 0px;">
+      <h3 style="font-size: 1.15rem; color: #5e00a8; font-weight: 600; margin-bottom: 12px; padding-left: 8px; border-left: 3px solid #FFD700;">General</h3>
+      
+      <!-- P1 -->
+      <div class="faq-item" style="
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+        transition: all 0.3s ease;
+        overflow: hidden;
+      ">
+        <button class="faq-question" style="
+          width: 100%;
+          text-align: left;
+          padding: 18px 24px;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-weight: 600;
+          color: #3d005f;
+          font-size: 1.15rem;
+          background: none;
+          border: none;
+          transition: background-color 0.2s ease;
+        " onclick="toggleFAQ(this)" aria-expanded="false">
+          ¿Cómo funciona YT MANAGER?
+          <span style="font-size: 1.25em; transition: transform 0.3s ease;">➕</span>
+        </button>
+        <div class="faq-answer" style="
+          padding: 0 24px 0;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.4s ease, padding 0.4s ease;
+          background: #fdf9ff;
+          border-top: 1px solid #f0ecf8;
+        ">
+          <div style="padding: 18px 0; font-size: 1rem; color: #444; line-height: 1.7;">
+            En YT MANAGER te ofrecemos una experiencia sencilla, segura y 100% enfocada en el crecimiento real de tu presencia digital.<br><br>
+            
+            Actualmente, desde nuestra <strong>sección de Servicios</strong>, puedes explorar y filtrar por plataforma (YouTube, Instagram, Facebook, TikTok, etc.) y categoría para encontrar exactamente lo que necesitas: vistas, likes, suscriptores, seguidores, horas de reproducción y más —todos optimizados para audiencias latinas (Perú, México, Colombia, Venezuela, EE.UU., etc.) y con opciones de <strong>retención real</strong>.<br><br>
+
+            El proceso es intuitivo:<br>
+            1️⃣ Haz clic en <strong>“Ver descripción”</strong> para conocer los detalles del servicio.<br>
+            2️⃣ Luego presiona <strong>“Comprar”</strong>, ingresa la cantidad deseada y el enlace de tu contenido.<br>
+            3️⃣ Confirma tu pedido y recibirás un mensaje automático por <strong>WhatsApp</strong> con los datos de tu orden.<br>
+            4️⃣ Elige tu <strong>método de pago</strong> (Yape, Plin, PayPal, Binance, transferencia, etc.) y realiza el pago en <strong>soles (S/.) o dólares (USD)</strong>.<br>
+            5️⃣ ¡Listo! Tu pedido se procesa de forma confidencial y comienza a entregarse según los tiempos indicados en la descripción del servicio.<br><br>
+
+            Además, estamos desarrollando un <strong>panel de usuario exclusivo</strong> donde muy pronto podrás:<br>
+            ✔ Iniciar sesión con tu correo<br>
+            ✔ Ver tu saldo y recargar fondos<br>
+            ✔ Realizar pedidos directamente desde tu cuenta<br>
+            ✔ Hacer seguimiento en tiempo real del estado de tus órdenes<br><br>
+
+            Todo diseñado para darte control, transparencia y resultados reales.
+          </div>
+        </div>
+      </div>
+
+      <!-- P2 -->
+      <div class="faq-item" style="
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+        transition: all 0.3s ease;
+        overflow: hidden;
+      ">
+        <button class="faq-question" style="
+          width: 100%;
+          text-align: left;
+          padding: 18px 24px;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-weight: 600;
+          color: #3d005f;
+          font-size: 1.15rem;
+          background: none;
+          border: none;
+          transition: background-color 0.2s ease;
+        " onclick="toggleFAQ(this)" aria-expanded="false">
+          ¿Los seguidores en Facebook son reales?
+          <span style="font-size: 1.25em; transition: transform 0.3s ease;">➕</span>
+        </button>
+        <div class="faq-answer" style="
+          padding: 0 24px 0;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.4s ease, padding 0.4s ease;
+          background: #fdf9ff;
+          border-top: 1px solid #f0ecf8;
+        ">
+          <div style="padding: 18px 0; font-size: 1rem; color: #444; line-height: 1.7;">
+            Sí, todos nuestros seguidores son reales y provienen de campañas orgánicas gestionadas mediante <strong>Facebook Ads</strong> y estrategias de targeting avanzado. 
+            Lo mejor: <strong>tú eliges el país o países de origen</strong> (Perú, México, Colombia, Venezuela, Estados Unidos, etc.), lo que garantiza una audiencia relevante y comprometida con tu contenido. 
+            Además, estos seguidores interactúan de forma natural, lo que mejora la visibilidad de tu página en el algoritmo de Facebook y potencia tu crecimiento a largo plazo.
+          </div>
+        </div>
+      </div>
+
+      <!-- P3 -->
+      <div class="faq-item" style="
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+        transition: all 0.3s ease;
+        overflow: hidden;
+      ">
+        <button class="faq-question" style="
+          width: 100%;
+          text-align: left;
+          padding: 18px 24px;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-weight: 600;
+          color: #3d005f;
+          font-size: 1.15rem;
+          background: none;
+          border: none;
+          transition: background-color 0.2s ease;
+        " onclick="toggleFAQ(this)" aria-expanded="false">
+          ¿Las vistas en YouTube son reales o bots?
+          <span style="font-size: 1.25em; transition: transform 0.3s ease;">➕</span>
+        </button>
+        <div class="faq-answer" style="
+          padding: 0 24px 0;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.4s ease, padding 0.4s ease;
+          background: #fdf9ff;
+          border-top: 1px solid #f0ecf8;
+        ">
+          <div style="padding: 18px 0; font-size: 1rem; color: #444; line-height: 1.7;">
+            Sí, nuestras vistas en YouTube son <strong>100% reales</strong>.  
+            Utilizamos campañas publicitarias oficiales a través de <strong>Google Ads</strong> para promocionar tu video en los países que tú elijas (Perú, México, Colombia, Venezuela, Estados Unidos, etc.).  
+            Esto garantiza que tu contenido sea visto por <strong>personas reales interesadas en tu nicho</strong>, lo que no solo aumenta tus vistas, sino que también mejora la retención, el tiempo de reproducción y la visibilidad de tu canal en el algoritmo de YouTube.
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- PREGUNTA 2 -->
-    <div class="faq-item" style="border-left: 4px solid #FFD700; padding-left: 20px;">
-      <h3 style="font-size: 1.25rem; color: #3a0070; margin-bottom: 10px;">
-        ¿Cuánto tarda en procesarse mi pedido?
-      </h3>
-      <p style="font-size: 1rem; color: #444;">
-        Generalmente entre <strong>24 y 72 horas</strong>, dependiendo del servicio solicitado y la demanda actual. Te mantendremos informado durante todo el proceso.
-      </p>
+    <!-- Categoría: Pedidos -->
+    <div style="margin-top: -20px;">
+      <h3 style="font-size: 1.15rem; color: #5e00a8; font-weight: 600; margin-bottom: 12px; padding-left: 8px; border-left: 3px solid #FFD700;">Pedidos</h3>
+      
+      <!-- P4 -->
+      <div class="faq-item" style="
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+        transition: all 0.3s ease;
+        overflow: hidden;
+      ">
+        <div class="faq-question" style="
+          padding: 18px 24px;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-weight: 600;
+          color: #3d005f;
+          font-size: 1.15rem;
+          transition: background-color 0.2s ease;
+        " onclick="toggleFAQ(this)">
+          ¿Cuánto tarda en procesarse mi pedido?
+          <span style="font-size: 1.25em; transition: transform 0.3s ease;">➕</span>
+        </div>
+        <div class="faq-answer" style="
+          padding: 0 24px 18px;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.4s ease, padding 0.4s ease;
+          background: #fdf9ff;
+          border-top: 1px solid #f0ecf8;
+        ">
+          <p style="font-size: 1rem; color: #444; margin: 0;">
+            El tiempo de inicio varía según el servicio: puede ser <strong>instantáneo o hasta 24 horas</strong>. 
+            La duración total de entrega también depende del volumen solicitado y está detallada en la descripción de cada servicio. 
+            Te recomendamos revisar siempre la descripción antes de comprar.
+          </p>
+        </div>
+      </div>
+
+      <!-- P5 -->
+      <div class="faq-item" style="
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+        transition: all 0.3s ease;
+        overflow: hidden;
+      ">
+        <div class="faq-question" style="
+          padding: 18px 24px;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-weight: 600;
+          color: #3d005f;
+          font-size: 1.15rem;
+          transition: background-color 0.2s ease;
+        " onclick="toggleFAQ(this)">
+          ¿Ofrecen garantía o recarga?
+          <span style="font-size: 1.25em; transition: transform 0.3s ease;">➕</span>
+        </div>
+        <div class="faq-answer" style="
+          padding: 0 24px 18px;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.4s ease, padding 0.4s ease;
+          background: #fdf9ff;
+          border-top: 1px solid #f0ecf8;
+        ">
+          <p style="font-size: 1rem; color: #444; margin: 0;">
+            Sí. La mayoría de nuestros servicios incluyen <strong>garantía de recarga (refill)</strong> durante un periodo específico (indicado en la descripción del servicio). 
+            Si tu pedido no se completa en el plazo establecido, puedes solicitar recarga desde tu panel o contactarnos.
+          </p>
+        </div>
+      </div>
+
+      <!-- P6 -->
+      <div class="faq-item" style="
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+        transition: all 0.3s ease;
+        overflow: hidden;
+      ">
+        <div class="faq-question" style="
+          padding: 18px 24px;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-weight: 600;
+          color: #3d005f;
+          font-size: 1.15rem;
+          transition: background-color 0.2s ease;
+        " onclick="toggleFAQ(this)">
+          ¿Hacen reembolsos?
+          <span style="font-size: 1.25em; transition: transform 0.3s ease;">➕</span>
+        </div>
+        <div class="faq-answer" style="
+          padding: 0 24px 18px;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.4s ease, padding 0.4s ease;
+          background: #fdf9ff;
+          border-top: 1px solid #f0ecf8;
+        ">
+          <p style="font-size: 1rem; color: #444; margin: 0;">
+            Sí. Si transcurridas <strong>72 horas</strong> no hemos podido iniciar o completar tu pedido (y no aplica recarga), te reembolsaremos el monto correspondiente. 
+            Para solicitarlo, escríbenos por WhatsApp o correo con el ID de tu pedido.
+          </p>
+        </div>
+      </div>
+
+      <!-- P7 -->
+      <div class="faq-item" style="
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+        transition: all 0.3s ease;
+        overflow: hidden;
+      ">
+        <div class="faq-question" style="
+          padding: 18px 24px;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-weight: 600;
+          color: #3d005f;
+          font-size: 1.15rem;
+          transition: background-color 0.2s ease;
+        " onclick="toggleFAQ(this)">
+          ¿Puedo hacer pedidos personalizados?
+          <span style="font-size: 1.25em; transition: transform 0.3s ease;">➕</span>
+        </div>
+        <div class="faq-answer" style="
+          padding: 0 24px 18px;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.4s ease, padding 0.4s ease;
+          background: #fdf9ff;
+          border-top: 1px solid #f0ecf8;
+        ">
+          <p style="font-size: 1rem; color: #444; margin: 0;">
+            ¡Claro! Aceptamos cantidades personalizadas (no solo múltiplos de 1000). Además, si realizas compras grandes, ofrecemos <strong>paquetes especiales con descuentos</strong>. 
+            Contáctanos para diseñar un plan a tu medida.
+          </p>
+        </div>
+      </div>
     </div>
 
-    <!-- PREGUNTA 3 -->
-    <div class="faq-item" style="border-left: 4px solid #FFD700; padding-left: 20px;">
-      <h3 style="font-size: 1.25rem; color: #3a0070; margin-bottom: 10px;">
-        ¿Qué métodos de pago aceptan?
-      </h3>
-      <p style="font-size: 1rem; color: #444;">
-        Aceptamos <strong>Yape, Plin, transferencia bancaria</strong> y <strong>PayPal</strong> (consultar disponibilidad según el país).
-      </p>
+    <!-- Categoría: Pagos -->
+    <div style="margin-top: -20px;">
+      <h3 style="font-size: 1.15rem; color: #5e00a8; font-weight: 600; margin-bottom: 12px; padding-left: 8px; border-left: 3px solid #FFD700;">Pagos</h3>
+      
+      <!-- P8 -->
+      <div class="faq-item" style="
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+        transition: all 0.3s ease;
+        overflow: hidden;
+      ">
+        <div class="faq-question" style="
+          padding: 18px 24px;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-weight: 600;
+          color: #3d005f;
+          font-size: 1.15rem;
+          transition: background-color 0.2s ease;
+        " onclick="toggleFAQ(this)">
+          ¿Qué métodos de pago aceptan?
+          <span style="font-size: 1.25em; transition: transform 0.3s ease;">➕</span>
+        </div>
+        <div class="faq-answer" style="
+          padding: 0 24px 18px;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.4s ease, padding 0.4s ease;
+          background: #fdf9ff;
+          border-top: 1px solid #f0ecf8;
+        ">
+          <p style="font-size: 1rem; color: #444; margin: 0;">
+            Aceptamos: <strong>Yape, Plin, transferencia bancaria, PayPal, Binance (BTC, USDT), Western Union, MoneyGram, Remesas</strong> y más. 
+            Trabajamos en <strong>dólares (USD) y soles (S/.)</strong> según tu preferencia.
+          </p>
+        </div>
+      </div>
     </div>
 
-    <!-- PREGUNTA 4 -->
-    <div class="faq-item" style="border-left: 4px solid #FFD700; padding-left: 20px;">
-      <h3 style="font-size: 1.25rem; color: #3a0070; margin-bottom: 10px;">
-        ¿Puedo solicitar un servicio personalizado?
-      </h3>
-      <p style="font-size: 1rem; color: #444;">
-        Sí, ofrecemos planes personalizados adaptados a tus objetivos y presupuesto. Contáctanos para una asesoría sin compromiso.
-      </p>
+    <!-- Categoría: Soporte -->
+    <div style="margin-top: -20px;">
+      <h3 style="font-size: 1.15rem; color: #5e00a8; font-weight: 600; margin-bottom: 12px; padding-left: 8px; border-left: 3px solid #FFD700;">Soporte</h3>
+      
+      <!-- P9 -->
+      <div class="faq-item" style="
+        background: white;
+        border-radius: 14px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+        transition: all 0.3s ease;
+        overflow: hidden;
+      ">
+        <div class="faq-question" style="
+          padding: 18px 24px;
+          cursor: pointer;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-weight: 600;
+          color: #3d005f;
+          font-size: 1.15rem;
+          transition: background-color 0.2s ease;
+        " onclick="toggleFAQ(this)">
+          ¿Cómo contacto al soporte?
+          <span style="font-size: 1.25em; transition: transform 0.3s ease;">➕</span>
+        </div>
+        <div class="faq-answer" style="
+          padding: 0 24px 18px;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.4s ease, padding 0.4s ease;
+          background: #fdf9ff;
+          border-top: 1px solid #f0ecf8;
+        ">
+          <p style="font-size: 1rem; color: #444; margin: 0;">
+            Ofrecemos soporte <strong>24/7</strong> por:
+            <br>• <strong>WhatsApp:</strong> desde el botón flotante en la página
+            <br>• <strong>Correo:</strong> <a href="mailto:soporte@ytmanagerpro.com" style="color: #5e00a8; text-decoration: none;">soporte@ytmanagerpro.com</a>
+            <br><br>
+            Por favor, incluye el <strong>ID de tu pedido</strong> o el enlace de tu contenido para ayudarte más rápido.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 
-  <p style="margin-top: 40px; text-align: center; font-size: 0.95rem; color: #666;">
-    Si tu duda no aparece aquí, <a href="/contact" style="color: #3a0070; font-weight: 600; text-decoration: none;">contáctanos</a> y te responderemos en breve.
+  <p style="
+    margin-top: 50px;
+    text-align: center;
+    font-size: 0.98rem;
+    color: #555;
+    padding: 22px;
+    background: #f8f4ff;
+    border-radius: 12px;
+    border: 1px solid #eee;
+  ">
+    ¿Tienes otra duda? 
+    <a href="https://wa.me/51980868576" style="
+      color: #5e00a8;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 8px;
+      background: #f0e6ff;
+      transition: all 0.25s ease;
+      margin: 0 6px;
+    ">Escríbenos por WhatsApp</a>
+    o envíanos un correo a 
+    <a href="mailto:soporte@ytmanagerpro.com" style="color: #5e00a8; font-weight: 600; text-decoration: none;">soporte@ytmanagerpro.com</a>
   </p>
 
 </section>
+
+<!-- Script para el acordeón -->
+<script>
+function toggleFAQ(element) {
+  const item = element.closest('.faq-item');
+  const answer = item.querySelector('.faq-answer');
+  const icon = element.querySelector('span');
+
+  // Cerrar los demás
+  document.querySelectorAll('.faq-item').forEach(otherItem => {
+    if (otherItem !== item) {
+      const otherAnswer = otherItem.querySelector('.faq-answer');
+      const otherIcon = otherItem.querySelector('.faq-question span');
+      otherAnswer.style.maxHeight = '0';
+      otherAnswer.style.paddingTop = '0';
+      otherAnswer.style.paddingBottom = '0';
+      otherIcon.textContent = '➕';
+    }
+  });
+
+  // Alternar el actual
+  if (answer.style.maxHeight === '0px' || answer.style.maxHeight === '') {
+    answer.style.maxHeight = answer.scrollHeight + 'px';
+    answer.style.paddingTop = '18px';
+    answer.style.paddingBottom = '18px';
+    icon.textContent = '➖';
+  } else {
+    answer.style.maxHeight = '0';
+    answer.style.paddingTop = '0';
+    answer.style.paddingBottom = '0';
+    icon.textContent = '➕';
+  }
+}
+</script>
