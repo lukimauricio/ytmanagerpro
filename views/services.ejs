@@ -88,7 +88,7 @@
     padding: 10px;
     margin: 15px 0;
     width: 100%;
-    max-width: 100%;
+    max-width: 90%;
     transition: all 0.3s ease;
     overflow-x: auto;
     border-left: 5px solid #7c00ff;
@@ -279,6 +279,7 @@
   /* ===== RESPONSIVE ===== */
   @media (max-width: 768px) {
     .service-table { display: none; }
+    .mobile-service-cards { display: block !important; } /* 👈 CORRECCIÓN CLAVE */
     .service-card { padding: 15px; margin-bottom: 15px; }
     .service-card-row { flex-direction: column; align-items: stretch; }
     .service-label { font-size: 0.68rem; min-width: auto; text-align: left; }
@@ -402,7 +403,6 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
     position: relative;
     animation: fadeIn 0.25s ease;
-    /* Eliminar scroll vertical */
     overflow: hidden;
   }
 
@@ -413,80 +413,16 @@
     font-size: 1.2rem;
   }
 
-  ```css
-/* === MODAL DE COMPRA (NUEVA ORDEN) === */
+  .order-modal-content label,
+  .order-modal-content p {
+    margin: 8px 0 4px;
+    font-weight: 600;
+    color: #000;
+    text-align: left;
+  }
 
-/* Estilos generales para el contenido del modal */
-.order-modal-content {
-  /* ... tus estilos existentes ... */
-}
-
-/* Cambiar las etiquetas (Plataforma, ID, Servicio, Cantidad) a NEGRO */
-.order-modal-content label,
-.order-modal-content p {
-  margin: 8px 0 4px;
-  font-weight: 600;
-  color: #000; /* 👈 Color negro para las etiquetas y párrafos */
-  text-align: left;
-}
-
-/* Cambiar los DATOS (el texto que sigue a las etiquetas) a MORADO */
-.order-modal-content p span {
-  color: #050886; /* 👈 Color morado para los datos */
-}
-
-/* Cambiar el título del modal a MORADO (opcional, como en tu imagen) */
-.order-modal-content h3 {
-  margin-top: 0;
-  color: #5e00a8; /* 👈 Color morado para el título */
-  text-align: center;
-  font-size: 1.2rem;
-}
-
-/* Cambiar el total a MORADO (opcional, como en tu imagen) */
-.order-modal-content #order-total {
-  font-weight: 700;
-  color: #5e00a8; /* 👈 Color morado para el total */
-  font-size: 1.1rem;
-  text-align: center;
-  margin: 12px 0;
-}
-
-/* Cambiar la etiqueta "Enlace del contenido:" a NEGRO */
-.order-modal-content label[for="order-link"] {
-  color: #5e00a8; /* 👈 Color negro para la palabra "Enlace del contenido:" */
-}
-
-/* Cambiar el placeholder del input de enlace a NEGRO */
-.order-modal-content #order-link::placeholder {
-  color: #938c96; /* 👈 Color negro para el texto de ayuda del input */
-}
-
-/* Cambiar el borde del input de enlace a NEGRO */
-.order-modal-content #order-link {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #5e00a8; /* 👈 Borde negro */
-  border-radius: 6px;
-  font-size: 0.9rem;
-  margin-top: 4px;
-  color: #000000; /* 👈 Texto negro dentro del input */
-}
-
-/* Si quieres que el texto *dentro* del input de enlace también sea negro cuando se escribe, usa esto */
-.order-modal-content #order-link {
-  /* ... estilos anteriores ... */
-  color: #000000; /* 👈 Texto negro dentro del input */
-}
-
-```
-  .order-modal-content input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    margin-top: 4px;
+  .order-modal-content p span {
+    color: #5e00a8;
   }
 
   .order-modal-content #order-total {
@@ -495,6 +431,33 @@
     font-size: 1.1rem;
     text-align: center;
     margin: 12px 0;
+  }
+
+  .order-modal-content label[for="order-link"] {
+    color: #5e00a8;
+  }
+
+  .order-modal-content #order-link {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #5e00a8;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-top: 4px;
+    color: #000000;
+  }
+
+  .order-modal-content #order-link::placeholder {
+    color: #938c96;
+  }
+
+  .order-modal-content input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-top: 4px;
   }
 
   /* Campo de cantidad más pequeño */
@@ -648,7 +611,7 @@
           const cardCategory = card.querySelector('.service-card-row:nth-child(2) .service-value').textContent.trim(); // Categoría en la 2da fila
 
           if (categoryFilter === 'all' || cardCategory === categoryFilter) {
-            card.style.display = 'flex'; // o 'block', dependiendo de tu CSS
+            card.style.display = 'flex';
           } else {
             card.style.display = 'none';
           }
@@ -804,23 +767,25 @@
     <p><b>Servicio:</b> <span id="order-service"></span></p>
     
     <!-- Contenedor para Cantidad y Total -->
-<div class="amount-container">
-  <div class="quantity-wrapper">
-    <label for="order-quantity-input">Cantidad:</label>
-    <input type="number" id="order-quantity-input" min="0" step="1" />
-    <div class="error-msg" id="order-error"></div>
-  </div>
+    <div class="amount-container">
+      <div class="quantity-wrapper">
+        <label for="order-quantity-input">Cantidad:</label>
+        <input type="number" id="order-quantity-input" min="0" step="1" />
+        <div class="error-msg" id="order-error"></div>
+      </div>
 
-  <!-- Contenedor para el Total a Pagar -->
-  <div class="total-wrapper">
-    <div id="order-total"><span>Total a Pagar:</span> S/. 0.00</div>
-    
-    <label for="order-link">Enlace del contenido:</label>
-    <input type="text" id="order-link" placeholder="  https://www.youtube.com/...  " />
-    
-    <div class="modal-buttons">
-      <button class="cancel-btn" onclick="closeOrderModal()">Cancelar</button>
-      <button class="confirm-btn" id="confirmOrder" disabled>Confirmar pedido</button>
+      <!-- Contenedor para el Total a Pagar -->
+      <div class="total-wrapper">
+        <div id="order-total"><span>Total a Pagar:</span> S/. 0.00</div>
+        
+        <label for="order-link">Enlace del contenido:</label>
+        <input type="text" id="order-link" placeholder="https://www.youtube.com/..." />
+        
+        <div class="modal-buttons">
+          <button class="cancel-btn" onclick="closeOrderModal()">Cancelar</button>
+          <button class="confirm-btn" id="confirmOrder" disabled>Confirmar pedido</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -924,23 +889,20 @@
   }
 
   function updateOrderTotal(qty) {
-  if (!currentOrder) return;
+    if (!currentOrder) return;
 
-  const rate = Number(window.APP_CONFIG?.exchangeRate || 4);
-  const curr = localStorage.getItem("currency") || window.APP_CONFIG?.defaultCurrency || "PEN";
-  const total = (qty / 1000) * currentOrder.pricePen;
-  const totalInCurr = curr === "USD" ? total / rate : total;
-  const symbol = curr === "USD" ? "$" : "S/.";
+    const rate = Number(window.APP_CONFIG?.exchangeRate || 4);
+    const curr = localStorage.getItem("currency") || window.APP_CONFIG?.defaultCurrency || "PEN";
+    const total = (qty / 1000) * currentOrder.pricePen;
+    const totalInCurr = curr === "USD" ? total / rate : total;
+    const symbol = curr === "USD" ? "$" : "S/.";
 
-  const totalElement = document.getElementById("order-total");
-  if (totalElement) {
-    // Solo actualizamos el texto dentro del <span> o el contenido después del span
-    // Si usaste la estructura <span>Total a Pagar:</span> S/. 0.00
-    // Podemos hacerlo así:
-    const spanText = "Total a Pagar: ";
-    totalElement.innerHTML = `<span>${spanText}</span> ${symbol} ${totalInCurr.toFixed(2)}`;
+    const totalElement = document.getElementById("order-total");
+    if (totalElement) {
+      const spanText = "Total a Pagar: ";
+      totalElement.innerHTML = `<span>${spanText}</span> ${symbol} ${totalInCurr.toFixed(2)}`;
+    }
   }
-}
 
   function validateQuantity(qty) {
     const errorEl = document.getElementById("order-error");
@@ -962,7 +924,7 @@
     }
   }
 
-    // Confirmar orden
+  // Confirmar orden
   document.getElementById("confirmOrder")?.addEventListener("click", () => {
     const qtyInput = document.getElementById("order-quantity-input");
     const linkInput = document.getElementById("order-link");
@@ -1005,16 +967,13 @@
                     `🔹 *Enlace:* ${encodeURIComponent(link)}%0A%0A` +
                     `💰 *Total:* ${symbol} ${totalInCurr.toFixed(2)} (${curr})`;
 
-    // --- CORRECCIÓN: Comentario sobre la ubicación del número ---
-    // El número de WhatsApp se espera que esté disponible en window.APP_CONFIG?.whatsapp
-    // Esta variable debería ser cargada previamente desde config.json ubicado en images/public
     const telefono = (window.APP_CONFIG?.whatsapp || "").replace(/\D/g, "");
     if (!telefono) {
       alert("⚠️ WhatsApp no configurado.");
       return;
     }
 
-    // --- CORRECCIÓN: Eliminación de espacios en la URL ---
+    // Corregido: sin espacios en la URL
     const url = `https://wa.me/${telefono}?text=${mensaje}`;
     window.open(url, "_blank");
 
