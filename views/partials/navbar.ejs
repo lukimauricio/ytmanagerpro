@@ -96,7 +96,9 @@
 
   function setCurrency(curr) {
   localStorage.setItem("currency", curr);
-  updateInterface();
+  updateInterface(); // ⚡ actualiza los precios en el momento
+}
+
   // 🔥 Notifica a todas las vistas abiertas que la moneda cambió
   window.dispatchEvent(new Event("currencyChanged"));
 }
