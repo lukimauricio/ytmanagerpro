@@ -1017,3 +1017,25 @@
     });
   });
 </script>
+<script>
+  function updateServicePrices() {
+    const rate = Number(window.APP_CONFIG?.exchangeRate || 4);
+    const curr = localStorage.getItem("currency") || window.APP_CONFIG?.defaultCurrency || "PEN";
+    const symbol = curr === "USD" ? "$" : "S/.";
+
+    document.querySelectorAll(".price-per-1000").forEach(cell => {
+      const pricePen = parseFloat(cell.dataset.pricePen) || 0;
+      const converted = curr === "USD" ? pricePen / rate : pricePen;
+      cell.textContent = `${symbol} ${converted.toFixed(2)}`;
+    });
+
+    document.querySelectorAll(".service-value.price").forEach(span => {
+      const pricePen = parseFloat(span.dataset.price) || 0;
+      const converted = curr === "USD" ? pricePen / rate : pricePen;
+      span.textContent = `${symbol} ${converted.toFixed(2)}`;
+    });
+  }
+
+  window.addEventListener("currencyChanged", updateServicePrices);
+  document.addEventListener("DOMContentLoaded", updateServicePrices);
+</script>

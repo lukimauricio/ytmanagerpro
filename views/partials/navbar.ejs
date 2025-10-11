@@ -95,9 +95,12 @@
   });
 
   function setCurrency(curr) {
-    localStorage.setItem("currency", curr);
-    updateInterface();
-  }
+  localStorage.setItem("currency", curr);
+  updateInterface();
+  // 🔥 Notifica a todas las vistas abiertas que la moneda cambió
+  window.dispatchEvent(new Event("currencyChanged"));
+}
+
 
   function updateInterface() {
     const curr = localStorage.getItem("currency") || CONFIG.defaultCurrency || "PEN";
