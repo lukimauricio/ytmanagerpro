@@ -75,7 +75,6 @@
     cursor: pointer;
   }
 </style>
-
 <script>
   // Cargar configuración global si no está ya cargada
   if (typeof window.APP_CONFIG === 'undefined') {
@@ -86,10 +85,18 @@
       .catch(err => console.warn("Usando configuración por defecto", err));
   }
 
-  // Cambiar moneda y notificar
+  // Cambiar moneda y actualizar precios inmediatamente
   function setCurrency(currency) {
     localStorage.setItem("currency", currency);
-    window.dispatchEvent(new Event("currencyChanged"));
+
+    // 🔥 Forzar evento en todos los navegadores (incluyendo móviles)
+    const event = new Event("currencyChanged", { bubbles: true, cancelable: true });
+    window.dispatchEvent(event);
+
+    // 🔥 En móviles, algunos no propagan bien el evento -> actualización directa forzada
+    if (typeof updateServicePrices === "function") {
+      updateServicePrices();
+    }
   }
 
   // Inicializar selector de moneda al cargar

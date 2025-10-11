@@ -266,7 +266,7 @@
   th:nth-child(4), td:nth-child(4) { width: 70px; text-align: center; white-space: nowrap; }
   th:nth-child(5), td:nth-child(5) { width: 20px; text-align: center; }
   th:nth-child(6), td:nth-child(6) { width: 30px; text-align: center; }
-  th:nth-child(7), td:nth-child(7) { width: 170px; }
+  th:nth-child(7), td:nth-child(7) { width: 140px; }
   th:nth-child(8), td:nth-child(8) { width: 50px; text-align: center; }
 
   .price-per-1000 {
@@ -614,13 +614,6 @@
   document.getElementById('categoryFilter').addEventListener('change', function() {
     applyFilters();
   });
-
-  document.addEventListener('DOMContentLoaded', function() {
-    const initialPlatform = document.getElementById('platformFilter').value;
-    if (initialPlatform !== 'all') {
-      updateCategoryFilter(initialPlatform);
-    }
-  });
 </script>
 
 <!-- 🔹 Render HTML de categorías -->
@@ -628,7 +621,7 @@
   <div class="category-section" id="<%= cat %>">
     <div class="category-header">
       <% if (cat === 'facebook') { %><i class="fab fa-facebook-f"></i> Facebook<% } %>
-      <% if (cat === 'youtube') { %><i class="fab fa-youtube"></i> YouTube<% } %>
+      <% if (cat === 'YouTube') { %><i class="fab fa-YouTube"></i> YouTube<% } %>
       <% if (cat === 'tiktok') { %><i class="fab fa-tiktok"></i> TikTok<% } %>
       <% if (cat === 'instagram') { %><i class="fab fa-instagram"></i> Instagram<% } %>
     </div>
@@ -955,8 +948,8 @@
     if (e.target.id === "descModal") closeDescModal();
   });
 
-  // === ACTUALIZACIÓN EN TIEMPO REAL DE MONEDA ===
-  function updateServicePrices() {
+  // === 🔥 ACTUALIZACIÓN EN TIEMPO REAL DE MONEDA (OPTIMIZADO PARA MÓVIL) ===
+  function updateServicePrices(force = false) {
     const rate = Number(window.APP_CONFIG?.exchangeRate || 4);
     const curr = localStorage.getItem("currency") || window.APP_CONFIG?.defaultCurrency || "PEN";
     const symbol = curr === "USD" ? "$" : "S/.";
@@ -974,11 +967,30 @@
       const converted = curr === "USD" ? pricePen / rate : pricePen;
       span.textContent = `${symbol} ${converted.toFixed(2)}`;
     });
+
+    if (force) console.log("💱 Moneda actualizada (forzada):", curr);
   }
 
-  // Escuchar cambio de moneda desde navbar
-  window.addEventListener("currencyChanged", updateServicePrices);
+  // Escuchar evento del navbar
+  window.addEventListener("currencyChanged", () => updateServicePrices(true));
+
+  // Sincronización entre pestañas
+  window.addEventListener("storage", e => {
+    if (e.key === "currency") updateServicePrices(true);
+  });
+
+  // Refuerzo extra para móviles (por si Safari no detecta eventos)
+  setInterval(() => {
+    const currNow = localStorage.getItem("currency");
+    if (window._lastCurrency !== currNow) {
+      window._lastCurrency = currNow;
+      updateServicePrices(true);
+    }
+  }, 1500);
 
   // Inicializar precios al cargar
-  document.addEventListener("DOMContentLoaded", updateServicePrices);
+  document.addEventListener("DOMContentLoaded", () => {
+    window._lastCurrency = localStorage.getItem("currency");
+    updateServicePrices(true);
+  });
 </script>
