@@ -279,7 +279,7 @@
   /* ===== RESPONSIVE ===== */
   @media (max-width: 768px) {
     .service-table { display: none; }
-    .mobile-service-cards { display: block !important; } /* 👈 CORRECCIÓN CLAVE */
+    .mobile-service-cards { display: block !important; }
     .service-card { padding: 15px; margin-bottom: 15px; }
     .service-card-row { flex-direction: column; align-items: stretch; }
     .service-label { font-size: 0.68rem; min-width: auto; text-align: left; }
@@ -681,7 +681,7 @@
               class="buy-btn" 
               data-platform="<%= cat %>"
               data-id="<%= service.id %>" 
-              data-service="<%= encodeURIComponent(service.service) %>" 
+              data-service="<%= encodeURIComponent(service.service).replace(/"/g, '&quot;') %>" 
               data-min="<%= service.min %>"
               data-max="<%= service.max %>"
               data-price-pen="<%= pricePen %>"
@@ -699,7 +699,7 @@
       <% services[cat].forEach(service => { 
         const pricePen = Number(service.pricePerThousandPEN || 0);
       %>
-      <div class="service-card" data-id="<%= service.id %>">
+      <div class="service-card" data-id="<%= service.id %>" data-price-pen="<%= pricePen %>">
         <div class="service-card-row">
           <span class="service-label">ID</span>
           <span class="service-value"><%= service.id %></span>
@@ -714,7 +714,7 @@
         </div>
         <div class="service-card-row">
           <span class="service-label">Precio x 1000</span>
-          <span class="service-value price">S/. <%= pricePen.toFixed(2) %></span>
+          <span class="service-value price" data-price="<%= pricePen %>">S/. <%= pricePen.toFixed(2) %></span>
         </div>
         <div class="service-card-row">
           <span class="service-label">Mínimo</span>
@@ -733,7 +733,7 @@
             class="buy-btn" 
             data-platform="<%= cat %>"
             data-id="<%= service.id %>" 
-            data-service="<%= encodeURIComponent(service.service) %>" 
+            data-service="<%= encodeURIComponent(service.service).replace(/"/g, '&quot;') %>" 
             data-min="<%= service.min %>"
             data-max="<%= service.max %>"
             data-price-pen="<%= pricePen %>"
@@ -993,40 +993,27 @@
       closeDescModal();
     }
   });
-  // === ACTUALIZAR PRECIOS EN PANTALLA AL CAMBIAR MONEDA ===
-function updateDisplayedPrices() {
-  const rate = Number(window.APP_CONFIG?.exchangeRate || 4);
-  const curr = localStorage.getItem("currency") || window.APP_CONFIG?.defaultCurrency || "PEN";
-  const symbol = curr === "USD" ? "$" : "S/.";
 
-  // Actualizar precios en la tabla (escritorio)
-  document.querySelectorAll(".price-per-1000").forEach(el => {
-    const pricePEN = parseFloat(el.dataset.pricePen);
-    const converted = curr === "USD" ? pricePEN / rate : pricePEN;
-    el.textContent = `${symbol} ${converted.toFixed(2)}`;
-  });
+  // === CORRECCIÓN PARA MÓVILES: Actualizar precios en tarjetas ===
+  document.addEventListener('DOMContentLoaded', function() {
+    // Solo en móviles (ancho <= 768px)
+    if (window.innerWidth > 768) return;
 
-  // Actualizar precios en las tarjetas móviles
-  document.querySelectorAll(".service-value.price").forEach(el => {
-    const pricePEN = parseFloat(el.closest(".service-card").dataset.pricePen);
-    if (!pricePEN) return;
-    const converted = curr === "USD" ? pricePEN / rate : pricePEN;
-    el.textContent = `${symbol} ${converted.toFixed(2)}`;
-  });
-}
-// Detectar cambio de moneda en el selector
-document.addEventListener("DOMContentLoaded", () => {
-  const currencySelect = document.querySelector("select"); // o usa el ID si lo tienes, ej: "#currencySelect"
-  if (currencySelect) {
-    currencySelect.addEventListener("change", () => {
-      const curr = currencySelect.value;
-      localStorage.setItem("currency", curr);
-      updateDisplayedPrices();
+    const rate = Number(window.APP_CONFIG?.exchangeRate || 4);
+    const curr = localStorage.getItem("currency") || window.APP_CONFIG?.defaultCurrency || "PEN";
+    const symbol = curr === "USD" ? "$" : "S/.";
+
+    // Actualizar todas las tarjetas móviles
+    document.querySelectorAll('.service-card').forEach(card => {
+      const priceElement = card.querySelector('.service-value.price');
+      if (!priceElement) return;
+
+      const pricePen = parseFloat(priceElement.getAttribute('data-price')) || 0;
+      let convertedPrice = pricePen;
+      if (curr === "USD") {
+        convertedPrice = pricePen / rate;
+      }
+      priceElement.textContent = `${symbol} ${convertedPrice.toFixed(2)}`;
     });
-  }
-
-  // Actualizar precios al cargar la página (según la moneda guardada)
-  updateDisplayedPrices();
-});
-
+  });
 </script>
