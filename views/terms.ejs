@@ -12,6 +12,57 @@
   overflow: hidden;
 ">
 
+  <!-- ====== ESTILOS RESPONSIVE ====== -->
+  <style>
+    @media (max-width: 768px) {
+      section {
+        padding: 30px 20px !important;
+        margin: 0 10px !important;
+      }
+
+      section h2 {
+        font-size: 1.6rem !important;
+        line-height: 1.3 !important;
+      }
+
+      section p {
+        font-size: 0.95rem !important;
+      }
+
+      /* Cabecera */
+      section > div:first-child {
+        flex-direction: column !important;
+        gap: 20px !important;
+      }
+
+      /* Contenedor principal */
+      section > div:nth-child(4) {
+        flex-direction: column !important;
+      }
+
+      /* Menú lateral */
+      section .tab-btn {
+        width: 100% !important;
+        font-size: 0.95rem !important;
+      }
+
+      /* Contenido dinámico */
+      #tab-content {
+        flex: 1 1 100% !important;
+        padding: 20px !important;
+        height: auto !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
+      }
+    }
+
+    /* Pequeñas mejoras visuales */
+    .tab-btn:hover {
+      background: #3d00a1 !important;
+      color: white !important;
+      border: none !important;
+    }
+  </style>
+
   <!-- Cabecera -->
   <div style="display: flex; justify-content: space-between; flex-wrap: wrap; margin-bottom: 40px; align-items: flex-start;">
     <div style="flex: 1 1 45%;">
@@ -94,7 +145,7 @@
     </div>
 
     <!-- Contenido dinámico -->
-    <div style="
+    <div id="tab-content" style="
       flex: 1 1 600px;
       background: white;
       border-radius: 12px;
@@ -103,7 +154,7 @@
       height: 400px;
       overflow-y: auto;
       line-height: 1.7;
-    " id="tab-content">
+    ">
 
       <!-- GENERAL -->
       <div id="general" class="tab-section">
@@ -254,43 +305,24 @@
         </p>
         <h4 style="color:#3d00a1; margin-top:15px;">1. Recopilación de datos</h4>
         <p>
-          Esta política describe cómo YT MANAGER recopila, utiliza y protege la información de sus usuarios. Al visitar, registrarte o continuar utilizando nuestros servicios, se entiende que aceptas todos los puntos aquí descritos. Si no estás de acuerdo con esta política, te recomendamos no utilizar nuestro sitio web ni nuestros servicios.
-        </p>
-        <h4 style="color:#3d00a1; margin-top:15px;">2. Información que recopilamos</h4>
-        <p>
-          Podemos recopilar la siguiente información personal con el fin de procesar tus pedidos, mejorar el servicio y optimizar tu experiencia:
+          Esta política describe cómo YT MANAGER recopila y utiliza la información personal, incluyendo datos de contacto, correos electrónicos y direcciones IP. Usamos esta información solo para:
         </p>
         <ul style="padding-left:20px; margin:10px 0;">
-          <li>Nombre y apellidos (si aplica).</li>
-          <li>Nombre de la empresa (si aplica).</li>
-          <li>Usuario o enlace de tus redes sociales asociadas al pedido.</li>
-          <li>Correo electrónico de contacto.</li>
-          <li>Número de teléfono o WhatsApp.</li>
+          <li>Procesar tus pedidos y mantener tu cuenta.</li>
+          <li>Ofrecer soporte técnico y atención al cliente.</li>
+          <li>Prevenir actividades fraudulentas.</li>
         </ul>
-        <h4 style="color:#3d00a1; margin-top:15px;">3. Seguridad y confidencialidad</h4>
+        <h4 style="color:#3d00a1; margin-top:15px;">2. Uso de la información</h4>
         <p>
-          En YT MANAGER tomamos medidas técnicas y organizativas avanzadas para proteger tu información personal. Usamos cifrado SSL, servidores seguros y acceso restringido al personal autorizado. Aun así, ningún sistema de transmisión electrónica puede garantizar una seguridad total. Al utilizar nuestros servicios, reconoces y aceptas los riesgos inherentes a la comunicación en línea.
+          YT MANAGER no comparte ni vende información personal a terceros, salvo que sea necesario para procesar pagos, cumplir obligaciones legales o mejorar la experiencia del usuario.
         </p>
-        <h4 style="color:#3d00a1; margin-top:15px;">5. Compartición de información</h4>
+        <h4 style="color:#3d00a1; margin-top:15px;">3. Seguridad de los datos</h4>
         <p>
-          No vendemos, alquilamos ni compartimos tus datos personales con terceros, excepto en los siguientes casos:
+          Implementamos medidas de seguridad avanzadas, como cifrado SSL y autenticación reforzada, para garantizar la confidencialidad y protección de tu información.
         </p>
-        <ul style="padding-left:20px; margin:10px 0;">
-          <li>Para procesar pagos de forma segura a través de pasarelas certificadas.</li>
-          <li>Para colaborar con proveedores técnicos que ayudan en la operación de la plataforma (siempre bajo acuerdos de confidencialidad).</li>
-        </ul>
-        <h4 style="color:#3d00a1; margin-top:15px;">6. Modificaciones</h4>
+        <h4 style="color:#3d00a1; margin-top:15px;">4. Derechos del usuario</h4>
         <p>
-          YT MANAGER se reserva el derecho de modificar o actualizar esta política de privacidad sin previo aviso. Las versiones actualizadas entrarán en vigor de inmediato tras su publicación en el sitio web. Te recomendamos revisar periódicamente esta sección para mantenerte informado sobre cualquier cambio.
-        </p>
-        <h4 style="color:#3d00a1; margin-top:15px;">7. Responsabilidad sobre sitios externos</h4>
-        <p>
-          YT MANAGER puede incluir enlaces a sitios web de terceros. No somos responsables de las políticas de privacidad ni del manejo de datos en dichos sitios. Te recomendamos leer sus respectivas políticas antes de proporcionar información personal.
-        </p>
-        <h4 style="color:#3d00a1; margin-top:15px;">8. Contacto</h4>
-        <p>
-          Si tienes dudas, solicitudes o deseas ejercer tus derechos de acceso, rectificación o eliminación de datos, puedes contactarnos en:<br>
-          📧 <strong>soporte@ytmanagerpro.com</strong>
+          Puedes solicitar la modificación o eliminación de tus datos personales en cualquier momento enviando un correo a <strong>soporte@ytmanagerpro.com</strong>.
         </p>
       </div>
 
@@ -298,28 +330,15 @@
   </div>
 </section>
 
-<!-- Script mejorado para pestañas -->
 <script>
-document.querySelectorAll('.tab-btn').forEach(button => {
-  button.addEventListener('click', () => {
-    // Remover clase activa de todos
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.style.background = 'white';
-      btn.style.color = '#333';
-      btn.style.border = '1px solid #ddd';
-    });
-    
-    // Agregar clase activa al botón clickeado
-    button.style.background = '#3d00a1';
-    button.style.color = 'white';
-    button.style.border = 'none';
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
 
-    // Mostrar sección correspondiente
-    const target = button.getAttribute('data-target');
-    document.querySelectorAll('.tab-section').forEach(section => {
-      section.style.display = 'none';
+      const target = btn.getAttribute('data-target');
+      document.querySelectorAll('.tab-section').forEach(sec => sec.style.display = 'none');
+      document.getElementById(target).style.display = 'block';
     });
-    document.getElementById(target).style.display = 'block';
   });
-});
 </script>

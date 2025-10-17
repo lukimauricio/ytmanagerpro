@@ -982,6 +982,80 @@
         "📌No cambies el enlace de tu publicación, tu nombre de usuario ni la configuración de tu cuenta (privada/pública) después de realizar el pedido.",
         "📌Si cambió su cuenta a modo privado o se eliminó la cuenta/publicación, su pedido se marcará automáticamente como completado y no garantizaremos ningún reembolso."
       ]
+    },
+    {
+      "id": 403,
+      "platform": "INSTAGRAM",
+      "category": "LIKES",
+      "service": "Instagram Likes Generales [GEO: Mundial] min. 100 Likes",
+      "description": "Instagram Likes Generales GEO: Mundial.",
+      "pricePerThousandPEN": 40.00,
+      "min": 100,
+      "max": 100000,
+      "start_time": "0 - 5 horas",
+      "speed": "1,000 - 5,000 Likes por día",
+      "quality": "Alta calidad",
+      "refill": "30 días con botón de recarga",
+      "drop": "No",
+      "link": "Enlace de Video",
+      "notes": [
+        "📌El vídeo debe ser público.",
+        "📌El recuento de (Me gusta) debe ser visible",
+        "📌No disponible para Videos con restricciones de país, edad.",
+        "📌Verifique cuidadosamente el formato del enlace antes de realizar el pedido.",
+        "📌Asegúrese de que su cuenta sea pública, no privada.",
+        "📌No cambies el enlace de tu publicación, tu nombre de usuario ni la configuración de tu cuenta (privada/pública) después de realizar el pedido.",
+        "📌Si cambió su cuenta a modo privado o se eliminó la cuenta/publicación, su pedido se marcará automáticamente como completado y no garantizaremos ningún reembolso."
+      ]
+    },
+    {
+      "id": 404,
+      "platform": "INSTAGRAM",
+      "category": "SEGUIDORES",
+      "service": "Instagram Seguidores Reales [GEO: Latinos] min. 100 Seguidores",
+      "description": "Instagram Seguidores Reales con Perfiles Latinos.",
+      "pricePerThousandPEN": 249.00,
+      "min": 100,
+      "max": 10000,
+      "start_time": "5 - 10 horas",
+      "speed": "100 - 500 Seguidores por día",
+      "quality": "Reales Alta calidad",
+      "refill": "30 días con botón de recarga",
+      "drop": "No",
+      "link": "Enlace de Video",
+      "notes": [
+        "📌La Cuenta debe ser público (No Privado)",
+        "📌No se pueden marcar seguidores para revisión. El perfil debe tener desactivada la función <strong>Marcar para revisión en Seguidores y contactos</strong> para este servicio.",
+        "📌No Disponible para perfiles con restricciones de país",
+        "📌Verifique cuidadosamente el formato del enlace antes de realizar el pedido.",
+        "📌Cuando el servicio está ocupado, la velocidad de inicio de la operación cambia.",
+        "📌No cambies el enlace de tu publicación, tu nombre de usuario ni la configuración de tu cuenta (privada/pública) después de realizar el pedido.",
+        "📌Si cambió su cuenta a modo privado o se eliminó la cuenta/publicación, su pedido se marcará automáticamente como completado y no garantizaremos ningún reembolso."
+      ]
+    },
+    {
+      "id": 404,
+      "platform": "INSTAGRAM",
+      "category": "COMENTARIOS",
+      "service": "Instagram Comentarios Personalizados [Latinos - Video/Foto/Reels] min. 10 Comentarios",
+      "description": "Instagram Comentarios Personalizados para Videos, Reels, Fotos y Publicaciones.",
+      "pricePerThousandPEN": 500.00,
+      "min": 10,
+      "max": 100,
+      "start_time": "1 - 5 horas",
+      "speed": "25 - 50 Comentarios por día",
+      "quality": "Personalizados Alta calidad",
+      "refill": "30 días con botón de recarga",
+      "drop": "No",
+      "link": "Enlace de Video/Foto/Reels",
+      "notes": [
+        "📌La Cuenta debe ser público (No Privado)",
+        "📌Asegúrese de que Los comentarios estén activados y con Permitir Todos.",
+        "📌Verifique cuidadosamente el formato del enlace antes de realizar el pedido.",
+        "📌Cuando el servicio está ocupado, la velocidad de inicio de la operación cambia.",
+        "📌No cambies el enlace de tu publicación, tu nombre de usuario ni la configuración de tu cuenta (privada/pública) después de realizar el pedido.",
+        "📌Si cambió su cuenta a modo privado o se eliminó la cuenta/publicación, su pedido se marcará automáticamente como completado y no garantizaremos ningún reembolso."
+      ]
     }
   ]
 }
