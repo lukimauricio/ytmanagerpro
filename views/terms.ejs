@@ -1,8 +1,7 @@
 <!-- ===== SECCIÓN TÉRMINOS COMPLETA - YT MANAGER ===== -->
 <section style="
-  width: 100%;
   max-width: 1080px;
-  margin: 0 auto;
+  margin: -20px auto;
   background: #f9fbff;
   border-radius: 18px;
   box-shadow: 0 10px 35px rgba(0,0,0,0.08);
@@ -14,8 +13,8 @@
 ">
 
   <!-- Cabecera -->
-  <div style="display: flex; justify-content: space-between; flex-wrap: wrap; margin-bottom: 40px; align-items: flex-start; gap: 20px;">
-    <div style="flex: 1 1 45%; min-width: 250px;">
+  <div style="display: flex; justify-content: space-between; flex-wrap: wrap; margin-bottom: 40px; align-items: flex-start;">
+    <div style="flex: 1 1 45%;">
       <h2 style="
         color: #1b005f;
         font-size: 2.2rem;
@@ -27,7 +26,7 @@
       </h2>
     </div>
 
-    <div style="flex: 1 1 50%; min-width: 250px; font-size: 0.98rem; color: #444; line-height: 1.7;">
+    <div style="flex: 1 1 50%; font-size: 0.98rem; color: #444; line-height: 1.7;">
       <p>
         El uso de los servicios proporcionados por <strong>YT MANAGER</strong> implica la aceptación de todos los términos y políticas establecidas en esta página. 
         Al registrarte o utilizar nuestros servicios, confirmas haber leído y comprendido completamente nuestras condiciones de uso.
@@ -44,7 +43,7 @@
   <div style="display: flex; gap: 30px; flex-wrap: wrap;">
 
     <!-- Menú lateral -->
-    <div style="flex: 0 0 280px; display: flex; flex-direction: column; gap: 12px;">
+    <div style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 12px;">
       <button class="tab-btn active" data-target="general" style="
         background: #3d00a1;
         color: white;
@@ -55,7 +54,6 @@
         text-align: left;
         cursor: pointer;
         transition: 0.3s;
-        width: 100%;
       ">📘 Política General</button>
 
       <button class="tab-btn" data-target="servicios" style="
@@ -68,7 +66,6 @@
         text-align: left;
         cursor: pointer;
         transition: 0.3s;
-        width: 100%;
       ">⚙️ Política de Servicios</button>
 
       <button class="tab-btn" data-target="reembolso" style="
@@ -81,7 +78,6 @@
         text-align: left;
         cursor: pointer;
         transition: 0.3s;
-        width: 100%;
       ">💵 Política de Reembolso</button>
 
       <button class="tab-btn" data-target="privacidad" style="
@@ -94,7 +90,6 @@
         text-align: left;
         cursor: pointer;
         transition: 0.3s;
-        width: 100%;
       ">🔒 Política de Privacidad</button>
     </div>
 
@@ -105,10 +100,9 @@
       border-radius: 12px;
       box-shadow: 0 6px 18px rgba(0,0,0,0.06);
       padding: 30px;
-      min-height: 400px;
+      height: 400px;
       overflow-y: auto;
       line-height: 1.7;
-      width: 100%;
     " id="tab-content">
 
       <!-- GENERAL -->
@@ -306,90 +300,26 @@
 
 <!-- Script mejorado para pestañas -->
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const tabButtons = document.querySelectorAll('.tab-btn');
-  const tabSections = document.querySelectorAll('.tab-section');
-
-  tabButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      // Remover clase activa de todos los botones
-      tabButtons.forEach(btn => {
-        btn.style.background = 'white';
-        btn.style.color = '#333';
-        btn.style.border = '1px solid #ddd';
-      });
-
-      // Agregar clase activa al botón clickeado
-      button.style.background = '#3d00a1';
-      button.style.color = 'white';
-      button.style.border = 'none';
-
-      // Ocultar todas las secciones
-      tabSections.forEach(section => {
-        section.style.display = 'none';
-      });
-
-      // Mostrar la sección correspondiente
-      const targetId = button.getAttribute('data-target');
-      const targetSection = document.getElementById(targetId);
-      if (targetSection) {
-        targetSection.style.display = 'block';
-      }
+document.querySelectorAll('.tab-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    // Remover clase activa de todos
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.style.background = 'white';
+      btn.style.color = '#333';
+      btn.style.border = '1px solid #ddd';
     });
-  });
+    
+    // Agregar clase activa al botón clickeado
+    button.style.background = '#3d00a1';
+    button.style.color = 'white';
+    button.style.border = 'none';
 
-  // Opcional: Inicializar la primera pestaña como activa
-  if (tabButtons.length > 0 && tabSections.length > 0) {
-    tabButtons[0].click();
-  }
+    // Mostrar sección correspondiente
+    const target = button.getAttribute('data-target');
+    document.querySelectorAll('.tab-section').forEach(section => {
+      section.style.display = 'none';
+    });
+    document.getElementById(target).style.display = 'block';
+  });
 });
 </script>
-
-<!-- Estilos adicionales para dispositivos móviles -->
-<style>
-@media (max-width: 768px) {
-  section {
-    padding: 30px 20px;
-    border-radius: 12px;
-  }
-
-  .tab-btn {
-    padding: 12px 16px;
-    font-size: 0.95rem;
-  }
-
-  #tab-content {
-    padding: 20px;
-    min-height: 300px;
-  }
-
-  h2 {
-    font-size: 1.8rem;
-  }
-
-  h3 {
-    font-size: 1.2rem;
-  }
-
-  .tab-btn {
-    width: 100%;
-  }
-
-  /* Ajustar el contenedor principal para que sea más flexible */
-  div[style*="display: flex; gap: 30px;"] {
-    gap: 15px;
-  }
-
-  /* Asegurar que el menú lateral no sea muy ancho en móvil */
-  div[style*="flex: 0 0 280px;"] {
-    flex: 0 0 100%;
-    max-width: 100%;
-  }
-
-  /* Asegurar que el contenido ocupe todo el ancho disponible */
-  div[style*="flex: 1 1 600px;"] {
-    flex: 1 1 100%;
-    max-width: 100%;
-  }
-}
-</style>
